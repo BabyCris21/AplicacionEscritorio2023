@@ -22,23 +22,25 @@ import modelo.Fabricacion;
 import modelo.Proveedores;
 import modelo.Serviciocancelado;
 import modelo.Usuario;
-public class principal extends javax.swing.JFrame {
-    String ruta = "";
-    Almacen alm = new Almacen();
-    AlmacenDAO almD = new AlmacenDAO();
-    Cliente cl = new Cliente();
-    ClienteDAO clD = new ClienteDAO();
-    Trabajador trb = new Trabajador();
-    TrabajadorDAO trbD = new TrabajadorDAO();
-    Usuario usr = new Usuario();
-    UsuarioDAO usrD = new UsuarioDAO(); 
-    DefaultTableModel model = new DefaultTableModel();
-    Proveedores pro = new Proveedores();
-    ProveedoresDAO proD = new ProveedoresDAO();
-    Serviciocancelado serv = new Serviciocancelado();
-    ServiciocanceladoDAO servD= new ServiciocanceladoDAO();
-    Fabricacion fbr = new Fabricacion();
-    FabricacionDAO fbrD = new FabricacionDAO();
+
+
+    public class principal extends javax.swing.JFrame {
+        String ruta = "";
+        Almacen alm = new Almacen();
+        AlmacenDAO almD = new AlmacenDAO();
+        Cliente cl = new Cliente();
+        ClienteDAO clD = new ClienteDAO();
+        Trabajador trb = new Trabajador();
+        TrabajadorDAO trbD = new TrabajadorDAO();
+        Usuario usr = new Usuario();
+        UsuarioDAO usrD = new UsuarioDAO(); 
+        DefaultTableModel model = new DefaultTableModel();
+        Proveedores pro = new Proveedores();
+        ProveedoresDAO proD = new ProveedoresDAO();
+        Serviciocancelado serv = new Serviciocancelado();
+        ServiciocanceladoDAO servD= new ServiciocanceladoDAO();
+        Fabricacion fbr = new Fabricacion();
+        FabricacionDAO fbrD = new FabricacionDAO();
     
     public principal() {
         initComponents();
@@ -47,8 +49,10 @@ public class principal extends javax.swing.JFrame {
         txtIdCl.setVisible(false);   //Ocultar el TextField del Id
         txtIdTrb.setVisible(false);
         txtIduser.setVisible(false);
-        
+
     }
+    
+ 
     
     //Método para que aparezca la base de datos en la tabla Almacen
     public void ListarAlmacen(){
@@ -1116,6 +1120,12 @@ public class principal extends javax.swing.JFrame {
 
         jLabel12.setText("Trabajador");
 
+        txtrucs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtrucsActionPerformed(evt);
+            }
+        });
+
         txtfechacancelacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtfechacancelacionActionPerformed(evt);
@@ -1791,6 +1801,10 @@ public class principal extends javax.swing.JFrame {
             labelImagen.setIcon(mIcon);
         }
     }//GEN-LAST:event_btnImagenActionPerformed
+
+    private void txtrucsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtrucsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtrucsActionPerformed
     
     public static void main(String args[]) {
       

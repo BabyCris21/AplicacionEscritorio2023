@@ -1517,6 +1517,9 @@
                 <Component class="javax.swing.JTextField" name="txttiposervicio">
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtrucs">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtrucsActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtfechacancelacion">
                   <Events>
