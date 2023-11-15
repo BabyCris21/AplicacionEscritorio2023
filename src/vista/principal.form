@@ -396,7 +396,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="849" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="851" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -433,7 +433,7 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="labelProducto" pref="70" max="32767" attributes="0"/>
+                                          <Component id="labelProducto" pref="55" max="32767" attributes="0"/>
                                           <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
@@ -443,7 +443,7 @@
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="labelMarca" pref="57" max="32767" attributes="0"/>
+                                          <Component id="labelMarca" pref="40" max="32767" attributes="0"/>
                                           <EmptySpace min="86" pref="86" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="txtMarca" alignment="0" max="32767" attributes="0"/>
@@ -452,7 +452,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtPrecioAlm" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="labelPrecio" pref="56" max="32767" attributes="0"/>
+                                          <Component id="labelPrecio" pref="41" max="32767" attributes="0"/>
                                           <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -838,7 +838,7 @@
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jScrollPane4" pref="803" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane4" pref="805" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
@@ -847,7 +847,7 @@
                                   <Component id="btnEditarT" min="-2" pref="69" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnEliminarT" min="-2" pref="93" max="-2" attributes="0"/>
-                                  <EmptySpace min="172" pref="582" max="32767" attributes="0"/>
+                                  <EmptySpace min="172" pref="584" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1049,9 +1049,9 @@
                                       <Component id="txtcontraseñau" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                                  <Component id="btnAgregarU" pref="87" max="32767" attributes="0"/>
+                                  <Component id="btnAgregarU" pref="88" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnEditarU" pref="85" max="32767" attributes="0"/>
+                                  <Component id="btnEditarU" pref="86" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnEliminarU" pref="96" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
@@ -1633,7 +1633,7 @@
                                               <Component id="jLabel19" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                          <Component id="labelImagen" pref="250" max="32767" attributes="0"/>
+                                          <Component id="labelImagen" pref="233" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
@@ -1733,6 +1733,9 @@
                           <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;ID&quot;, &quot;N&#xfa;mero de Tablero&quot;, &quot;Tablero&quot;, &quot;Foto de Tablero&quot;, &quot;Material&quot;&#xa;    }&#xa;)" type="code"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TableFbrMouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1762,6 +1765,50 @@
                 <Component class="javax.swing.JLabel" name="labelImagen">
                 </Component>
               </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel9">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Servicios">
+                    <Property name="tabTitle" type="java.lang.String" value="Servicios"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="851" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="982" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel10">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Devoluciones">
+                    <Property name="tabTitle" type="java.lang.String" value="Devoluciones"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="851" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="982" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
             </Container>
           </SubComponents>
         </Container>
