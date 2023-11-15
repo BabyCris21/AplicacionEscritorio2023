@@ -82,7 +82,7 @@ public class ProveedoresDAO {
         }
     }
     public boolean EditarProveedor(Proveedores pro){
-        String sql = "UPDATE proveedores SET productoP=?, fechaentrega=?, empresap=?, RUCp=? WHERE id_proveedor =?";
+        String sql = "UPDATE proveedores SET productoP=?, fechaentregap=?, empresap=?, RUCp=? WHERE id_proveedor =?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1,pro.getProductoP());

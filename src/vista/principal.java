@@ -49,7 +49,7 @@ import modelo.Usuario;
         txtIdCl.setVisible(false);   //Ocultar el TextField del Id
         txtIdTrb.setVisible(false);
         txtIduser.setVisible(false);
-
+        txtid_serviciocancelado.setVisible(false);
     }
     
     
@@ -1022,6 +1022,7 @@ import modelo.Usuario;
                 "ID", "Producto", "Fecha de Entrega", "Empresa" , "RUC"
             }
         ));
+        TableProveedores.setEnabled(false);
         TableProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TableProveedoresMouseClicked(evt);
@@ -1721,8 +1722,8 @@ import modelo.Usuario;
             if (!"".equals(txtproductop.getText())|| !"".equals(txtfechap.getText()) || !"".equals(txtempresap.getText()) || !"".equals(txtrucp.getText())){
                 pro.setProductoP(txtproductop.getText());
                 pro.setFechaentregap(txtfechap.getText());
-                pro.setEmpresap((txtempresap.getText()));
-                pro.setRUCp((txtrucp.getText()));
+                pro.setEmpresap(txtempresap.getText());
+                pro.setRUCp(txtrucp.getText());
                 pro.setId_proveedor(Integer.parseInt(txtidproveedor.getText()));
                 proD.EditarProveedor(pro);
                 LimpiarTabla();
