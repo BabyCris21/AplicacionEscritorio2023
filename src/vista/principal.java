@@ -11,6 +11,7 @@ import controlador.ClienteDAO;
 import controlador.FabricacionDAO;
 import controlador.ProveedoresDAO;
 import controlador.ServiciocanceladoDAO;
+import controlador.ServiciosDAO;
 import modelo.Trabajador;
 import controlador.TrabajadorDAO;
 import controlador.UsuarioDAO;
@@ -21,6 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.Fabricacion;
 import modelo.Proveedores;
 import modelo.Serviciocancelado;
+import modelo.Servicios;
 import modelo.Usuario;
 
 
@@ -255,21 +257,6 @@ import modelo.Usuario;
         btnEliminarU = new javax.swing.JButton();
         txtIduser = new javax.swing.JTextField();
         txtcontraseñau = new javax.swing.JTextField();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        btnagregarp = new javax.swing.JButton();
-        btneditarp = new javax.swing.JButton();
-        btneliminarp = new javax.swing.JButton();
-        txtproductop = new javax.swing.JTextField();
-        txtfechap = new javax.swing.JTextField();
-        txtempresap = new javax.swing.JTextField();
-        txtrucp = new javax.swing.JTextField();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        TableProveedores = new javax.swing.JTable();
-        txtidproveedor = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -287,6 +274,21 @@ import modelo.Usuario;
         btneliminarserv = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
         Tableserv = new javax.swing.JTable();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        btnagregarp = new javax.swing.JButton();
+        btneditarp = new javax.swing.JButton();
+        btneliminarp = new javax.swing.JButton();
+        txtproductop = new javax.swing.JTextField();
+        txtfechap = new javax.swing.JTextField();
+        txtempresap = new javax.swing.JTextField();
+        txtrucp = new javax.swing.JTextField();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        TableProveedores = new javax.swing.JTable();
+        txtidproveedor = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
@@ -303,7 +305,19 @@ import modelo.Usuario;
         btnImagen = new javax.swing.JButton();
         labelImagen = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        btnañadirservicio = new javax.swing.JButton();
+        btneditarservicio = new javax.swing.JButton();
+        btneliminarservicio = new javax.swing.JButton();
+        txtlugarservicio = new javax.swing.JTextField();
+        txttipo_servicio = new javax.swing.JTextField();
+        txttrabajadorservicio = new javax.swing.JTextField();
+        txtfecha_inicioservicio = new javax.swing.JTextField();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -490,7 +504,7 @@ import modelo.Usuario;
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 982, Short.MAX_VALUE)
+            .addGap(0, 1017, Short.MAX_VALUE)
         );
 
         jTabbedPane.addTab("Venta", jPanel1);
@@ -647,6 +661,12 @@ import modelo.Usuario;
 
         labelDireccionC.setText("Dirección");
 
+        txtNombreC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreCActionPerformed(evt);
+            }
+        });
+
         TableCl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -724,7 +744,7 @@ import modelo.Usuario;
                         .addComponent(txtRucC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(367, Short.MAX_VALUE))
+                .addContainerGap(403, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Clientes", jPanel3);
@@ -748,6 +768,11 @@ import modelo.Usuario;
         jScrollPane4.setViewportView(TableTrb);
 
         cbCargoT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trabajador", "Vendedor" }));
+        cbCargoT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCargoTActionPerformed(evt);
+            }
+        });
 
         labelNombreT.setText("Nombre");
 
@@ -760,6 +785,12 @@ import modelo.Usuario;
         labelCorreoT.setText("Correo");
 
         labelCargoT.setText("Cargo");
+
+        txtApellidoT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoTActionPerformed(evt);
+            }
+        });
 
         btnAgregarT.setText("Añadir");
         btnAgregarT.addActionListener(new java.awt.event.ActionListener() {
@@ -865,7 +896,7 @@ import modelo.Usuario;
                     .addComponent(btnAgregarT)
                     .addComponent(btnEditarT)
                     .addComponent(btnEliminarT))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
                 .addComponent(txtIdTrb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(136, 136, 136))
         );
@@ -970,12 +1001,163 @@ import modelo.Usuario;
                     .addComponent(btnEliminarU))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
                 .addComponent(txtIduser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(140, 140, 140))
         );
 
         jTabbedPane.addTab("Usuario", jPanel5);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel8.setText("Lugar");
+
+        jLabel9.setText("Tipo de Servicio");
+
+        jLabel10.setText("RUC");
+
+        jLabel11.setText("Fecha de Cancelacion");
+
+        jLabel12.setText("Trabajador");
+
+        txtlugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtlugarActionPerformed(evt);
+            }
+        });
+
+        txttiposervicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttiposervicioActionPerformed(evt);
+            }
+        });
+
+        txtrucs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtrucsActionPerformed(evt);
+            }
+        });
+
+        txtfechacancelacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtfechacancelacionActionPerformed(evt);
+            }
+        });
+
+        btnañadirserv.setText("Añadir");
+        btnañadirserv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnañadirservActionPerformed(evt);
+            }
+        });
+
+        btneditarserv.setText("Editar");
+        btneditarserv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditarservActionPerformed(evt);
+            }
+        });
+
+        btneliminarserv.setText("Eliminar");
+        btneliminarserv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarservActionPerformed(evt);
+            }
+        });
+
+        Tableserv.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Lugar", "Tipo de Servicio", "RUC" , "Fecha de Cancelacion","Trabajador"
+            }
+        ));
+        Tableserv.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableservMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(Tableserv);
+        Tableserv.getAccessibleContext().setAccessibleName("");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(78, 78, 78))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(txtlugar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(21, 21, 21))
+                            .addComponent(txttiposervicio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtrucs, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtfechacancelacion)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(448, 448, 448))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(txttrabajadors, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(btnañadirserv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btneditarserv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btneliminarserv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(265, 265, 265)
+                        .addComponent(txtid_serviciocancelado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(670, 670, 670))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jScrollPane8)
+                        .addGap(334, 334, 334))))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtlugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txttiposervicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtrucs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtfechacancelacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txttrabajadors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnañadirserv)
+                    .addComponent(btneditarserv)
+                    .addComponent(btneliminarserv)
+                    .addComponent(txtid_serviciocancelado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(314, 314, 314))
+        );
+
+        jTabbedPane.addTab("Servicios Cancelados", jPanel6);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1011,6 +1193,12 @@ import modelo.Usuario;
         txtfechap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtfechapActionPerformed(evt);
+            }
+        });
+
+        txtempresap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtempresapActionPerformed(evt);
             }
         });
 
@@ -1101,7 +1289,7 @@ import modelo.Usuario;
                 .addComponent(txtidproveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnagregarp)
                     .addComponent(btneditarp)
@@ -1111,145 +1299,13 @@ import modelo.Usuario;
 
         jTabbedPane.addTab("Proveedores", jPanel7);
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel8.setText("Lugar");
-
-        jLabel9.setText("Tipo de Servicio");
-
-        jLabel10.setText("RUC");
-
-        jLabel11.setText("Fecha de Cancelacion");
-
-        jLabel12.setText("Trabajador");
-
-        txtrucs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtrucsActionPerformed(evt);
-            }
-        });
-
-        txtfechacancelacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfechacancelacionActionPerformed(evt);
-            }
-        });
-
-        btnañadirserv.setText("Añadir");
-        btnañadirserv.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnañadirservActionPerformed(evt);
-            }
-        });
-
-        btneditarserv.setText("Editar");
-        btneditarserv.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneditarservActionPerformed(evt);
-            }
-        });
-
-        btneliminarserv.setText("Eliminar");
-        btneliminarserv.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneliminarservActionPerformed(evt);
-            }
-        });
-
-        Tableserv.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Lugar", "Tipo de Servicio", "RUC" , "Fecha de Cancelacion","Trabajador"
-            }
-        ));
-        Tableserv.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TableservMouseClicked(evt);
-            }
-        });
-        jScrollPane8.setViewportView(Tableserv);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(78, 78, 78))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(txtlugar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)))
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(21, 21, 21))
-                            .addComponent(txttiposervicio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtrucs, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfechacancelacion)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(448, 448, 448))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(txttrabajadors, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(btnañadirserv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btneditarserv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btneliminarserv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(265, 265, 265)
-                        .addComponent(txtid_serviciocancelado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(670, 670, 670))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jScrollPane8)
-                        .addGap(334, 334, 334))))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtlugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txttiposervicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtrucs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtfechacancelacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txttrabajadors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnañadirserv)
-                    .addComponent(btneditarserv)
-                    .addComponent(btneliminarserv)
-                    .addComponent(txtid_serviciocancelado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(314, 314, 314))
-        );
-
-        jTabbedPane.addTab("Servicios Cancelados", jPanel6);
-
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         jLabel17.setText("Numero de Tablero");
 
@@ -1353,70 +1409,155 @@ import modelo.Usuario;
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(297, Short.MAX_VALUE))
+                .addContainerGap(333, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Fabricación", jPanel8);
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 851, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 982, Short.MAX_VALUE)
-        );
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTabbedPane.addTab("Servicios", jPanel9);
+        jLabel14.setText("Lugar");
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 851, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 982, Short.MAX_VALUE)
-        );
+        jLabel15.setText("Fecha de Inicio");
 
-        jTabbedPane.addTab("Devoluciones", jPanel10);
+        jLabel16.setText("Trabajador");
 
-        javax.swing.GroupLayout PanelServiciosLayout = new javax.swing.GroupLayout(PanelServicios);
-        PanelServicios.setLayout(PanelServiciosLayout);
-        PanelServiciosLayout.setHorizontalGroup(
-            PanelServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelServiciosLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 851, Short.MAX_VALUE))
-        );
-        PanelServiciosLayout.setVerticalGroup(
-            PanelServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        jLabel21.setText("Tipo de servicio");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(PanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelServicios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(PanelServicios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 824, Short.MAX_VALUE)
-                    .addComponent(PanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 824, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
-        );
+        btnañadirservicio.setText("Añadir");
+        btnañadirservicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnañadirservicioActionPerformed(evt);
+            }
+        });
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+        btneditarservicio.setText("Editar");
+
+        btneliminarservicio.setText("Eliminar");
+        btneliminarservicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarservicioActionPerformed(evt);
+            }
+        });
+
+        txtlugarservicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtlugarservicioActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Lugar", "Tipo de Servicio", "Trabajador" , "Fecha de Inicio"
+            }));
+            jTable1.setShowGrid(false);
+            jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jTable1MouseClicked(evt);
+                }
+            });
+            jScrollPane9.setViewportView(jTable1);
+
+            javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+            jPanel9.setLayout(jPanel9Layout);
+            jPanel9Layout.setHorizontalGroup(
+                jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addGap(40, 40, 40)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                            .addComponent(btnañadirservicio)
+                            .addGap(18, 18, 18)
+                            .addComponent(btneditarservicio)
+                            .addGap(18, 18, 18)
+                            .addComponent(btneliminarservicio))
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel14)
+                                .addComponent(txtlugarservicio, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(28, 28, 28)
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel21)
+                                .addComponent(txttipo_servicio, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel9Layout.createSequentialGroup()
+                                    .addComponent(txttrabajadorservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(64, 64, 64)
+                                    .addComponent(txtfecha_inicioservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel9Layout.createSequentialGroup()
+                                    .addComponent(jLabel16)
+                                    .addGap(57, 57, 57)
+                                    .addComponent(jLabel15))))))
+            );
+            jPanel9Layout.setVerticalGroup(
+                jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addGap(39, 39, 39)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14)
+                        .addComponent(jLabel16)
+                        .addComponent(jLabel15)
+                        .addComponent(jLabel21))
+                    .addGap(27, 27, 27)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtfecha_inicioservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txttrabajadorservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txttipo_servicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtlugarservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btneliminarservicio)
+                        .addComponent(btnañadirservicio)
+                        .addComponent(btneditarservicio))
+                    .addGap(358, 358, 358))
+            );
+
+            jTabbedPane.addTab("Servicios", jPanel9);
+
+            javax.swing.GroupLayout PanelServiciosLayout = new javax.swing.GroupLayout(PanelServicios);
+            PanelServicios.setLayout(PanelServiciosLayout);
+            PanelServiciosLayout.setHorizontalGroup(
+                PanelServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelServiciosLayout.createSequentialGroup()
+                    .addGap(0, 0, 0)
+                    .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 851, Short.MAX_VALUE))
+            );
+            PanelServiciosLayout.setVerticalGroup(
+                PanelServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            );
+
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(PanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(PanelServicios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(28, 28, 28)
+                            .addComponent(PanelServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 824, Short.MAX_VALUE))
+                        .addComponent(PanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 852, Short.MAX_VALUE))
+                    .addGap(0, 0, 0))
+            );
+
+            pack();
+        }// </editor-fold>//GEN-END:initComponents
     // Métodos para el módulo Almacen 
     private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
@@ -1843,6 +1984,81 @@ import modelo.Usuario;
     private void TableFbrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableFbrMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_TableFbrMouseClicked
+
+    private void txtNombreCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreCActionPerformed
+
+    private void cbCargoTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCargoTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCargoTActionPerformed
+
+    private void txtApellidoTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoTActionPerformed
+
+    private void txtempresapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtempresapActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtempresapActionPerformed
+
+    private void btneliminarservicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarservicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btneliminarservicioActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void txttiposervicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttiposervicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttiposervicioActionPerformed
+
+    private void txtlugarservicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtlugarservicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtlugarservicioActionPerformed
+
+    private void txtlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtlugarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtlugarActionPerformed
+
+    private void btnañadirservicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnañadirservicioActionPerformed
+        String lugar = txtlugarservicio.getText();
+        String tipoServicio = txttipo_servicio.getText();
+        String trabajador = txttrabajadorservicio.getText();
+        String fechaInicio = txtfecha_inicioservicio.getText();
+
+        // Crea un objeto Servicios con la información obtenida
+        Servicios servicio = new Servicios(lugar, tipoServicio, fechaInicio, trabajador);
+
+        // Crea una instancia del DAO de Servicios
+        ServiciosDAO servicioDAO = new ServiciosDAO();
+
+        // Llama al método agregarServicio del DAO para agregar el servicio a la base de datos
+        boolean exito = servicioDAO.agregarServicio(servicio);
+
+        // Verifica si la operación fue exitosa
+        if (exito) {
+            // Realiza acciones adicionales si es necesario
+            System.out.println("Servicio agregado correctamente a la base de datos.");
+            // Puedes limpiar los campos después de agregar el servicio si lo deseas
+            limpiarCampos();
+        } else {
+            // Muestra un mensaje de error si la operación no fue exitosa
+            System.out.println("Error al agregar el servicio a la base de datos.");
+        }
+    }
+
+    // Método para limpiar los campos después de agregar un servicio
+    private void limpiarCampos() {
+        txtlugarservicio.setText("");
+        txttipo_servicio.setText("");
+        txttrabajadorservicio.setText("");
+        txtfecha_inicioservicio.setText("");        
+    }//GEN-LAST:event_btnañadirservicioActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
     
     public static void main(String args[]) {
       
@@ -1888,10 +2104,13 @@ import modelo.Usuario;
     private javax.swing.JButton btnVenta;
     private javax.swing.JButton btnagregarp;
     private javax.swing.JButton btnañadirserv;
+    private javax.swing.JButton btnañadirservicio;
     private javax.swing.JButton btneditarp;
     private javax.swing.JButton btneditarserv;
+    private javax.swing.JButton btneditarservicio;
     private javax.swing.JButton btneliminarp;
     private javax.swing.JButton btneliminarserv;
+    private javax.swing.JButton btneliminarservicio;
     private javax.swing.JComboBox<String> cbCargoT;
     private javax.swing.JComboBox<String> cdCargou;
     private javax.swing.JButton jButton1;
@@ -1902,11 +2121,15 @@ import modelo.Usuario;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1916,7 +2139,6 @@ import modelo.Usuario;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelBottom;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1932,8 +2154,10 @@ import modelo.Usuario;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel labelApellidosT;
@@ -1971,16 +2195,20 @@ import modelo.Usuario;
     private javax.swing.JTextField txtUsuarioU;
     private javax.swing.JTextField txtcontraseñau;
     private javax.swing.JTextField txtempresap;
+    private javax.swing.JTextField txtfecha_inicioservicio;
     private javax.swing.JTextField txtfechacancelacion;
     private javax.swing.JTextField txtfechap;
     private javax.swing.JTextField txtid_serviciocancelado;
     private javax.swing.JTextField txtidproveedor;
     private javax.swing.JTextField txtlugar;
+    private javax.swing.JTextField txtlugarservicio;
     private javax.swing.JTextField txtproductop;
     private javax.swing.JTextField txtrucp;
     private javax.swing.JTextField txtrucs;
+    private javax.swing.JTextField txttipo_servicio;
     private javax.swing.JTextField txttiposervicio;
     private javax.swing.JTextField txttrabajadors;
+    private javax.swing.JTextField txttrabajadorservicio;
     // End of variables declaration//GEN-END:variables
     private void LimpiarFieldAlm(){
         txtIdAlm.setText("");
