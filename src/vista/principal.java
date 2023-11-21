@@ -19,6 +19,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import modelo.Devolucion;
 import modelo.Fabricacion;
 import modelo.Proveedores;
 import modelo.Serviciocancelado;
@@ -167,6 +168,22 @@ import modelo.Usuario;
             model.addRow(ob);
         }
         TableFbr.setModel(model);
+    }
+    
+    public void ListarDevoluciones() {
+        List<Devolucion> ListarDev = devD.ListarDevoluciones(); // Asegúrate de tener un objeto DevolucionDAO llamado devD
+        model = (DefaultTableModel) TableDevoluciones.getModel();
+        Object[] ob = new Object[5];
+        for(int i = 0; i < ListarDev.size(); i++) {
+            ob[0] = ListarDev.get(i).getIdDevolucion();
+            ob[1] = ListarDev.get(i).getNombreD();
+            ob[2] = ListarDev.get(i).getDatosD();
+            ob[3] = ListarDev.get(i).getFechaD();
+            ob[4] = ListarDev.get(i).getCantidadD();
+            ob[5] = ListarDev.get(i).getMotivoD();
+            model.addRow(ob);
+        }
+        TableDevoluciones.setModel(model);
     }
     
     public void LimpiarTabla(){
