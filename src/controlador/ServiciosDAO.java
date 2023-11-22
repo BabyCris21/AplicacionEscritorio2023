@@ -116,7 +116,4 @@ public class ServiciosDAO {
             cerrarRecursos();
         }
     }
-
-    // Otros métodos según sea necesario
-    // ...
 }

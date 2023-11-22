@@ -17,6 +17,7 @@ import modelo.Trabajador;
 import controlador.TrabajadorDAO;
 import controlador.UsuarioDAO;
 import java.awt.Image;
+import java.util.HashSet;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
@@ -49,10 +50,9 @@ import modelo.Usuario;
     FabricacionDAO fbrD = new FabricacionDAO();
     Devolucion dev = new Devolucion();
     DevolucionDAO devD = new DevolucionDAO();
-
-
-
-    
+    Servicios servicios = new Servicios();
+    ServiciosDAO serviciosD = new ServiciosDAO();
+   
     public principal() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); //Pantalla completa del programa
@@ -166,8 +166,6 @@ import modelo.Usuario;
         model = (DefaultTableModel) TableFbr.getModel();
         Object[] ob = new Object[5];
         for(int i = 0; i < ListarFab.size(); i++){
-            
-           
             ob[0] = ListarFab.get(i).getId_fabricacion();
             ob[1] = ListarFab.get(i).getNum_tablero();
             ob[2] = ListarFab.get(i).getTablero();
@@ -176,6 +174,21 @@ import modelo.Usuario;
             model.addRow(ob);
         }
         TableFbr.setModel(model);
+    }
+    
+    public void ListarServicios(){
+        List<Servicios> listarServicios = serviciosD.listarServicios();
+        model = (DefaultTableModel) TablaServicios.getModel();
+        Object[] ob = new Object[5];
+        for (int i = 0; i < listarServicios.size(); i++) {
+            ob[0] = listarServicios.get(i).getIdServicio();
+            ob[1] = listarServicios.get(i).getLugar();
+            ob[2] = listarServicios.get(i).getTipoServicio();
+            ob[3] = listarServicios.get(i).getFechaInicio();
+            ob[4] = listarServicios.get(i).getTrabajador();
+            model.addRow(ob);
+        }
+        TablaServicios.setModel(model);
     }
     
     public void LimpiarTabla(){
@@ -279,11 +292,11 @@ import modelo.Usuario;
         txtfechacancelacion = new javax.swing.JTextField();
         txttrabajadors = new javax.swing.JTextField();
         txtid_serviciocancelado = new javax.swing.JTextField();
-        btnañadirserv = new javax.swing.JButton();
         btneditarserv = new javax.swing.JButton();
         btneliminarserv = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
         Tableserv = new javax.swing.JTable();
+        btnañadirserv = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -343,7 +356,8 @@ import modelo.Usuario;
         txttrabajadorservicio = new javax.swing.JTextField();
         txtfecha_inicioservicio = new javax.swing.JTextField();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaServicios = new javax.swing.JTable();
+        txtidservicio = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -474,7 +488,7 @@ import modelo.Usuario;
                     .addComponent(labelUTI)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelBottom))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
             .addComponent(btnServicios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnServCan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnDevoluciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -530,7 +544,7 @@ import modelo.Usuario;
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1233, Short.MAX_VALUE)
+            .addGap(0, 1383, Short.MAX_VALUE)
         );
 
         jTabbedPane.addTab("Venta", jPanel1);
@@ -770,7 +784,7 @@ import modelo.Usuario;
                         .addComponent(txtRucC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(619, Short.MAX_VALUE))
+                .addContainerGap(769, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Clientes", jPanel3);
@@ -922,7 +936,7 @@ import modelo.Usuario;
                     .addComponent(btnAgregarT)
                     .addComponent(btnEditarT)
                     .addComponent(btnEliminarT))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 422, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 572, Short.MAX_VALUE)
                 .addComponent(txtIdTrb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(136, 136, 136))
         );
@@ -1027,7 +1041,7 @@ import modelo.Usuario;
                     .addComponent(btnEliminarU))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 586, Short.MAX_VALUE)
                 .addComponent(txtIduser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(140, 140, 140))
         );
@@ -1070,13 +1084,6 @@ import modelo.Usuario;
             }
         });
 
-        btnañadirserv.setText("Añadir");
-        btnañadirserv.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnañadirservActionPerformed(evt);
-            }
-        });
-
         btneditarserv.setText("Editar");
         btneditarserv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1106,6 +1113,13 @@ import modelo.Usuario;
         });
         jScrollPane8.setViewportView(Tableserv);
         Tableserv.getAccessibleContext().setAccessibleName("");
+
+        btnañadirserv.setText("Añadir");
+        btnañadirserv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnañadirservActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -1143,8 +1157,9 @@ import modelo.Usuario;
                                 .addComponent(txttrabajadors, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addComponent(btnañadirserv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btneditarserv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btneliminarserv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1174,12 +1189,12 @@ import modelo.Usuario;
                     .addComponent(txttrabajadors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
+                .addGap(120, 120, 120)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnañadirserv)
                     .addComponent(btneditarserv)
                     .addComponent(btneliminarserv)
-                    .addComponent(txtid_serviciocancelado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtid_serviciocancelado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnañadirserv))
                 .addGap(314, 314, 314))
         );
 
@@ -1315,7 +1330,7 @@ import modelo.Usuario;
                 .addComponent(txtidproveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 334, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 484, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnagregarp)
                     .addComponent(btneditarp)
@@ -1440,7 +1455,7 @@ import modelo.Usuario;
                     .addComponent(jButton1)
                     .addComponent(jButton3)
                     .addComponent(jButton2))
-                .addContainerGap(549, Short.MAX_VALUE))
+                .addContainerGap(699, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Fabricación", jPanel8);
@@ -1557,7 +1572,7 @@ import modelo.Usuario;
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addContainerGap(590, Short.MAX_VALUE))
+                .addContainerGap(740, Short.MAX_VALUE))
         );
 
         nombreDevoluciones.getAccessibleContext().setAccessibleDescription("");
@@ -1583,6 +1598,11 @@ import modelo.Usuario;
         });
 
         btneditarservicio.setText("Editar");
+        btneditarservicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditarservicioActionPerformed(evt);
+            }
+        });
 
         btneliminarservicio.setText("Eliminar");
         btneliminarservicio.addActionListener(new java.awt.event.ActionListener() {
@@ -1597,20 +1617,20 @@ import modelo.Usuario;
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaServicios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
                 "ID", "Lugar", "Tipo de Servicio", "Trabajador" , "Fecha de Inicio"
             }));
-            jTable1.setShowGrid(false);
-            jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            TablaServicios.setShowGrid(false);
+            TablaServicios.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    jTable1MouseClicked(evt);
+                    TablaServiciosMouseClicked(evt);
                 }
             });
-            jScrollPane9.setViewportView(jTable1);
+            jScrollPane9.setViewportView(TablaServicios);
 
             javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
             jPanel9.setLayout(jPanel9Layout);
@@ -1643,6 +1663,10 @@ import modelo.Usuario;
                             .addComponent(btneliminarservicio))
                         .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(0, 42, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtidservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(179, 179, 179))
             );
             jPanel9Layout.setVerticalGroup(
                 jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1653,10 +1677,11 @@ import modelo.Usuario;
                             .addComponent(jLabel14))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                             .addContainerGap()
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel21)
-                                .addComponent(jLabel16)
-                                .addComponent(jLabel15))))
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel21)
+                                    .addComponent(jLabel15)))))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtlugarservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1665,7 +1690,9 @@ import modelo.Usuario;
                         .addComponent(txtfecha_inicioservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(33, 33, 33)
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                    .addGap(20, 20, 20)
+                    .addComponent(txtidservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(20, 20, 20)
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnañadirservicio)
                         .addComponent(btneditarservicio)
@@ -1978,40 +2005,6 @@ import modelo.Usuario;
         jTabbedPane.setSelectedIndex(5); // Cambia a la pestaña "Proveedores"
         btnProveedores.setFocusable(false);
     }//GEN-LAST:event_btnProveedoresActionPerformed
-//METODO PARA SERVICIOCANCELADO
-    private void btneditarservActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarservActionPerformed
-                if("".equals(txtid_serviciocancelado.getText())){
-            JOptionPane.showMessageDialog(null, "Seleccione una fila");
-        } else {
-            if (!"".equals(txtlugar.getText())|| !"".equals(txttiposervicio.getText()) || !"".equals(txtrucs.getText()) || !"".equals(txtfechacancelacion.getText())|| !"".equals(txttrabajadors.getText())){
-                serv.setLugars(txtlugar.getText());
-                serv.setTiposervicio(txttiposervicio.getText());
-                serv.setRUCs((txtrucs.getText()));
-                serv.setFechacancelacion((txtfechacancelacion.getText()));
-                serv.setTrabajador((txttrabajadors.getText()));
-                serv.setId_serviciocancelado(Integer.parseInt(txtid_serviciocancelado.getText()));
-                servD.EditarServiciocancelado(serv);
-                LimpiarTabla();
-                LimpiarFieldserv();
-                ListarServiciocancelado();
-            }
-        }
-    }//GEN-LAST:event_btneditarservActionPerformed
-
-    private void TableservMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableservMouseClicked
-            //Llamar los valores de la Tabla a los jFields
-        int fila = Tableserv.rowAtPoint(evt.getPoint());
-        txtid_serviciocancelado.setText(Tableserv.getValueAt(fila,0).toString());
-        txtlugar.setText(Tableserv.getValueAt(fila, 1).toString());
-        txttiposervicio.setText(Tableserv.getValueAt(fila, 2).toString());
-        txtrucs.setText(Tableserv.getValueAt(fila, 3).toString());
-        txtfechacancelacion.setText(Tableserv.getValueAt(fila, 4).toString());
-        txttrabajadors.setText(Tableserv.getValueAt(fila, 5).toString());
-    }//GEN-LAST:event_TableservMouseClicked
-
-    private void txtfechacancelacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfechacancelacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfechacancelacionActionPerformed
 
     private void btnServCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServCanActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
@@ -2019,36 +2012,6 @@ import modelo.Usuario;
         jTabbedPane.setSelectedIndex(6); // Cambia a la pestaña "Serviciocancelado"
         btnServCan.setFocusable(false);
     }//GEN-LAST:event_btnServCanActionPerformed
-
-    private void btnañadirservActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnañadirservActionPerformed
-        if(!"".equals(txtlugar.getText()) || !"".equals(txttiposervicio.getText()) || !"".equals(txtrucs.getText()) || !"".equals(txtfechacancelacion.getText())|| !"".equals(txttrabajadors.getText())){
-            serv.setLugars(txtlugar.getText());
-            serv.setTiposervicio(txttiposervicio.getText());
-            serv.setRUCs(txtrucs.getText());
-            serv.setFechacancelacion((txtfechacancelacion.getText()));
-            serv.setTrabajador((txttrabajadors.getText()));
-            servD.AgregarServiciocancelado(serv);
-            LimpiarTabla();
-            LimpiarFieldserv();
-            ListarServiciocancelado();
-            JOptionPane.showMessageDialog(null, "Servicio Cancelado registrado");
-        } else {
-            JOptionPane.showMessageDialog(null, "Los campos está vacios");
-        }
-    }//GEN-LAST:event_btnañadirservActionPerformed
-
-    private void btneliminarservActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarservActionPerformed
-                if(!"".equals(txtid_serviciocancelado.getText())){
-            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar al Servicio?");
-            if (confirmacion == 0){
-                int id = Integer.parseInt(txtid_serviciocancelado.getText());
-                servD.EliminarServiciocancelado(id);
-                LimpiarTabla();
-                LimpiarFieldserv();
-                ListarServiciocancelado();
-            }
-        }
-    }//GEN-LAST:event_btneliminarservActionPerformed
     //Métodos para el módulo de Fabricación
     private void btnFabricacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFabricacionActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
@@ -2068,10 +2031,6 @@ import modelo.Usuario;
             labelImagen.setIcon(mIcon);
         }
     }//GEN-LAST:event_btnImagenActionPerformed
-
-    private void txtrucsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtrucsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtrucsActionPerformed
 
     private void TableFbrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableFbrMouseClicked
         // TODO add your handling code here:
@@ -2093,59 +2052,47 @@ import modelo.Usuario;
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
-    private void txttiposervicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttiposervicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txttiposervicioActionPerformed
-
-    private void txtlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtlugarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtlugarActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTable1MouseClicked
+    private void TablaServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaServiciosMouseClicked
+//Llamar los valores de la Tabla a los jFields
+        int fila = TablaServicios.rowAtPoint(evt.getPoint());
+        txtidservicio.setText(TablaServicios.getValueAt(fila,0).toString());
+        txtlugarservicio.setText(TablaServicios.getValueAt(fila, 1).toString());
+        txttipo_servicio.setText(TablaServicios.getValueAt(fila, 2).toString());
+        txtfecha_inicioservicio.setText(TablaServicios.getValueAt(fila, 3).toString());
+        txttrabajadorservicio.setText(TablaServicios.getValueAt(fila, 4).toString());
+    }//GEN-LAST:event_TablaServiciosMouseClicked
 
     private void txtlugarservicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtlugarservicioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtlugarservicioActionPerformed
 
     private void btneliminarservicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarservicioActionPerformed
-        // TODO add your handling code here:
+        if(!"".equals(txtidservicio.getText())){
+            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar al Servicio?");
+            if (confirmacion == 0){
+                int id = Integer.parseInt(txtidservicio.getText());
+                serviciosD.eliminarServicio(id);
+                LimpiarTabla();
+                LimpiarFieldservicios();
+                ListarServicios();
+            }
+        }
     }//GEN-LAST:event_btneliminarservicioActionPerformed
 
     private void btnañadirservicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnañadirservicioActionPerformed
-        String lugar = txtlugarservicio.getText();
-        String tipoServicio = txttipo_servicio.getText();
-        String trabajador = txttrabajadorservicio.getText();
-        String fechaInicio = txtfecha_inicioservicio.getText();
-
-        // Crea un objeto Servicios con la información obtenida
-        Servicios servicio = new Servicios(lugar, tipoServicio, fechaInicio, trabajador);
-
-        // Crea una instancia del DAO de Servicios
-        ServiciosDAO servicioDAO = new ServiciosDAO();
-
-        // Llama al método agregarServicio del DAO para agregar el servicio a la base de datos
-        boolean exito = servicioDAO.agregarServicio(servicio);
-
-        // Verifica si la operación fue exitosa
-        if (exito) {
-            // Realiza acciones adicionales si es necesario
-            System.out.println("Servicio agregado correctamente a la base de datos.");
-            // Puedes limpiar los campos después de agregar el servicio si lo deseas
-            limpiarCampos();
+        if(!"".equals(txtlugarservicio.getText()) || !"".equals(txttipo_servicio.getText()) || !"".equals(txttrabajadorservicio.getText()) || !"".equals(txtfecha_inicioservicio.getText())){
+            servicios.setLugar(txtlugarservicio.getText());
+            servicios.setTipoServicio(txttipo_servicio.getText());
+            servicios.setTrabajador(txttrabajadorservicio.getText());
+            servicios.setFechaInicio(txtfecha_inicioservicio.getText());
+            serviciosD.agregarServicio(servicios);
+            LimpiarTabla();
+            LimpiarFieldservicios();
+            ListarServicios();
+            JOptionPane.showMessageDialog(null, "Servicio registrado");
         } else {
-            // Muestra un mensaje de error si la operación no fue exitosa
-            System.out.println("Error al agregar el servicio a la base de datos.");
+            JOptionPane.showMessageDialog(null, "Los campos está vacios");
         }
-        }
-
-        // Método para limpiar los campos después de agregar un servicio
-        private void limpiarCampos() {
-            txtlugarservicio.setText("");
-            txttipo_servicio.setText("");
-            txttrabajadorservicio.setText("");
-            txtfecha_inicioservicio.setText("");
     }//GEN-LAST:event_btnañadirservicioActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
@@ -2153,27 +2100,7 @@ import modelo.Usuario;
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         if (!"".equals(nombreDevoluciones.getText()) || !"".equals(datosDevoluciones.getText()) || 
-        !"".equals(fechaDevoluciones.getText()) || !"".equals(cantidadDevoluciones.getText()) || 
-        !"".equals(motivoDevoluciones.getText())) {
-        
-        Devolucion devolucion = new Devolucion();
-        devolucion.setNombre(nombreDevoluciones.getText());
-        devolucion.setDatos(datosDevoluciones.getText());
-        devolucion.setFecha(fechaDevoluciones.getText());
-        devolucion.setCantidad(cantidadDevoluciones.getText());
-        devolucion.setMotivo(motivoDevoluciones.getText());
-        
-        DevolucionDAO devolucionDAO = new DevolucionDAO();
-        devolucionDAO.AgregarDevolucion(devolucion);
-        
-        LimpiarTablaDevoluciones();
-        ListarDevoluciones();
-        
-        JOptionPane.showMessageDialog(null, "Devolución registrada");
-    } else {
-        JOptionPane.showMessageDialog(null, "Los campos están vacíos");
-    
+         
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -2253,6 +2180,103 @@ import modelo.Usuario;
         }
     }//GEN-LAST:event_btnagregarpActionPerformed
 
+    private void TableservMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableservMouseClicked
+        //Llamar los valores de la Tabla a los jFields
+        int fila = Tableserv.rowAtPoint(evt.getPoint());
+        txtid_serviciocancelado.setText(Tableserv.getValueAt(fila,0).toString());
+        txtlugar.setText(Tableserv.getValueAt(fila, 1).toString());
+        txttiposervicio.setText(Tableserv.getValueAt(fila, 2).toString());
+        txtrucs.setText(Tableserv.getValueAt(fila, 3).toString());
+        txtfechacancelacion.setText(Tableserv.getValueAt(fila, 4).toString());
+        txttrabajadors.setText(Tableserv.getValueAt(fila, 5).toString());
+    }//GEN-LAST:event_TableservMouseClicked
+
+    private void btneliminarservActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarservActionPerformed
+        if(!"".equals(txtid_serviciocancelado.getText())){
+            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar al Servicio?");
+            if (confirmacion == 0){
+                int id = Integer.parseInt(txtid_serviciocancelado.getText());
+                servD.EliminarServiciocancelado(id);
+                LimpiarTabla();
+                LimpiarFieldserv();
+                ListarServiciocancelado();
+            }
+        }
+    }//GEN-LAST:event_btneliminarservActionPerformed
+
+//METODO PARA SERVICIOCANCELADO
+    private void btneditarservActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarservActionPerformed
+        if("".equals(txtid_serviciocancelado.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+            if (!"".equals(txtlugar.getText())|| !"".equals(txttiposervicio.getText()) || !"".equals(txtrucs.getText()) || !"".equals(txtfechacancelacion.getText())|| !"".equals(txttrabajadors.getText())){
+                serv.setLugars(txtlugar.getText());
+                serv.setTiposervicio(txttiposervicio.getText());
+                serv.setRUCs((txtrucs.getText()));
+                serv.setFechacancelacion((txtfechacancelacion.getText()));
+                serv.setTrabajador((txttrabajadors.getText()));
+                serv.setId_serviciocancelado(Integer.parseInt(txtid_serviciocancelado.getText()));
+                servD.EditarServiciocancelado(serv);
+                LimpiarTabla();
+                LimpiarFieldserv();
+                ListarServiciocancelado();
+            }
+        }
+    }//GEN-LAST:event_btneditarservActionPerformed
+
+    
+    //METODOS PARA SERVICIOSCANCELADOS 
+    private void btnañadirservActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnañadirservActionPerformed
+           if(!"".equals(txtlugar.getText()) || !"".equals(txttiposervicio.getText()) || !"".equals(txtrucs.getText()) || !"".equals(txtfechacancelacion.getText())|| !"".equals(txttrabajadors.getText())){
+            serv.setLugars(txtlugar.getText());
+            serv.setTiposervicio(txttiposervicio.getText());
+            serv.setRUCs(txtrucs.getText());
+            serv.setFechacancelacion((txtfechacancelacion.getText()));
+            serv.setTrabajador((txttrabajadors.getText()));
+            servD.AgregarServiciocancelado(serv);
+            LimpiarTabla();
+            LimpiarFieldserv();
+            ListarServiciocancelado();
+            JOptionPane.showMessageDialog(null, "Servicio Cancelado registrado");
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos está vacios");
+        }
+    }//GEN-LAST:event_btnañadirservActionPerformed
+
+    private void txtfechacancelacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfechacancelacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtfechacancelacionActionPerformed
+
+    private void txtrucsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtrucsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtrucsActionPerformed
+
+    private void txttiposervicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttiposervicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttiposervicioActionPerformed
+
+    private void txtlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtlugarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtlugarActionPerformed
+
+    private void btneditarservicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarservicioActionPerformed
+        if("".equals(txtidservicio.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+            if (!"".equals(txtlugarservicio.getText())|| !"".equals(txttipo_servicio.getText()) || !"".equals(txttrabajadorservicio.getText()) || !"".equals(txtfecha_inicioservicio.getText())){
+                servicios.setLugar(txtlugarservicio.getText());
+                servicios.setTipoServicio(txttipo_servicio.getText());
+                servicios.setTrabajador(txttrabajadorservicio.getText());
+                servicios.setFechaInicio(txtfecha_inicioservicio.getText());
+                servicios.setIdServicio(Integer.parseInt(txtidservicio.getText()));
+                serviciosD.editarServicio(servicios);
+                LimpiarTabla();
+                LimpiarFieldservicios();
+                ListarServicios();
+            }
+        }
+    }//GEN-LAST:event_btneditarservicioActionPerformed
+
    
     public static void main(String args[]) {
       
@@ -2266,6 +2290,7 @@ import modelo.Usuario;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelBotones;
     private javax.swing.JPanel PanelServicios;
+    private javax.swing.JTable TablaServicios;
     private javax.swing.JTable TableAlm;
     private javax.swing.JTable TableCl;
     private javax.swing.JTable TableFbr;
@@ -2364,7 +2389,6 @@ import modelo.Usuario;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -2410,6 +2434,7 @@ import modelo.Usuario;
     private javax.swing.JTextField txtfechap;
     private javax.swing.JTextField txtid_serviciocancelado;
     private javax.swing.JTextField txtidproveedor;
+    private javax.swing.JTextField txtidservicio;
     private javax.swing.JTextField txtlugar;
     private javax.swing.JTextField txtlugarservicio;
     private javax.swing.JTextField txtproductop;
@@ -2464,20 +2489,12 @@ import modelo.Usuario;
         txttrabajadors.setText("");
     }
     
-    public void LimpiarFieldDevoluciones() {
-    nombreDevoluciones.setText("");
-    datosDevoluciones.setText("");
-    fechaDevoluciones.setText("");
-    cantidadDevoluciones.setText("");
-    motivoDevoluciones.setText("");
-}
-
-    private void ListarDevoluciones() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void LimpiarTablaDevoluciones() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+   private void LimpiarFieldservicios(){
+        txtidservicio.setText("");
+        txtlugarservicio.setText("");
+        txttipo_servicio.setText("");
+        txttrabajadorservicio.setText("");
+        txtfecha_inicioservicio.setText("");
     }
 }
 

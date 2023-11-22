@@ -18,6 +18,7 @@ import modelo.Conexion;
 import modelo.Usuario;
 import modelo.Proveedores;
 import modelo.Serviciocancelado;
+import modelo.Servicios;
 public class ServiciocanceladoDAO {
     Conexion cn = new Conexion();
     Connection con;

@@ -70,7 +70,7 @@
                       <Component id="jSeparator1" min="-2" pref="115" max="-2" attributes="0"/>
                       <Component id="jLabelBottom" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="52" max="32767" attributes="0"/>
+                  <EmptySpace pref="67" max="32767" attributes="0"/>
               </Group>
               <Component id="btnServicios" alignment="1" max="32767" attributes="0"/>
               <Component id="btnServCan" alignment="0" max="32767" attributes="0"/>
@@ -404,7 +404,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="1233" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1383" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -694,7 +694,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="jScrollPane3" min="-2" pref="508" max="-2" attributes="0"/>
-                          <EmptySpace pref="619" max="32767" attributes="0"/>
+                          <EmptySpace pref="769" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -895,7 +895,7 @@
                               <Component id="btnEditarT" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnEliminarT" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="422" max="32767" attributes="0"/>
+                          <EmptySpace pref="572" max="32767" attributes="0"/>
                           <Component id="txtIdTrb" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
                       </Group>
@@ -1092,7 +1092,7 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jScrollPane6" min="-2" pref="551" max="-2" attributes="0"/>
-                          <EmptySpace pref="436" max="32767" attributes="0"/>
+                          <EmptySpace pref="586" max="32767" attributes="0"/>
                           <Component id="txtIduser" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
                       </Group>
@@ -1248,8 +1248,9 @@
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Component id="btnañadirserv" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btneditarserv" max="32767" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btneliminarserv" max="32767" attributes="0"/>
@@ -1286,12 +1287,12 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jScrollPane8" min="-2" pref="482" max="-2" attributes="0"/>
-                          <EmptySpace pref="311" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnañadirserv" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btneditarserv" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btneliminarserv" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtid_serviciocancelado" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnañadirserv" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="314" max="-2" attributes="0"/>
                       </Group>
@@ -1348,14 +1349,6 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtid_serviciocancelado">
                 </Component>
-                <Component class="javax.swing.JButton" name="btna&#xf1;adirserv">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btna&#xf1;adirservActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="javax.swing.JButton" name="btneditarserv">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Editar"/>
@@ -1400,6 +1393,14 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JButton" name="btna&#xf1;adirserv">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btna&#xf1;adirservActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel7">
@@ -1506,7 +1507,7 @@
                           <Component id="txtidproveedor" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane7" min="-2" pref="501" max="-2" attributes="0"/>
-                          <EmptySpace pref="334" max="32767" attributes="0"/>
+                          <EmptySpace pref="484" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnagregarp" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btneditarp" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1700,7 +1701,7 @@
                               <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="549" max="32767" attributes="0"/>
+                          <EmptySpace pref="699" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1883,7 +1884,7 @@
                               <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="590" max="32767" attributes="0"/>
+                          <EmptySpace pref="740" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2033,6 +2034,11 @@
                           </Group>
                           <EmptySpace min="0" pref="42" max="32767" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="txtidservicio" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -2045,10 +2051,12 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel16" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
@@ -2061,7 +2069,9 @@
                           </Group>
                           <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="jScrollPane9" min="-2" pref="472" max="-2" attributes="0"/>
-                          <EmptySpace pref="163" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="txtidservicio" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnañadirservicio" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btneditarservicio" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2105,6 +2115,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Editar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btneditarservicioActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btneliminarservicio">
                   <Properties>
@@ -2135,19 +2148,27 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable1">
+                    <Component class="javax.swing.JTable" name="TablaServicios">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;ID&quot;, &quot;Lugar&quot;, &quot;Tipo de Servicio&quot;, &quot;Trabajador&quot; , &quot;Fecha de Inicio&quot;&#xa;    })" type="code"/>
                         </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0"/>
+                        </Property>
                         <Property name="showGrid" type="boolean" value="false"/>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                        </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable1MouseClicked"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TablaServiciosMouseClicked"/>
                       </Events>
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JTextField" name="txtidservicio">
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
