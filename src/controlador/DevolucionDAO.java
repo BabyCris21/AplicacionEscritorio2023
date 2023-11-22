@@ -1,5 +1,8 @@
 package controlador;
 
+import modelo.Conexion;
+import modelo.Devolucion;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,8 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import modelo.Conexion;
-import modelo.Devolucion;
 
 public class DevolucionDAO {
     Conexion cn = new Conexion();
@@ -16,32 +17,28 @@ public class DevolucionDAO {
     PreparedStatement ps;
     ResultSet rs;
 
-    public boolean AgregarDevolucion(Devolucion devolucion) {
-        String sql = "INSERT INTO devoluciones (nombreD, datosD, fechaD, cantidadD, motivoD) VALUES (?,?,?,?,?)";
+    public boolean agregarDevolucion(Devolucion devolucion) {
+        String sql = "INSERT INTO devoluciones (nombre, datos, fecha, cantidad, motivo) VALUES (?, ?, ?, ?, ?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, devolucion.getNombreD());
-            ps.setString(2, devolucion.getDatosD());
-            ps.setString(3, devolucion.getFechaD());
-            ps.setString(4, devolucion.getCantidadD());
-            ps.setString(5, devolucion.getMotivoD());
+            ps.setString(1, devolucion.getNombre());
+            ps.setString(2, devolucion.getDatos());
+            ps.setDate(3, devolucion.getFecha());
+            ps.setString(4, devolucion.getCantidad());
+            ps.setString(5, devolucion.getMotivo());
             ps.execute();
             return true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.toString());
             return false;
         } finally {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                System.out.println(e.toString());
-            }
+            cn.close(con);
         }
     }
 
-    public List ListarDevoluciones() {
-        List<Devolucion> ListaDevoluciones = new ArrayList();
+    public List<Devolucion> listarDevoluciones() {
+        List<Devolucion> listaDevoluciones = new ArrayList<>();
         String sql = "SELECT * FROM devoluciones";
         try {
             con = cn.getConnection();
@@ -50,65 +47,69 @@ public class DevolucionDAO {
 
             while (rs.next()) {
                 Devolucion devolucion = new Devolucion();
-                devolucion.setIdDevolucion(rs.getInt("id_devolucion"));
-                devolucion.setNombreD(rs.getString("nombreD"));
-                devolucion.setDatosD(rs.getString("datosD"));
-                devolucion.setFechaD(rs.getString("fechaD"));
-                devolucion.setCantidadD(rs.getString("cantidadD"));
-                devolucion.setMotivoD(rs.getString("motivoD"));
-                ListaDevoluciones.add(devolucion);
+                devolucion.setIdDevolucion(rs.getLong("id_devolucion"));
+                devolucion.setNombre(rs.getString("nombre"));
+                devolucion.setDatos(rs.getString("datos"));
+                devolucion.setFecha(rs.getDate("fecha"));
+                devolucion.setCantidad(rs.getString("cantidad"));
+                devolucion.setMotivo(rs.getString("motivo"));
+                listaDevoluciones.add(devolucion);
             }
 
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            JOptionPane.showMessageDialog(null, e.toString());
+        } finally {
+            cn.close(con);
         }
-        return ListaDevoluciones;
+        return listaDevoluciones;
     }
 
-    public boolean EliminarDevolucion(int id) {
+    public boolean eliminarDevolucion(long id) {
         String sql = "DELETE FROM devoluciones WHERE id_devolucion = ?";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setLong(1, id);
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            JOptionPane.showMessageDialog(null, e.toString());
             return false;
         } finally {
-            try {
-                con.close();
-            } catch (SQLException ex) {
-                System.out.println(ex.toString());
-            }
+            cn.close(con);
         }
     }
 
-        public boolean EditarDevolucion(Devolucion devolucion) {
-        String sql = "UPDATE devoluciones SET nombreD=?, datosD=?, fechaD=?, cantidadD=?, motivoD=? WHERE id_devolucion =?";
+    public boolean editarDevolucion(Devolucion devolucion) {
+        String sql = "UPDATE devoluciones SET nombre=?, datos=?, fecha=?, cantidad=?, motivo=? WHERE id_devolucion=?";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, devolucion.getNombreD());
-            ps.setString(2, devolucion.getDatosD());
-            ps.setString(3, devolucion.getFechaD());
-            ps.setString(4, devolucion.getCantidadD());
-            ps.setString(5, devolucion.getMotivoD());
-            // No se establece el ID en la sentencia UPDATE
-            ps.setInt(6, devolucion.getIdDevolucion());
+            ps.setString(1, devolucion.getNombre());
+            ps.setString(2, devolucion.getDatos());
+            ps.setDate(3, devolucion.getFecha());
+            ps.setString(4, devolucion.getCantidad());
+            ps.setString(5, devolucion.getMotivo());
+            ps.setLong(6, devolucion.getIdDevolucion());
             ps.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            JOptionPane.showMessageDialog(null, e.toString());
             return false;
         } finally {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                System.out.println(e.toString());
-            }
+            cn.close(con);
         }
     }
 
+    public List<Devolucion> ListarDevoluciones() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<Devolucion> ListarDevolucion() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void AgregarDevolucion(Devolucion devolucion) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
