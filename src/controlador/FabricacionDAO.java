@@ -9,11 +9,14 @@ import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.Fabricacion;
 import modelo.Usuario;
+
 public class FabricacionDAO {
     Conexion cn = new Conexion();
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
+    
+    
      public boolean AgregarFabricacion(Fabricacion Fbr){
         String sql = "INSERT INTO fabricacion (num_tablero, tablero, foto_tablero, material) VALUES (?,?,?,?)";
         try {
@@ -47,12 +50,12 @@ public class FabricacionDAO {
             
             while(rs.next()){
                 Fabricacion Fbr = new Fabricacion();
-                Fbr.setId_fabricacion(rs.getInt("id_usuariou"));
-                Fbr.setNum_tablero(rs.getString("usuarioU"));
-                Fbr.setTablero(rs.getString("cargoU"));
-                Fbr.setFoto_tablero(rs.getBytes("foto_tablero"));
-                Fbr.setMaterial(rs.getString("material"));
-                ListaFab.add(Fbr);
+            Fbr.setId_fabricacion(rs.getInt("id_fabricacion"));  // Cambiado a 'id_fabricacion'
+            Fbr.setNum_tablero(rs.getString("num_tablero"));
+            Fbr.setTablero(rs.getString("tablero"));
+            Fbr.setFoto_tablero(rs.getBytes("foto_tablero"));
+            Fbr.setMaterial(rs.getString("material"));
+            ListaFab.add(Fbr);
             }
             
         } catch (SQLException e){

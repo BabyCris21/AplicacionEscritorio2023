@@ -3,12 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/controlador/ProveedoresDAO.java</file>
-            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/vista/principal.java</file>
-            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/controlador/ServiciocanceladoDAO.java</file>
-            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/vista/login.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/modelo/Usuario.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/controlador/ServiciosDAO.java</file>
             <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/vista/RenderImage.java</file>
             <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/modelo/Serviciocancelado.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/modelo/Cliente.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/controlador/FabricacionDAO.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/controlador/DevolucionDAO.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/controlador/UsuarioDAO.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/modelo/Proveedores.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/modelo/Servicios.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/controlador/ProveedoresDAO.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/vista/principal.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/controlador/TrabajadorDAO.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/controlador/ServiciocanceladoDAO.java</file>
+            <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/vista/login.java</file>
             <file>file:/C:/Users/User/OneDrive%20-%20Universidad%20Tecnologica%20del%20Peru/Documents/GitHub/AplicacionEscritorio2023/src/modelo/Conexion.java</file>
         </group>
     </open-files>

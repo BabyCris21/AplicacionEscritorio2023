@@ -1,12 +1,10 @@
 package modelo;
 
-import java.sql.Date;
-
 public class Devolucion {
     private long idDevolucion;
     private String nombre;
     private String datos;
-    private Date fecha;
+    private String fecha;
     private String cantidad;
     private String motivo;
 
@@ -14,7 +12,7 @@ public class Devolucion {
     public Devolucion() {
     }
 
-    public Devolucion(long idDevolucion, String nombre, String datos, Date fecha, String cantidad, String motivo) {
+    public Devolucion(long idDevolucion, String nombre, String datos, String fecha, String cantidad, String motivo) {
         this.idDevolucion = idDevolucion;
         this.nombre = nombre;
         this.datos = datos;
@@ -50,11 +48,11 @@ public class Devolucion {
         this.datos = datos;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
