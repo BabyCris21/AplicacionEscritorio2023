@@ -39,7 +39,7 @@ public class UsuarioDAO {
             }
         }
     }
-    
+            
     public List ListarUsuario(){
         List<Usuario> ListaU = new ArrayList();
         String sql = "SELECT * FROM usuario";
