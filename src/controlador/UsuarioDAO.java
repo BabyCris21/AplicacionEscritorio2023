@@ -19,7 +19,7 @@ public class UsuarioDAO {
     PreparedStatement ps;
     ResultSet rs;
     public boolean AgregarUsuario(Usuario usr){
-        String sql = "INSERT INTO usuario (usuarioU, cargoU, contraseñau) VALUES (?,?,?)";
+        String sql = "INSERT INTO tb_usuarios (usuario, cargo, password) VALUES (?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -42,7 +42,7 @@ public class UsuarioDAO {
             
     public List ListarUsuario(){
         List<Usuario> ListaU = new ArrayList();
-        String sql = "SELECT * FROM usuario";
+        String sql = "SELECT * FROM tb_usuarios";
         try {
             con = cn.getConnection();
             ps = con.prepareCall(sql);
@@ -50,10 +50,10 @@ public class UsuarioDAO {
             
             while(rs.next()){
                 Usuario usr = new Usuario();
-                usr.setId_usuarioU(rs.getInt("id_usuariou"));
-                usr.setUsuarioU(rs.getString("usuarioU"));
-                usr.setCargoU(rs.getString("cargoU"));
-                usr.setContraseñaU(rs.getString("contraseñau"));
+                usr.setId_usuarioU(rs.getInt("Id_usuarios"));
+                usr.setUsuarioU(rs.getString("usuario"));
+                usr.setCargoU(rs.getString("cargo"));
+                usr.setContraseñaU(rs.getString("password"));
                 ListaU.add(usr);
             }
             
@@ -64,7 +64,7 @@ public class UsuarioDAO {
     }
     
     public boolean EliminarUsuario(int id){
-        String sql = "DELETE FROM usuario WHERE id_usuariou = ?";
+        String sql = "DELETE FROM tb_usuarios WHERE Id_usuarios = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -83,7 +83,7 @@ public class UsuarioDAO {
     }
     
     public boolean EditarUsuario(Usuario usr){
-        String sql = "UPDATE usuario SET usuarioU=?, cargoU=?, contraseñau=? WHERE id_usuariou =?";
+        String sql = "UPDATE tb_usuarios SET usuario=?, cargo=?, password=? WHERE Id_usuarios =?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1,usr.getUsuarioU());

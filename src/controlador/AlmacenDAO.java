@@ -17,7 +17,7 @@ public class AlmacenDAO {
     ResultSet rs;
     
     public boolean AgregarAlmacen(Almacen alm){
-        String sql = "INSERT INTO almacen (producto, marca, precio, cant) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO tb_almacen (producto, marca, precio, cantidad) VALUES (?,?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -41,18 +41,18 @@ public class AlmacenDAO {
 
     public List ListarAlmacen(){
             List<Almacen> ListaAlm = new ArrayList();
-            String sql = "SELECT * FROM almacen";
+            String sql = "SELECT * FROM tb_almacen";
             try {
                 con = cn.getConnection();
                 ps = con.prepareCall(sql);
                 rs = ps.executeQuery();         
                 while(rs.next()){
                     Almacen alm = new Almacen();
-                    alm.setId_producto(rs.getInt("id_producto"));
+                    alm.setId_producto(rs.getInt("id_almacen"));
                     alm.setProducto(rs.getString("producto"));
                     alm.setMarca(rs.getString("marca"));
                     alm.setPrecio(rs.getDouble("precio"));
-                    alm.setCantidad(rs.getInt("cant"));
+                    alm.setCantidad(rs.getInt("cantidad"));
                     ListaAlm.add(alm);
                 }      
             } catch (SQLException e){
@@ -62,7 +62,7 @@ public class AlmacenDAO {
     }
     
      public boolean EliminarAlmacen(int id){
-        String sql = "DELETE FROM almacen WHERE id_producto = ?";
+        String sql = "DELETE FROM tb_almacen WHERE id_almacen = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -81,7 +81,7 @@ public class AlmacenDAO {
     }
      
      public boolean EditarAlmacen(Almacen alm){
-        String sql = "UPDATE almacen SET producto=?, marca=?, precio=?, cant=? WHERE id_producto=?";
+        String sql = "UPDATE tb_almacen SET producto=?, marca=?, precio=?, cantidad=? WHERE id_almacen=?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1,alm.getProducto());

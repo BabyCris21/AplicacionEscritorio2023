@@ -31,14 +31,15 @@ public class DevolucionDAO {
     }
 
     public boolean agregarDevolucion(Devolucion devolucion) {
-        String sql = "INSERT INTO devoluciones (nombre, datos, fecha, cantidad, motivo) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tb_devolucion (nombre_empresa, ruc_devolucion, fecha_devolucion, cantidad_devolucion, producto, tipo_cantidad) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, devolucion.getNombre());
             ps.setString(2, devolucion.getDatos());
             ps.setString(3, devolucion.getFecha());
             ps.setString(4, devolucion.getCantidad());
-            ps.setString(5, devolucion.getMotivo());
+            ps.setString(5, devolucion.getProducto());
+            ps.setString(6,devolucion.getTip_cantidad());
 
             int filasAfectadas = ps.executeUpdate();
 
@@ -62,7 +63,7 @@ public class DevolucionDAO {
 
     public List<Devolucion> listarDevoluciones() {
         List<Devolucion> listaDevoluciones = new ArrayList<>();
-        String sql = "SELECT * FROM devoluciones";
+        String sql = "SELECT * FROM tb_devolucion";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -70,11 +71,12 @@ public class DevolucionDAO {
             while (rs.next()) {
                 Devolucion devolucion = new Devolucion();
                 devolucion.setIdDevolucion(rs.getLong("id_devolucion"));
-                devolucion.setNombre(rs.getString("nombre"));
-                devolucion.setDatos(rs.getString("datos"));
-                devolucion.setFecha(rs.getString("fecha"));
-                devolucion.setCantidad(rs.getString("cantidad"));
-                devolucion.setMotivo(rs.getString("motivo"));
+                devolucion.setNombre(rs.getString("nombre_empresa"));
+                devolucion.setDatos(rs.getString("ruc_devolucion"));
+                devolucion.setFecha(rs.getString("fecha_devolucion"));
+                devolucion.setCantidad(rs.getString("cantidad_devolucion"));
+                devolucion.setProducto(rs.getString("producto"));
+                devolucion.setTip_cantidad(rs.getString("tipo_cantidad"));
                 listaDevoluciones.add(devolucion);
             }
         } catch (SQLException e) {
@@ -86,7 +88,7 @@ public class DevolucionDAO {
     }
 
     public boolean eliminarDevolucion(long id) {
-        String sql = "DELETE FROM devoluciones WHERE id_devolucion = ?";
+        String sql = "DELETE FROM tb_devolucion WHERE id_devolucion = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setLong(1, id);
@@ -101,15 +103,16 @@ public class DevolucionDAO {
     }
 
     public boolean editarDevolucion(Devolucion devolucion) {
-        String sql = "UPDATE devoluciones SET nombre=?, datos=?, fecha=?, cantidad=?, motivo=? WHERE id_devolucion=?";
+        String sql = "UPDATE tb_devolucion SET nombre_empresa=?, ruc_devolucion=?, fecha_devolucion=?, cantidad_devolucion=?, producto=?, tipo_cantidad=? WHERE id_devolucion=?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, devolucion.getNombre());
             ps.setString(2, devolucion.getDatos());
             ps.setString(3, devolucion.getFecha());
             ps.setString(4, devolucion.getCantidad());
-            ps.setString(5, devolucion.getMotivo());
-            ps.setLong(6, devolucion.getIdDevolucion());
+            ps.setString(5, devolucion.getProducto());
+            ps.setString(6,devolucion.getTip_cantidad());
+            ps.setLong(7, devolucion.getIdDevolucion());
             ps.execute();
             return true;
         } catch (SQLException e) {

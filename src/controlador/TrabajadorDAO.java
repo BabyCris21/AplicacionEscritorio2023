@@ -20,7 +20,7 @@ public class TrabajadorDAO {
     ResultSet rs;
     
     public boolean AgregarTrabajador(Trabajador trb){
-        String sql = "INSERT INTO trabajadores (nombreT, apellidoT, dniT, celularT, correoT, cargoT) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO tb_trabajadores (nombre_trabajador, apellido_trabajador, dni_trabajador, celular, correo_trabajador, cargo) VALUES (?,?,?,?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -46,7 +46,7 @@ public class TrabajadorDAO {
     
     public List ListarTrabajadores(){
         List<Trabajador> ListaT = new ArrayList();
-        String sql = "SELECT * FROM trabajadores";
+        String sql = "SELECT * FROM tb_trabajadores";
         try {
             con = cn.getConnection();
             ps = con.prepareCall(sql);
@@ -54,13 +54,13 @@ public class TrabajadorDAO {
             
             while(rs.next()){
                 Trabajador trb = new Trabajador();
-                trb.setId_trabajador(rs.getInt("id_trabajador"));
-                trb.setNombreT(rs.getString("nombreT"));
-                trb.setApellidoT(rs.getString("apellidoT"));
-                trb.setDniT(rs.getString("dniT"));
-                trb.setCelularT(rs.getString("celularT"));
-                trb.setCorreoT(rs.getString("correoT"));
-                trb.setCargoT(rs.getString("cargoT"));
+                trb.setId_trabajador(rs.getInt("id_trabajadores"));
+                trb.setNombreT(rs.getString("nombre_trabajador"));
+                trb.setApellidoT(rs.getString("apellido_trabajador"));
+                trb.setDniT(rs.getString("dni_trabajador"));
+                trb.setCelularT(rs.getString("celular"));
+                trb.setCorreoT(rs.getString("correo_trabajador"));
+                trb.setCargoT(rs.getString("cargo"));
                 ListaT.add(trb);
             }
             
@@ -71,7 +71,7 @@ public class TrabajadorDAO {
     }
     
     public boolean EliminarTrabajador(int id){
-        String sql = "DELETE FROM trabajadores WHERE id_trabajador = ?";
+        String sql = "DELETE FROM tb_trabajadores WHERE id_trabajadores = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -90,7 +90,7 @@ public class TrabajadorDAO {
     }
     
     public boolean EditarTrabajador(Trabajador trb){
-        String sql = "UPDATE trabajadores SET nombreT=?, apellidoT=?, dniT=?, celularT=?, correoT=?, cargoT=? WHERE id_trabajador=?";
+        String sql = "UPDATE tb_trabajadores SET nombre_trabajador=?, apellido_trabajador=?, dni_trabajador=?, celular=?, correo_trabajador=?, cargo=? WHERE id_trabajadores=?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1,trb.getNombreT());

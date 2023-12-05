@@ -10,7 +10,7 @@ public class LoginDAO {
     Conexion cn = new Conexion();
     public Login log(String usuario, String pass){
         Login l = new Login();
-        String sql = "SELECT * FROM usuarios WHERE usuario = ? AND pass = ?";
+        String sql = "SELECT * FROM tb_usuarios WHERE usuario = ? AND password = ?";
         try{
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -18,9 +18,9 @@ public class LoginDAO {
             ps.setString(2,pass);
             rs = ps.executeQuery();
             if(rs.next()){
-                l.setId(rs.getInt("id_usuarios"));
+                l.setId(rs.getInt("Id_usuarios"));
                 l.setUsuario(rs.getString("usuario"));
-                l.setPass(rs.getString("pass"));             
+                l.setPass(rs.getString("password"));             
             }
         } catch(SQLException e){
             System.out.println(e.toString());

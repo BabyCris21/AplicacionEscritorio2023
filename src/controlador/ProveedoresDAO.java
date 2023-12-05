@@ -19,7 +19,7 @@ public class ProveedoresDAO {
     ResultSet rs;
     
     public boolean AgregarProveedor(Proveedores pro){
-        String sql = "INSERT INTO proveedores (productoP, fechaentregap, empresap, RUCp) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO tb_proveedores (producto, fecha_entrega, nombre_empresa, ruc) VALUES (?,?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -42,7 +42,7 @@ public class ProveedoresDAO {
     }
     public List ListarProveedor(){
         List<Proveedores> ListaP = new ArrayList();
-        String sql = "SELECT * FROM proveedores";
+        String sql = "SELECT * FROM tb_proveedores";
         try {
             con = cn.getConnection();
             ps = con.prepareCall(sql);
@@ -50,11 +50,11 @@ public class ProveedoresDAO {
             
             while(rs.next()){
                 Proveedores pro = new Proveedores();
-                pro.setId_proveedor(rs.getInt("id_proveedor"));
-                pro.setProductoP(rs.getString("productoP"));
-                pro.setFechaentregap(rs.getString("fechaentregap"));
-                pro.setEmpresap(rs.getString("empresap"));
-                pro.setRUCp(rs.getString("RUCp"));
+                pro.setId_proveedor(rs.getInt("id_proveedores"));
+                pro.setProductoP(rs.getString("producto"));
+                pro.setFechaentregap(rs.getString("fecha_entrega"));
+                pro.setEmpresap(rs.getString("nombre_empresa"));
+                pro.setRUCp(rs.getString("ruc"));
                 ListaP.add(pro);
             }
             
@@ -64,7 +64,7 @@ public class ProveedoresDAO {
         return ListaP;
     }
     public boolean EliminarProveedor(int id){
-        String sql = "DELETE FROM proveedores WHERE id_proveedor = ?";
+        String sql = "DELETE FROM tb_proveedores WHERE id_proveedores = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -82,7 +82,7 @@ public class ProveedoresDAO {
         }
     }
     public boolean EditarProveedor(Proveedores pro){
-        String sql = "UPDATE proveedores SET productoP=?, fechaentregap=?, empresap=?, RUCp=? WHERE id_proveedor =?";
+        String sql = "UPDATE tb_proveedores SET producto=?, fecha_entrega=?, nombre_empresa=?, ruc=? WHERE id_proveedores =?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1,pro.getProductoP());

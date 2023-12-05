@@ -6,19 +6,21 @@ public class Devolucion {
     private String datos;
     private String fecha;
     private String cantidad;
-    private String motivo;
+    private String producto;
+    private String t_cantidad;
 
     // Constructor
     public Devolucion() {
     }
 
-    public Devolucion(long idDevolucion, String nombre, String datos, String fecha, String cantidad, String motivo) {
+    public Devolucion(long idDevolucion, String nombre, String datos, String fecha, String cantidad, String producto, String t_cantidad) {
         this.idDevolucion = idDevolucion;
         this.nombre = nombre;
         this.datos = datos;
         this.fecha = fecha;
         this.cantidad = cantidad;
-        this.motivo = motivo;
+        this.producto = producto;
+        this.t_cantidad = t_cantidad;
     }
 
     
@@ -64,11 +66,19 @@ public class Devolucion {
         this.cantidad = cantidad;
     }
 
-    public String getMotivo() {
-        return motivo;
+    public String getProducto() {
+        return producto;
     }
 
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
+    public void setProducto(String producto) {
+        this.producto = producto;
+    }
+    
+    public String getTip_cantidad() {
+        return t_cantidad;
+    }
+
+    public void setTip_cantidad(String t_cantidad) {
+        this.t_cantidad = t_cantidad;
     }
 }

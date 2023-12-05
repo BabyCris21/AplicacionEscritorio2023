@@ -25,7 +25,7 @@ public class ServiciocanceladoDAO {
     PreparedStatement ps;
     ResultSet rs;   
     public boolean AgregarServiciocancelado(Serviciocancelado serv){
-        String sql = "INSERT INTO serviciocancelado (lugars, tiposervicio, RUCs, fechacancelacion,trabajador) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO tb_servicios_cancelados (lugar_servic, tipo_servicio, ruc, fecha_cancelacion,trabajador) VALUES (?,?,?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -49,7 +49,7 @@ public class ServiciocanceladoDAO {
     }
     public List ListarServiciocancelado(){
         List<Serviciocancelado> ListaServicio = new ArrayList();
-        String sql = "SELECT * FROM serviciocancelado";
+        String sql = "SELECT * FROM tb_servicios_cancelados";
         try {
             con = cn.getConnection();
             ps = con.prepareCall(sql);
@@ -57,11 +57,11 @@ public class ServiciocanceladoDAO {
             
             while(rs.next()){
                 Serviciocancelado serv = new Serviciocancelado();
-                serv.setId_serviciocancelado(rs.getInt("id_serviciocancelado"));
-                serv.setLugars(rs.getString("lugars"));
-                serv.setTiposervicio(rs.getString("tiposervicio"));
-                serv.setRUCs(rs.getString("RUCs"));
-                serv.setFechacancelacion(rs.getString("fechacancelacion"));
+                serv.setId_serviciocancelado(rs.getInt("id_servicios_cancelados"));
+                serv.setLugars(rs.getString("lugar_servic"));
+                serv.setTiposervicio(rs.getString("tipo_servicio"));
+                serv.setRUCs(rs.getString("ruc"));
+                serv.setFechacancelacion(rs.getString("fecha_cancelacion"));
                 serv.setTrabajador(rs.getString("trabajador"));
                 ListaServicio.add(serv);
             }
@@ -72,7 +72,7 @@ public class ServiciocanceladoDAO {
         return ListaServicio;
     }
     public boolean EliminarServiciocancelado(int id){
-        String sql = "DELETE FROM serviciocancelado WHERE id_serviciocancelado = ?";
+        String sql = "DELETE FROM tb_servicios_cancelados WHERE id_servicios_cancelados = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -90,7 +90,7 @@ public class ServiciocanceladoDAO {
         }
     }
    public boolean EditarServiciocancelado(Serviciocancelado serv){
-        String sql = "UPDATE serviciocancelado SET lugars=?, tiposervicio=?, RUCs=?,fechacancelacion=?,trabajador=? WHERE id_serviciocancelado =?";
+        String sql = "UPDATE tb_servicios_cancelados SET lugar_servic=?, tipo_servicio=?, ruc=?,fecha_cancelacion=?,trabajador=? WHERE id_servicios_cancelados =?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1,serv.getLugars());

@@ -31,7 +31,7 @@ import modelo.Servicios;
 import modelo.Usuario;
 
     public class principal extends javax.swing.JFrame {
-         String ruta = "";
+        
     Almacen alm = new Almacen();
     AlmacenDAO almD = new AlmacenDAO();
     Cliente cl = new Cliente();
@@ -59,6 +59,7 @@ import modelo.Usuario;
         txtIdCl.setVisible(false);   //Ocultar el TextField del Id
         txtIdTrb.setVisible(false);
         txtIduser.setVisible(false);
+        IdDevoluciones.setVisible(false);
         txtid_serviciocancelado.setVisible(false);
     }
     
@@ -193,14 +194,15 @@ import modelo.Usuario;
     public void ListarDevolucion(){
         List<Devolucion> listarDevoluciones = devD.listarDevoluciones();
         model = (DefaultTableModel) TablaDevoluciones.getModel();
-        Object[] ob = new Object[6];
+        Object[] ob = new Object[7];
         for (int i = 0; i < listarDevoluciones.size(); i++) {
             ob[0] = listarDevoluciones.get(i).getIdDevolucion();
             ob[1] = listarDevoluciones.get(i).getNombre();
             ob[2] = listarDevoluciones.get(i).getDatos();
             ob[3] = listarDevoluciones.get(i).getFecha();
             ob[4] = listarDevoluciones.get(i).getCantidad();
-            ob[5] = listarDevoluciones.get(i).getMotivo();
+            ob[5] = listarDevoluciones.get(i).getProducto();
+            ob[6] = listarDevoluciones.get(i).getTip_cantidad();
             model.addRow(ob);
         }
         TablaDevoluciones.setModel(model);
@@ -348,17 +350,19 @@ import modelo.Usuario;
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        nombreDevoluciones = new javax.swing.JTextField();
-        datosDevoluciones = new javax.swing.JTextField();
-        fechaDevoluciones = new javax.swing.JTextField();
-        cantidadDevoluciones = new javax.swing.JTextField();
-        motivoDevoluciones = new javax.swing.JTextField();
+        txtNombreEm = new javax.swing.JTextField();
+        txtRUCDev = new javax.swing.JTextField();
+        txtFechaDev = new javax.swing.JTextField();
+        txtCantDev = new javax.swing.JTextField();
+        txtProductoDev = new javax.swing.JTextField();
         AñadirDev = new javax.swing.JButton();
         EditarDev = new javax.swing.JButton();
         EliminarDev = new javax.swing.JButton();
         IdDevoluciones = new javax.swing.JTextField();
         jScrollPane10 = new javax.swing.JScrollPane();
         TablaDevoluciones = new javax.swing.JTable();
+        cbTipoDev = new javax.swing.JComboBox<>();
+        jLabel26 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -368,12 +372,15 @@ import modelo.Usuario;
         btneditarservicio = new javax.swing.JButton();
         btneliminarservicio = new javax.swing.JButton();
         txtlugarservicio = new javax.swing.JTextField();
-        txttipo_servicio = new javax.swing.JTextField();
         txttrabajadorservicio = new javax.swing.JTextField();
-        txtfecha_inicioservicio = new javax.swing.JTextField();
+        txtFechaServ = new javax.swing.JTextField();
         jScrollPane9 = new javax.swing.JScrollPane();
         TablaServicios = new javax.swing.JTable();
         txtidservicio = new javax.swing.JTextField();
+        cbTipoServ = new javax.swing.JComboBox<>();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -426,6 +433,11 @@ import modelo.Usuario;
         btnServicios.setForeground(new java.awt.Color(241, 239, 239));
         btnServicios.setText("Servicios");
         btnServicios.setBorder(null);
+        btnServicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnServiciosActionPerformed(evt);
+            }
+        });
 
         btnFabricacion.setBackground(new java.awt.Color(23, 107, 135));
         btnFabricacion.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
@@ -476,6 +488,11 @@ import modelo.Usuario;
         btnDevoluciones.setForeground(new java.awt.Color(241, 239, 239));
         btnDevoluciones.setText("Devoluciones");
         btnDevoluciones.setBorder(null);
+        btnDevoluciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDevolucionesActionPerformed(evt);
+            }
+        });
 
         labelUTI.setFont(new java.awt.Font("Dialog", 1, 52)); // NOI18N
         labelUTI.setForeground(new java.awt.Color(238, 238, 238));
@@ -560,7 +577,7 @@ import modelo.Usuario;
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1395, Short.MAX_VALUE)
+            .addGap(0, 852, Short.MAX_VALUE)
         );
 
         jTabbedPane.addTab("Venta", jPanel1);
@@ -800,7 +817,7 @@ import modelo.Usuario;
                         .addComponent(txtRucC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(781, Short.MAX_VALUE))
+                .addContainerGap(237, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Clientes", jPanel3);
@@ -952,7 +969,7 @@ import modelo.Usuario;
                     .addComponent(btnAgregarT)
                     .addComponent(btnEditarT)
                     .addComponent(btnEliminarT))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 584, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtIdTrb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(136, 136, 136))
         );
@@ -969,6 +986,7 @@ import modelo.Usuario;
                 "ID", "Usuario", "Cargo", "Contraseña"
             }
         ));
+        Tableuser.setEnabled(false);
         Tableuser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TableuserMouseClicked(evt);
@@ -1122,6 +1140,7 @@ import modelo.Usuario;
                 "ID", "Lugar", "Tipo de Servicio", "RUC" , "Fecha de Cancelacion","Trabajador"
             }
         ));
+        Tableserv.setEnabled(false);
         Tableserv.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TableservMouseClicked(evt);
@@ -1143,8 +1162,8 @@ import modelo.Usuario;
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtlugar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1168,19 +1187,20 @@ import modelo.Usuario;
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(txttrabajadors, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(btnañadirserv, javax.swing.GroupLayout.PREFERRED_SIZE, 6, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btneditarserv, javax.swing.GroupLayout.PREFERRED_SIZE, 6, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btneliminarserv, javax.swing.GroupLayout.PREFERRED_SIZE, 7, Short.MAX_VALUE)
-                        .addGap(265, 265, 265)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(402, 402, 402)
                         .addComponent(txtid_serviciocancelado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(670, 670, 670))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addContainerGap())
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(btnañadirserv, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btneditarserv, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btneliminarserv, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane8))
+                        .addGap(240, 240, 240))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1201,12 +1221,13 @@ import modelo.Usuario;
                     .addComponent(txttrabajadors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btneditarserv)
                     .addComponent(btneliminarserv)
-                    .addComponent(txtid_serviciocancelado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnañadirserv))
+                .addGap(78, 78, 78)
+                .addComponent(txtid_serviciocancelado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(314, 314, 314))
         );
 
@@ -1342,7 +1363,7 @@ import modelo.Usuario;
                 .addComponent(txtidproveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 496, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnagregarp)
                     .addComponent(btneditarp)
@@ -1472,22 +1493,22 @@ import modelo.Usuario;
                     .addComponent(AñadirFab)
                     .addComponent(EditarFab)
                     .addComponent(EliminarFab))
-                .addContainerGap(736, Short.MAX_VALUE))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Fabricación", jPanel8);
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel13.setText("Nombre");
+        jLabel13.setText("Empresa");
 
-        jLabel22.setText("Datos");
+        jLabel22.setText("RUC");
 
         jLabel23.setText("Fecha");
 
         jLabel24.setText("Cantidad");
 
-        jLabel25.setText("Motivo");
+        jLabel25.setText("Producto");
 
         AñadirDev.setText("Añadir");
         AñadirDev.addActionListener(new java.awt.event.ActionListener() {
@@ -1515,9 +1536,10 @@ import modelo.Usuario;
 
             },
             new String [] {
-                "ID", "Nombre", "Datos", "fecha" , "Cantidad", "Motivo"
+                "ID", "Nombre", "RUC", "Fecha" , "Cantidad", "Producto", "Tipo"
             }
         ));
+        TablaDevoluciones.setEnabled(false);
         TablaDevoluciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaDevolucionesMouseClicked(evt);
@@ -1525,43 +1547,55 @@ import modelo.Usuario;
         });
         jScrollPane10.setViewportView(TablaDevoluciones);
 
+        cbTipoDev.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel26.setText("Tipo");
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nombreDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel22)
-                            .addComponent(datosDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fechaDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel23))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cantidadDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel24))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(motivoDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel25)))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(AñadirDev)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombreEm, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                    .addComponent(jLabel13))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel22)
+                                    .addComponent(txtRUCDev, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtFechaDev, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                    .addComponent(jLabel23))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCantDev, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                    .addComponent(jLabel24))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtProductoDev, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                                    .addComponent(jLabel25)))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(AñadirDev)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(EditarDev)
+                                .addGap(18, 18, 18)
+                                .addComponent(EliminarDev)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(IdDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(EditarDev)
-                        .addGap(18, 18, 18)
-                        .addComponent(EliminarDev)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(IdDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane10))
-                .addContainerGap(96, Short.MAX_VALUE))
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbTipoDev, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(31, Short.MAX_VALUE))))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1572,27 +1606,29 @@ import modelo.Usuario;
                     .addComponent(jLabel22)
                     .addComponent(jLabel23)
                     .addComponent(jLabel24)
-                    .addComponent(jLabel25))
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel26))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(datosDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fechaDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cantidadDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(motivoDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreEm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRUCDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFechaDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCantDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtProductoDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbTipoDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AñadirDev, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EditarDev)
                     .addComponent(EliminarDev)
                     .addComponent(IdDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(777, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
-        nombreDevoluciones.getAccessibleContext().setAccessibleDescription("");
-        motivoDevoluciones.getAccessibleContext().setAccessibleName("");
+        txtNombreEm.getAccessibleContext().setAccessibleDescription("");
+        txtProductoDev.getAccessibleContext().setAccessibleName("");
 
         jTabbedPane.addTab("Devoluciones", jPanel10);
 
@@ -1600,7 +1636,7 @@ import modelo.Usuario;
 
         jLabel14.setText("Lugar");
 
-        jLabel15.setText("Fecha de Inicio");
+        jLabel15.setText("Fecha de Servicio");
 
         jLabel16.setText("Trabajador");
 
@@ -1638,7 +1674,7 @@ import modelo.Usuario;
 
             },
             new String [] {
-                "ID", "Lugar", "Tipo de Servicio", "Trabajador" , "Fecha de Inicio"
+                "ID", "Lugar", "Tipo de Servicio", "Trabajador" , "Fecha", "Número Boleta", "RUC", "Material"
             }));
             TablaServicios.setShowGrid(false);
             TablaServicios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1647,6 +1683,14 @@ import modelo.Usuario;
                 }
             });
             jScrollPane9.setViewportView(TablaServicios);
+
+            cbTipoServ.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+            jLabel27.setText("RUC");
+
+            jLabel28.setText("Material");
+
+            jLabel29.setText("Número de Boleta");
 
             javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
             jPanel9.setLayout(jPanel9Layout);
@@ -1661,16 +1705,23 @@ import modelo.Usuario;
                                 .addComponent(txtlugarservicio, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(18, 18, 18)
                             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txttipo_servicio, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel21))
+                                .addComponent(jLabel21)
+                                .addComponent(cbTipoServ, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(18, 18, 18)
                             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txttrabajadorservicio, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel16))
+                                .addComponent(jLabel16)
+                                .addComponent(txttrabajadorservicio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(18, 18, 18)
                             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel15)
-                                .addComponent(txtfecha_inicioservicio, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtFechaServ, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel9Layout.createSequentialGroup()
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(28, 28, 28)
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(48, 48, 48)
+                                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel29)))))
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
                                 .addComponent(btnañadirservicio)
@@ -1681,7 +1732,7 @@ import modelo.Usuario;
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtidservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(0, 42, Short.MAX_VALUE))
+                    .addGap(0, 29, Short.MAX_VALUE))
             );
             jPanel9Layout.setVerticalGroup(
                 jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1692,26 +1743,29 @@ import modelo.Usuario;
                             .addComponent(jLabel14))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                             .addContainerGap()
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jLabel15)))))
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel21)
+                                .addComponent(jLabel15)
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel27)
+                                .addComponent(jLabel28))))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtlugarservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txttipo_servicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txttrabajadorservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtfecha_inicioservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(33, 33, 33)
+                        .addComponent(txtFechaServ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbTipoServ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(4, 4, 4)
+                    .addComponent(jLabel29)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(62, 62, 62)
+                    .addGap(26, 26, 26)
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnañadirservicio)
                         .addComponent(btneditarservicio)
                         .addComponent(btneliminarservicio)
                         .addComponent(txtidservicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(477, 477, 477))
+                    .addGap(513, 513, 513))
             );
 
             txttrabajadorservicio.getAccessibleContext().setAccessibleName("");
@@ -1722,13 +1776,14 @@ import modelo.Usuario;
             PanelServicios.setLayout(PanelServiciosLayout);
             PanelServiciosLayout.setHorizontalGroup(
                 PanelServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelServiciosLayout.createSequentialGroup()
-                    .addGap(0, 0, 0)
-                    .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 851, Short.MAX_VALUE))
+                .addComponent(jTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 851, Short.MAX_VALUE)
             );
             PanelServiciosLayout.setVerticalGroup(
                 PanelServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelServiciosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 878, Short.MAX_VALUE)
+                    .addContainerGap())
             );
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1737,18 +1792,15 @@ import modelo.Usuario;
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(PanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGap(6, 6, 6)
                     .addComponent(PanelServicios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
             layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(PanelServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 824, Short.MAX_VALUE))
-                        .addComponent(PanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 852, Short.MAX_VALUE))
-                    .addGap(0, 0, 0))
+                    .addGap(3, 3, 3)
+                    .addComponent(PanelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 887, Short.MAX_VALUE))
+                .addComponent(PanelServicios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             );
 
             pack();
@@ -2016,14 +2068,14 @@ import modelo.Usuario;
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
         ListarProveedores();
-        jTabbedPane.setSelectedIndex(5); // Cambia a la pestaña "Proveedores"
+        jTabbedPane.setSelectedIndex(6); // Cambia a la pestaña "Proveedores"
         btnProveedores.setFocusable(false);
     }//GEN-LAST:event_btnProveedoresActionPerformed
 
     private void btnServCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServCanActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
         ListarServiciocancelado();
-        jTabbedPane.setSelectedIndex(6); // Cambia a la pestaña "Serviciocancelado"
+        jTabbedPane.setSelectedIndex(5); // Cambia a la pestaña "Serviciocancelado"
         btnServCan.setFocusable(false);
     }//GEN-LAST:event_btnServCanActionPerformed
     //Métodos para el módulo de Fabricación
@@ -2035,15 +2087,7 @@ import modelo.Usuario;
     }//GEN-LAST:event_btnFabricacionActionPerformed
 
     private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenActionPerformed
-        JFileChooser buscar = new JFileChooser();
-        FileNameExtensionFilter formato = new FileNameExtensionFilter("PNG","JPEG","JPG","GIF","png","jpeg", "jpg", "gif");
-        buscar.setFileFilter(formato);
-        if (buscar.showOpenDialog(this) ==  JFileChooser.APPROVE_OPTION) {
-            ruta = buscar.getSelectedFile().getAbsolutePath();
-            Image mImage = new ImageIcon(ruta).getImage();
-            ImageIcon mIcon = new ImageIcon(mImage.getScaledInstance(labelImagen.getWidth(),labelImagen.getHeight(),0));
-            labelImagen.setIcon(mIcon);
-        }
+        
     }//GEN-LAST:event_btnImagenActionPerformed
 
     private void txtNombreCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreCActionPerformed
@@ -2063,12 +2107,12 @@ import modelo.Usuario;
     }//GEN-LAST:event_NumFabActionPerformed
 
     private void TablaServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaServiciosMouseClicked
-//Llamar los valores de la Tabla a los jFields
+        //Llamar los valores de la Tabla a los jFields
         int fila = TablaServicios.rowAtPoint(evt.getPoint());
         txtidservicio.setText(TablaServicios.getValueAt(fila,0).toString());
         txtlugarservicio.setText(TablaServicios.getValueAt(fila, 1).toString());
-        txttipo_servicio.setText(TablaServicios.getValueAt(fila, 2).toString());
-        txtfecha_inicioservicio.setText(TablaServicios.getValueAt(fila, 3).toString());
+        cbTipoServ.setSelectedItem(TablaServicios.getValueAt(fila, 2).toString());
+        txtFechaServ.setText(TablaServicios.getValueAt(fila, 3).toString());
         txttrabajadorservicio.setText(TablaServicios.getValueAt(fila, 4).toString());
     }//GEN-LAST:event_TablaServiciosMouseClicked
 
@@ -2090,11 +2134,11 @@ import modelo.Usuario;
     }//GEN-LAST:event_btneliminarservicioActionPerformed
 
     private void btnañadirservicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnañadirservicioActionPerformed
-        if(!"".equals(txtlugarservicio.getText()) || !"".equals(txttipo_servicio.getText()) || !"".equals(txttrabajadorservicio.getText()) || !"".equals(txtfecha_inicioservicio.getText())){
+        if(!"".equals(txtlugarservicio.getText()) || !"".equals(cbTipoServ.getSelectedItem()) || !"".equals(txttrabajadorservicio.getText()) || !"".equals(txtFechaServ.getText())){
             servicios.setLugar(txtlugarservicio.getText());
-            servicios.setTipoServicio(txttipo_servicio.getText());
+            servicios.setTipoServicio((String)cbTipoServ.getSelectedItem());
             servicios.setTrabajador(txttrabajadorservicio.getText());
-            servicios.setFechaInicio(txtfecha_inicioservicio.getText());
+            servicios.setFechaInicio(txtFechaServ.getText());
             serviciosD.agregarServicio(servicios);
             LimpiarTabla();
             LimpiarFieldservicios();
@@ -2106,12 +2150,13 @@ import modelo.Usuario;
     }//GEN-LAST:event_btnañadirservicioActionPerformed
 
     private void AñadirDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirDevActionPerformed
-         if(!"".equals(nombreDevoluciones.getText()) || !"".equals(datosDevoluciones.getText()) || !"".equals(fechaDevoluciones.getText()) || !"".equals(cantidadDevoluciones.getText()) || !"".equals(motivoDevoluciones.getText())){
-            dev.setNombre(nombreDevoluciones.getText());
-            dev.setDatos(datosDevoluciones.getText());
-            dev.setFecha(fechaDevoluciones.getText());
-            dev.setCantidad(cantidadDevoluciones.getText());
-            dev.setMotivo(motivoDevoluciones.getText());
+         if(!"".equals(txtNombreEm.getText()) || !"".equals(txtRUCDev.getText()) || !"".equals(txtFechaDev.getText()) || !"".equals(txtCantDev.getText()) || !"".equals(txtProductoDev.getText()) || !"".equals(cbTipoDev.getSelectedItem())){
+            dev.setNombre(txtNombreEm.getText());
+            dev.setDatos(txtRUCDev.getText());
+            dev.setFecha(txtFechaDev.getText());
+            dev.setCantidad(txtCantDev.getText());
+            dev.setProducto(txtProductoDev.getText());
+            dev.setTip_cantidad((String)cbTipoDev.getSelectedItem());
             devD.agregarDevolucion(dev);
             LimpiarTabla();
             LimpiarFielddev();
@@ -2126,13 +2171,13 @@ import modelo.Usuario;
         if("".equals(IdDevoluciones.getText())){
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
-            if (!"".equals(nombreDevoluciones.getText())|| !"".equals(datosDevoluciones.getText()) || !"".equals(fechaDevoluciones.getText()) || !"".equals(cantidadDevoluciones.getText()) || !"".equals(motivoDevoluciones.getText())){
-                dev.setNombre(nombreDevoluciones.getText());
-                dev.setDatos(datosDevoluciones.getText());
-                dev.setFecha(fechaDevoluciones.getText());
-                dev.setCantidad(cantidadDevoluciones.getText());
-                dev.setMotivo(motivoDevoluciones.getText());
-                
+            if (!"".equals(txtNombreEm.getText())|| !"".equals(txtRUCDev.getText()) || !"".equals(txtFechaDev.getText()) || !"".equals(txtCantDev.getText()) || !"".equals(txtProductoDev.getText()) || !"".equals(cbTipoDev.getSelectedItem())){
+                dev.setNombre(txtNombreEm.getText());
+                dev.setDatos(txtRUCDev.getText());
+                dev.setFecha(txtFechaDev.getText());
+                dev.setCantidad(txtCantDev.getText());
+                dev.setProducto(txtProductoDev.getText());
+                dev.setTip_cantidad((String)cbTipoDev.getSelectedItem());
                 devD.editarDevolucion(dev);
                 LimpiarTabla();
                 LimpiarFielddev();
@@ -2239,11 +2284,11 @@ import modelo.Usuario;
         if("".equals(txtidservicio.getText())){
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
-            if (!"".equals(txtlugarservicio.getText())|| !"".equals(txttipo_servicio.getText()) || !"".equals(txttrabajadorservicio.getText()) || !"".equals(txtfecha_inicioservicio.getText())){
+            if (!"".equals(txtlugarservicio.getText())|| !"".equals(cbTipoServ.getSelectedItem()) || !"".equals(txttrabajadorservicio.getText()) || !"".equals(txtFechaServ.getText())){
                 servicios.setLugar(txtlugarservicio.getText());
-                servicios.setTipoServicio(txttipo_servicio.getText());
+                servicios.setTipoServicio((String)cbTipoServ.getSelectedItem());
                 servicios.setTrabajador(txttrabajadorservicio.getText());
-                servicios.setFechaInicio(txtfecha_inicioservicio.getText());
+                servicios.setFechaInicio(txtFechaServ.getText());
                 servicios.setIdServicio(Integer.parseInt(txtidservicio.getText()));
                 serviciosD.editarServicio(servicios);
                 LimpiarTabla();
@@ -2334,11 +2379,11 @@ import modelo.Usuario;
     private void TablaDevolucionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaDevolucionesMouseClicked
         int fila = TablaDevoluciones.rowAtPoint(evt.getPoint());
         IdDevoluciones.setText(TablaDevoluciones.getValueAt(fila,0).toString());
-        nombreDevoluciones.setText(TablaDevoluciones.getValueAt(fila, 1).toString());
-        datosDevoluciones.setText(TablaDevoluciones.getValueAt(fila, 2).toString());
-        fechaDevoluciones.setText(TablaDevoluciones.getValueAt(fila, 3).toString());
-        cantidadDevoluciones.setText(TablaDevoluciones.getValueAt(fila, 4).toString());
-        motivoDevoluciones.setText(TablaDevoluciones.getValueAt(fila,5).toString());
+        txtNombreEm.setText(TablaDevoluciones.getValueAt(fila, 1).toString());
+        txtRUCDev.setText(TablaDevoluciones.getValueAt(fila, 2).toString());
+        txtFechaDev.setText(TablaDevoluciones.getValueAt(fila, 3).toString());
+        txtCantDev.setText(TablaDevoluciones.getValueAt(fila, 4).toString());
+        txtProductoDev.setText(TablaDevoluciones.getValueAt(fila,5).toString());
     }//GEN-LAST:event_TablaDevolucionesMouseClicked
 
     private void TablaFbrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaFbrMouseClicked
@@ -2349,8 +2394,22 @@ import modelo.Usuario;
     }//GEN-LAST:event_TablaFbrMouseClicked
 
     private void EditarFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarFabActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_EditarFabActionPerformed
+
+    private void btnDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolucionesActionPerformed
+        LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
+        ListarDevolucion(); //Llama al método Listar Clientes para mostrarlo en la tabla Almacen
+        jTabbedPane.setSelectedIndex(8); // Cambia a la pestaña "Trabajadores" (index 3)
+        btnTrabajadores.setFocusable(false);
+    }//GEN-LAST:event_btnDevolucionesActionPerformed
+
+    private void btnServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServiciosActionPerformed
+        LimpiarTabla();
+        ListarServicios();
+        jTabbedPane.setSelectedIndex(9);
+        btnServicios.setFocusable(false);
+    }//GEN-LAST:event_btnServiciosActionPerformed
 
    
     public static void main(String args[]) {
@@ -2416,11 +2475,10 @@ import modelo.Usuario;
     private javax.swing.JButton btneliminarp;
     private javax.swing.JButton btneliminarserv;
     private javax.swing.JButton btneliminarservicio;
-    private javax.swing.JTextField cantidadDevoluciones;
     private javax.swing.JComboBox<String> cbCargoT;
+    private javax.swing.JComboBox<String> cbTipoDev;
+    private javax.swing.JComboBox<String> cbTipoServ;
     private javax.swing.JComboBox<String> cdCargou;
-    private javax.swing.JTextField datosDevoluciones;
-    private javax.swing.JTextField fechaDevoluciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2439,6 +2497,10 @@ import modelo.Usuario;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2484,28 +2546,31 @@ import modelo.Usuario;
     private javax.swing.JLabel labelRucC;
     private javax.swing.JLabel labelTelefonoT;
     private javax.swing.JLabel labelUTI;
-    private javax.swing.JTextField motivoDevoluciones;
-    private javax.swing.JTextField nombreDevoluciones;
     private javax.swing.JTextField txtApellidoT;
+    private javax.swing.JTextField txtCantDev;
     private javax.swing.JTextField txtCantidadAlm;
     private javax.swing.JTextField txtCorreoT;
     private javax.swing.JTextField txtDireccionC;
     private javax.swing.JTextField txtDniT;
+    private javax.swing.JTextField txtFechaDev;
+    private javax.swing.JTextField txtFechaServ;
     private javax.swing.JTextField txtIdAlm;
     private javax.swing.JTextField txtIdCl;
     private javax.swing.JTextField txtIdTrb;
     private javax.swing.JTextField txtIduser;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtNombreC;
+    private javax.swing.JTextField txtNombreEm;
     private javax.swing.JTextField txtNombreT;
     private javax.swing.JTextField txtPrecioAlm;
     private javax.swing.JTextField txtProducto;
+    private javax.swing.JTextField txtProductoDev;
+    private javax.swing.JTextField txtRUCDev;
     private javax.swing.JTextField txtRucC;
     private javax.swing.JTextField txtTelefonoT;
     private javax.swing.JTextField txtUsuarioU;
     private javax.swing.JTextField txtcontraseñau;
     private javax.swing.JTextField txtempresap;
-    private javax.swing.JTextField txtfecha_inicioservicio;
     private javax.swing.JTextField txtfechacancelacion;
     private javax.swing.JTextField txtfechap;
     private javax.swing.JTextField txtid_serviciocancelado;
@@ -2516,7 +2581,6 @@ import modelo.Usuario;
     private javax.swing.JTextField txtproductop;
     private javax.swing.JTextField txtrucp;
     private javax.swing.JTextField txtrucs;
-    private javax.swing.JTextField txttipo_servicio;
     private javax.swing.JTextField txttiposervicio;
     private javax.swing.JTextField txttrabajadors;
     private javax.swing.JTextField txttrabajadorservicio;
@@ -2568,9 +2632,8 @@ import modelo.Usuario;
    private void LimpiarFieldservicios(){
         txtidservicio.setText("");
         txtlugarservicio.setText("");
-        txttipo_servicio.setText("");
         txttrabajadorservicio.setText("");
-        txtfecha_inicioservicio.setText("");
+        txtFechaServ.setText("");
     }
    
    private void LimpiarFieldfbr(){
@@ -2580,11 +2643,11 @@ import modelo.Usuario;
    
    private void LimpiarFielddev(){
         IdDevoluciones.setText("");
-        nombreDevoluciones.setText("");
-        datosDevoluciones.setText("");
-        fechaDevoluciones.setText("");
-        cantidadDevoluciones.setText("");
-        motivoDevoluciones.setText("");
+        txtNombreEm.setText("");
+        txtRUCDev.setText("");
+        txtFechaDev.setText("");
+        txtCantDev.setText("");
+        txtProductoDev.setText("");
     }
 }
 
