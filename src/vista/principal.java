@@ -245,6 +245,7 @@ import modelo.Usuario;
         PanelServicios = new javax.swing.JPanel();
         jTabbedPane = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         labelProducto = new javax.swing.JLabel();
         labelMarca = new javax.swing.JLabel();
@@ -592,15 +593,23 @@ import modelo.Usuario;
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel36.setText("Cliente:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 851, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jLabel36)
+                .addContainerGap(750, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 852, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel36)
+                .addContainerGap(808, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Venta", jPanel1);
@@ -843,9 +852,9 @@ import modelo.Usuario;
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(txtRucC, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)
-                                .addComponent(btnAñadirCl, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                                .addComponent(btnAñadirCl, javax.swing.GroupLayout.PREFERRED_SIZE, 58, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEditarCl, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                                .addComponent(btnEditarCl, javax.swing.GroupLayout.PREFERRED_SIZE, 55, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnEliminarCl, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                                 .addGap(22, 22, 22))
@@ -1801,7 +1810,6 @@ import modelo.Usuario;
                 "ID", "Lugar", "Tipo de Servicio", "Fecha" , "Trabajador", "RUC", "Número Boleta", "Material"
             }));
             TablaServicios.setEnabled(false);
-            TablaServicios.setShowGrid(false);
             TablaServicios.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     TablaServiciosMouseClicked(evt);
@@ -1893,12 +1901,12 @@ import modelo.Usuario;
                         .addGroup(jPanel9Layout.createSequentialGroup()
                             .addComponent(jLabel28)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnañadirservicio)
                                     .addComponent(btneditarservicio)
-                                    .addComponent(btneliminarservicio)))))
+                                    .addComponent(btneliminarservicio))
+                                .addComponent(txtMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGap(27, 27, 27)
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(26, 26, 26)
@@ -2724,6 +2732,7 @@ import modelo.Usuario;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
