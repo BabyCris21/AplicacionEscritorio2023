@@ -31,14 +31,16 @@ public class ServiciosDAO {
     }
 
     public boolean agregarServicio(Servicios servicio) {
-        String sql = "INSERT INTO servicios (lugar, tipo_servicio, fecha_inicio, trabajador) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO tb_servicios (lugar, tipo_servicio, fecha_servicio, trabajador_servicios, ruc_servicio, numero_boleta, material) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, servicio.getLugar());
             ps.setString(2, servicio.getTipoServicio());
             ps.setString(3, servicio.getFechaInicio());
             ps.setString(4, servicio.getTrabajador());
-
+            ps.setString(5,servicio.getRucSer());
+            ps.setString(6,servicio.getNuBole());
+            ps.setString(7,servicio.getMaterial());
             int filasAfectadas = ps.executeUpdate();
 
             if (filasAfectadas > 0) {
@@ -61,18 +63,22 @@ public class ServiciosDAO {
 
     public List<Servicios> listarServicios() {
         List<Servicios> listaServicios = new ArrayList<>();
-        String sql = "SELECT * FROM servicios";
+        String sql = "SELECT * FROM tb_servicios";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 Servicios servicio = new Servicios();
-                servicio.setIdServicio(rs.getLong("id_servicio"));
+                servicio.setIdServicio(rs.getLong("id_servicios"));
                 servicio.setLugar(rs.getString("lugar"));
                 servicio.setTipoServicio(rs.getString("tipo_servicio"));
-                servicio.setFechaInicio(rs.getString("fecha_inicio"));
-                servicio.setTrabajador(rs.getString("trabajador"));
+                servicio.setFechaInicio(rs.getString("fecha_servicio"));
+                servicio.setTrabajador(rs.getString("trabajador_servicios"));
+                servicio.setRucSer(rs.getString("ruc_servicio"));
+                servicio.setNuBole(rs.getString("numero_boleta"));
+                servicio.setMaterial(rs.getString("material"));
+             
                 listaServicios.add(servicio);
             }
         } catch (SQLException e) {
@@ -84,7 +90,7 @@ public class ServiciosDAO {
     }
 
     public boolean eliminarServicio(long id) {
-        String sql = "DELETE FROM servicios WHERE id_servicio = ?";
+        String sql = "DELETE FROM tb_servicios WHERE id_servicios = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setLong(1, id);
@@ -98,22 +104,34 @@ public class ServiciosDAO {
         }
     }
 
-    public boolean editarServicio(Servicios servicio) {
-        String sql = "UPDATE servicios SET lugar=?, tipo_servicio=?, fecha_inicio=?, trabajador=? WHERE id_servicio=?";
+  
+    
+    public boolean EditarServicio(Servicios servicios){
+        String sql = "UPDATE tb_servicios SET lugar=?, tipo_servicio=?, fecha_servicio=?, trabajador_servicios=?, ruc_servicio=?, numero_boleta=?, material=? WHERE id_servicios=?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, servicio.getLugar());
-            ps.setString(2, servicio.getTipoServicio());
-            ps.setString(3, servicio.getFechaInicio());
-            ps.setString(4, servicio.getTrabajador());
-            ps.setLong(5, servicio.getIdServicio());
+            ps.setString(1,servicios.getLugar());
+            ps.setString(2,servicios.getTipoServicio());
+            ps.setString(3,servicios.getFechaInicio());
+            ps.setString(4,servicios.getTrabajador());
+            ps.setString(5,servicios.getRucSer());
+            ps.setString(6,servicios.getNuBole());
+            ps.setString(7,servicios.getMaterial());
+            ps.setLong(8,servicios.getIdServicio());
             ps.execute();
             return true;
         } catch (SQLException e) {
             System.out.println(e.toString());
             return false;
         } finally {
-            cerrarRecursos();
+            try {
+                if (ps != null) {
+                ps.close();
+                }
+            } catch (SQLException e){
+                System.out.println(e.toString());
+            }
         }
+        
     }
 }
