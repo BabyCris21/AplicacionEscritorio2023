@@ -19,6 +19,10 @@ import controlador.UsuarioDAO;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashSet;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -27,6 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableRowSorter;
+import modelo.Conexion;
 import modelo.Devolucion;
 import modelo.Fabricacion;
 import modelo.Proveedores;
@@ -55,6 +60,7 @@ import modelo.Usuario;
     DevolucionDAO devD = new DevolucionDAO();
     Servicios servicios = new Servicios();
     ServiciosDAO serviciosD = new ServiciosDAO();
+    Conexion cn = new Conexion();
     TableRowSorter trs;
    
     public principal() {
@@ -404,33 +410,6 @@ import modelo.Usuario;
         txtMaterial = new javax.swing.JTextField();
         txtNuBol = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        comboboxcliente = new javax.swing.JComboBox<>();
-        comboboxproducto = new javax.swing.JComboBox<>();
-        txtcantidad = new javax.swing.JTextField();
-        txtclienteventa = new javax.swing.JTextField();
-        btnañadirproducto = new javax.swing.JButton();
-        btnbuscarcliente = new javax.swing.JButton();
-        jPanel11 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tablaventas = new javax.swing.JTable();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        btncambio = new javax.swing.JButton();
-        txtsubtotal = new javax.swing.JTextField();
-        txtdescuento = new javax.swing.JTextField();
-        txttotalapagar = new javax.swing.JTextField();
-        txtiva = new javax.swing.JTextField();
-        txtefectivo = new javax.swing.JTextField();
-        txtcambio = new javax.swing.JTextField();
-        btnregistrarventa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -896,7 +875,7 @@ import modelo.Usuario;
                 .addComponent(txtBusCl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(241, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Clientes", jPanel3);
@@ -1629,7 +1608,7 @@ import modelo.Usuario;
                     .addComponent(AñadirFab)
                     .addComponent(EditarFab)
                     .addComponent(EliminarFab))
-                .addContainerGap(191, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Fabricación", jPanel8);
@@ -1760,7 +1739,7 @@ import modelo.Usuario;
                     .addComponent(EditarDev)
                     .addComponent(EliminarDev)
                     .addComponent(IdDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(232, Short.MAX_VALUE))
         );
 
         txtNombreEm.getAccessibleContext().setAccessibleDescription("");
@@ -1923,244 +1902,15 @@ import modelo.Usuario;
 
             jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-            jLabel36.setText("Cliente:");
-
-            jLabel37.setText("Producto:");
-
-            jLabel38.setText("Cantidad:");
-
-            comboboxcliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Cliente:", "Item 2", "Item 3", "Item 4" }));
-
-            comboboxproducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Producto:", "Item 2", "Item 3", "Item 4" }));
-
-            txtcantidad.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    txtcantidadActionPerformed(evt);
-                }
-            });
-
-            btnañadirproducto.setText("Añadir Producto");
-            btnañadirproducto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-            btnbuscarcliente.setText("Buscar");
-            btnbuscarcliente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-            btnbuscarcliente.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnbuscarclienteActionPerformed(evt);
-                }
-            });
-
-            jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-            tablaventas.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-                },
-                new String [] {
-                    "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-            ));
-            jScrollPane5.setViewportView(tablaventas);
-
-            javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-            jPanel11.setLayout(jPanel11Layout);
-            jPanel11Layout.setHorizontalGroup(
-                jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel11Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane5)
-                    .addContainerGap())
-            );
-            jPanel11Layout.setVerticalGroup(
-                jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel11Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                    .addContainerGap())
-            );
-
-            jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-            jLabel39.setText("SUBTOTAL:");
-
-            jLabel40.setText("DESCUENTO:");
-
-            jLabel41.setText("IVA:");
-
-            jLabel42.setText("TOTAL A PAGAR:");
-
-            jLabel43.setText("EFECTIVO:");
-
-            jLabel44.setText("CAMBIO:");
-
-            btncambio.setBackground(new java.awt.Color(23, 107, 135));
-            btncambio.setForeground(new java.awt.Color(255, 255, 255));
-            btncambio.setText("GENERAR CAMBIO");
-            btncambio.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btncambioActionPerformed(evt);
-                }
-            });
-
-            txtsubtotal.setEnabled(false);
-
-            txtdescuento.setEnabled(false);
-
-            txttotalapagar.setEnabled(false);
-
-            txtiva.setEnabled(false);
-
-            txtcambio.setEnabled(false);
-
-            javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-            jPanel12.setLayout(jPanel12Layout);
-            jPanel12Layout.setHorizontalGroup(
-                jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                            .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtsubtotal))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                            .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtdescuento))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                            .addComponent(jLabel42)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txttotalapagar))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                            .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtiva))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                                    .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtcambio))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                                    .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtefectivo)))
-                            .addGap(12, 12, 12)))
-                    .addGap(99, 99, 99))
-                .addGroup(jPanel12Layout.createSequentialGroup()
-                    .addGap(166, 166, 166)
-                    .addComponent(btncambio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            );
-            jPanel12Layout.setVerticalGroup(
-                jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel12Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel39)
-                        .addComponent(txtsubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel40)
-                        .addComponent(txtdescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel41)
-                        .addComponent(txtiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel42)
-                        .addComponent(txttotalapagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(23, 23, 23)
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel43)
-                        .addComponent(txtefectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel44)
-                        .addComponent(txtcambio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btncambio, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addGap(12, 12, 12))
-            );
-
-            btnregistrarventa.setBackground(new java.awt.Color(23, 107, 135));
-            btnregistrarventa.setForeground(new java.awt.Color(255, 255, 255));
-            btnregistrarventa.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Downloads\\icons8-print-address-label-80.png")); // NOI18N
-            btnregistrarventa.setText("REGISTRAR VENTA");
-            btnregistrarventa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-            btnregistrarventa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-            btnregistrarventa.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnregistrarventaActionPerformed(evt);
-                }
-            });
-
             javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
             jPanel1.setLayout(jPanel1Layout);
             jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(57, 57, 57)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnregistrarventa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                                .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(comboboxcliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboboxproducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(txtcantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                                    .addGap(207, 207, 207)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(txtclienteventa)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnbuscarcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(btnañadirproducto, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                                    .addGap(225, 225, 225))))
-                        .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGap(83, 83, 83))
+                .addGap(0, 849, Short.MAX_VALUE)
             );
             jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel36)
-                        .addComponent(comboboxcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtclienteventa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnbuscarcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel37)
-                        .addComponent(comboboxproducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnañadirproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel38)
-                        .addComponent(txtcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(60, 60, 60)
-                            .addComponent(btnregistrarventa, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(160, Short.MAX_VALUE))
+                .addGap(0, 864, Short.MAX_VALUE)
             );
 
             jTabbedPane.addTab("Venta", jPanel1);
@@ -2169,14 +1919,14 @@ import modelo.Usuario;
             PanelServicios.setLayout(PanelServiciosLayout);
             PanelServiciosLayout.setHorizontalGroup(
                 PanelServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 851, Short.MAX_VALUE)
+                .addGroup(PanelServiciosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 851, Short.MAX_VALUE)
+                    .addContainerGap())
             );
             PanelServiciosLayout.setVerticalGroup(
                 PanelServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelServiciosLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 878, Short.MAX_VALUE)
-                    .addContainerGap())
+                .addComponent(jTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 890, Short.MAX_VALUE)
             );
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -2206,63 +1956,6 @@ import modelo.Usuario;
         btnAlmacen.setFocusable(false); 
     }//GEN-LAST:event_btnAlmacenActionPerformed
 
-    private void btnEliminarAlmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAlmActionPerformed
-        if(!"".equals(txtIdAlm.getText())){
-            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar el producto?");
-            if (confirmacion == 0){
-                int id = Integer.parseInt(txtIdAlm.getText());
-                almD.EliminarAlmacen(id);
-                LimpiarTabla();
-                LimpiarFieldAlm();
-                ListarAlmacen();
-            }
-        }
-    }//GEN-LAST:event_btnEliminarAlmActionPerformed
-
-    private void btnEditarAlmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlmActionPerformed
-        if("".equals(txtIdAlm.getText())){
-            JOptionPane.showMessageDialog(null, "Seleccione una fila");
-        } else {
-            if (!"".equals(txtProducto.getText())|| !"".equals(txtMarca.getText()) || !"".equals(txtPrecioAlm.getText()) || !"".equals(txtCantidadAlm.getText())){
-                alm.setProducto(txtProducto.getText());
-                alm.setMarca(txtMarca.getText());
-                alm.setPrecio(Double.parseDouble(txtPrecioAlm.getText()));
-                alm.setCantidad(Integer.parseInt(txtCantidadAlm.getText()));
-                alm.setId_producto(Integer.parseInt(txtIdAlm.getText()));
-                almD.EditarAlmacen(alm);
-                LimpiarTabla();
-                LimpiarFieldAlm();
-                ListarAlmacen();
-            }
-        }
-    }//GEN-LAST:event_btnEditarAlmActionPerformed
-
-    private void btnAñadirAlmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirAlmActionPerformed
-        if(!"".equals(txtProducto.getText()) || !"".equals(txtMarca.getText()) || !"".equals(txtPrecioAlm.getText()) || !"".equals(txtCantidadAlm.getText())){
-            alm.setProducto(txtProducto.getText());
-            alm.setMarca(txtMarca.getText());
-            alm.setPrecio(Double.parseDouble(txtPrecioAlm.getText()));
-            alm.setCantidad(Integer.parseInt(txtCantidadAlm.getText()));
-            almD.AgregarAlmacen(alm);
-            LimpiarTabla();
-            LimpiarFieldAlm();
-            ListarAlmacen();
-            JOptionPane.showMessageDialog(null, "Producto registrado");
-        } else {
-            JOptionPane.showMessageDialog(null, "Los campos está vacios");
-        }
-    }//GEN-LAST:event_btnAñadirAlmActionPerformed
-
-    private void TableAlmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableAlmMouseClicked
-        //Llamar los valores de la Tabla a los jFields
-        int fila = TableAlm.rowAtPoint(evt.getPoint());
-        txtIdAlm.setText(TableAlm.getValueAt(fila,0).toString());
-        txtProducto.setText(TableAlm.getValueAt(fila, 1).toString());
-        txtMarca.setText(TableAlm.getValueAt(fila, 2).toString());
-        txtPrecioAlm.setText(TableAlm.getValueAt(fila, 3).toString());
-        txtCantidadAlm.setText(TableAlm.getValueAt(fila,4).toString());
-    }//GEN-LAST:event_TableAlmMouseClicked
-
     //Métodos para el módulo Clientes
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
@@ -2270,60 +1963,6 @@ import modelo.Usuario;
         jTabbedPane.setSelectedIndex(2); // Cambia a la pestaña "Cliente" (index 2)
         btnAlmacen.setFocusable(false); 
     }//GEN-LAST:event_btnClientesActionPerformed
-
-    private void btnEliminarClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClActionPerformed
-        if(!"".equals(txtIdCl.getText())){
-            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar al cliente?");
-            if (confirmacion == 0){
-                int id = Integer.parseInt(txtIdCl.getText());
-                clD.EliminarCliente(id);
-                LimpiarTabla();
-                LimpiarFieldCl();
-                ListarCliente();
-            }
-        }
-    }//GEN-LAST:event_btnEliminarClActionPerformed
-
-    private void btnEditarClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClActionPerformed
-        if("".equals(txtIdCl.getText())){
-            JOptionPane.showMessageDialog(null, "Seleccione una fila para poder editar los datos");
-        } else {
-            if (!"".equals(txtNombreC.getText())|| !"".equals(txtDireccionC.getText()) || !"".equals(txtRucC.getText())){
-                cl.setNombreC(txtNombreC.getText());
-                cl.setDireccionC(txtDireccionC.getText());
-                cl.setRuc(txtRucC.getText());
-                cl.setId_cliente(Integer.parseInt(txtIdCl.getText()));
-                clD.EditarCliente(cl);
-                LimpiarTabla();
-                LimpiarFieldCl();
-                ListarCliente();
-            }
-        }
-    }//GEN-LAST:event_btnEditarClActionPerformed
-
-    private void btnAñadirClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirClActionPerformed
-        if(!"".equals(txtNombreC.getText()) || !"".equals(txtDireccionC.getText()) || !"".equals(txtRucC.getText())){
-            cl.setNombreC(txtNombreC.getText());
-            cl.setDireccionC(txtDireccionC.getText());
-            cl.setRuc(txtRucC.getText());
-            clD.AgregarCliente(cl);
-            LimpiarTabla();
-            LimpiarFieldCl();
-            ListarCliente();
-            JOptionPane.showMessageDialog(null, "Cliente registrado con éxito");
-        } else {
-            JOptionPane.showMessageDialog(null, "Los campos está vacios");
-        }
-    }//GEN-LAST:event_btnAñadirClActionPerformed
-
-    private void TableClMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableClMouseClicked
-        //Llamar los valores de la Tabla a los jFields de la Tabla de Clientes
-        int fila = TableCl.rowAtPoint(evt.getPoint());
-        txtIdCl.setText(TableCl.getValueAt(fila,0).toString());
-        txtNombreC.setText(TableCl.getValueAt(fila, 1).toString());
-        txtDireccionC.setText(TableCl.getValueAt(fila, 2).toString());
-        txtRucC.setText(TableCl.getValueAt(fila, 3).toString());
-    }//GEN-LAST:event_TableClMouseClicked
 
     //Método para el módulo Trabajadores
     private void btnTrabajadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrabajadoresActionPerformed
@@ -2333,69 +1972,6 @@ import modelo.Usuario;
         btnTrabajadores.setFocusable(false); 
     }//GEN-LAST:event_btnTrabajadoresActionPerformed
 
-     private void btnEliminarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTActionPerformed
-        if(!"".equals(txtIdTrb.getText())){
-            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar al trabajador?");
-            if (confirmacion == 0){
-                int id = Integer.parseInt(txtIdTrb.getText());
-                trbD.EliminarTrabajador(id);
-                LimpiarTabla();
-                LimpiarFieldTrb();
-                ListarTrabajador();
-            }
-        }
-    }//GEN-LAST:event_btnEliminarTActionPerformed
-
-    private void btnEditarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarTActionPerformed
-        if("".equals(txtIdTrb.getText())){
-            JOptionPane.showMessageDialog(null, "Seleccione una fila para poder editar los datos");
-        } else {
-            if (!"".equals(txtNombreT.getText()) || !"".equals(txtApellidoT.getText()) || !"".equals(txtDniT.getText()) || !"".equals(txtTelefonoT.getText()) || !"".equals(txtCorreoT.getText())){
-                trb.setNombreT(txtNombreT.getText());
-                trb.setApellidoT(txtApellidoT.getText());
-                trb.setDniT(txtDniT.getText());
-                trb.setCelularT(txtTelefonoT.getText());
-                trb.setCorreoT(txtCorreoT.getText());
-                trb.setCargoT((String) cbCargoT.getSelectedItem());
-                trb.setId_trabajador(Integer.parseInt(txtIdTrb.getText()));
-                trbD.EditarTrabajador(trb);
-                LimpiarTabla();
-                LimpiarFieldTrb();
-                ListarTrabajador();
-            }
-        }
-    }//GEN-LAST:event_btnEditarTActionPerformed
-
-    private void btnAgregarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTActionPerformed
-        if (!"".equals(txtNombreT.getText()) || !"".equals(txtApellidoT.getText()) || !"".equals(txtDniT.getText()) || !"".equals(txtTelefonoT.getText()) || !"".equals(txtCorreoT.getText()) || !"".equals(cbCargoT.getSelectedIndex())){
-            trb.setNombreT(txtNombreT.getText());
-            trb.setApellidoT(txtApellidoT.getText());
-            trb.setDniT(txtDniT.getText());
-            trb.setCelularT(txtCantidadAlm.getText());
-            trb.setCorreoT(txtCorreoT.getText());
-            trb.setCargoT((String) cbCargoT.getSelectedItem());
-            trbD.AgregarTrabajador(trb);
-            LimpiarTabla();
-            LimpiarFieldTrb();
-            ListarTrabajador();
-            JOptionPane.showMessageDialog(null, "Producto registrado");
-        } else {
-            JOptionPane.showMessageDialog(null, "Los campos está vacios");
-        }
-    }//GEN-LAST:event_btnAgregarTActionPerformed
-
-    private void TableTrbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableTrbMouseClicked
-        //Llamar los valores de la Tabla a los jFields
-        int fila = TableTrb.rowAtPoint(evt.getPoint());
-        txtIdTrb.setText(TableTrb.getValueAt(fila,0).toString());
-        txtNombreT.setText(TableTrb.getValueAt(fila, 1).toString());
-        txtApellidoT.setText(TableTrb.getValueAt(fila, 2).toString());
-        txtDniT.setText(TableTrb.getValueAt(fila, 3).toString());
-        txtTelefonoT.setText(TableTrb.getValueAt(fila,4).toString());
-        txtCorreoT.setText(TableTrb.getValueAt(fila,5).toString());
-        cbCargoT.setSelectedItem(TableTrb.getValueAt(fila,6));
-    }//GEN-LAST:event_TableTrbMouseClicked
-
     //Método para el módulo Usuarios
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
@@ -2403,60 +1979,6 @@ import modelo.Usuario;
         jTabbedPane.setSelectedIndex(4); // Cambia a la pestaña "Usuario" (index 4)
         btnUsuarios.setFocusable(false); 
     }//GEN-LAST:event_btnUsuariosActionPerformed
-
-    private void btnEliminarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUActionPerformed
-        if(!"".equals(txtIduser.getText())){
-            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar al usuario?");
-            if (confirmacion == 0){
-                int id = Integer.parseInt(txtIduser.getText());
-                usrD.EliminarUsuario(id);
-                LimpiarTabla();
-                LimpiarFieldUser();
-                ListarUsuario();
-            }
-        }
-    }//GEN-LAST:event_btnEliminarUActionPerformed
-
-    private void btnEditarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarUActionPerformed
-        if("".equals(txtIduser.getText())){
-            JOptionPane.showMessageDialog(null, "Seleccione una fila para poder editar los datos");
-        } else {
-            if (!"".equals(txtUsuarioU.getText()) ||!"".equals(txtcontraseñau.getText())){
-                usr.setUsuarioU(txtUsuarioU.getText());
-                usr.setContraseñaU(txtcontraseñau.getText());
-                usr.setCargoU((String) cdCargou.getSelectedItem());
-                usr.setId_usuarioU(Integer.parseInt(txtIduser.getText()));
-                usrD.EditarUsuario(usr);
-                LimpiarTabla();
-                LimpiarFieldUser();
-                ListarUsuario();
-            }
-        }
-    }//GEN-LAST:event_btnEditarUActionPerformed
-
-    private void btnAgregarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUActionPerformed
-        if (!"".equals(txtUsuarioU.getText()) || !"".equals(txtcontraseñau.getText()) || !"".equals(cdCargou.getSelectedIndex())){
-            usr.setUsuarioU(txtUsuarioU.getText());
-            usr.setContraseñaU(txtcontraseñau.getText());
-            usr.setCargoU((String) cdCargou.getSelectedItem());
-            usrD.AgregarUsuario(usr);
-            LimpiarTabla();
-            LimpiarFieldUser();
-            ListarUsuario();
-            JOptionPane.showMessageDialog(null, "Usuario registrado");
-        } else {
-            JOptionPane.showMessageDialog(null, "Los campos está vacios");
-        }
-    }//GEN-LAST:event_btnAgregarUActionPerformed
-
-    private void TableuserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableuserMouseClicked
-        //Llamar los valores de la Tabla a los jFields
-        int fila = Tableuser.rowAtPoint(evt.getPoint());
-        txtIduser.setText(Tableuser.getValueAt(fila,0).toString());
-        txtUsuarioU.setText(Tableuser.getValueAt(fila, 1).toString());
-        cdCargou.setSelectedItem(Tableuser.getValueAt(fila,2));
-        txtcontraseñau.setText(Tableuser.getValueAt(fila, 3).toString());
-    }//GEN-LAST:event_TableuserMouseClicked
 
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
@@ -2479,25 +2001,20 @@ import modelo.Usuario;
         btnFabricacion.setFocusable(false);
     }//GEN-LAST:event_btnFabricacionActionPerformed
 
-    private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenActionPerformed
-        
-    }//GEN-LAST:event_btnImagenActionPerformed
+    
+    private void btnDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolucionesActionPerformed
+        LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
+        ListarDevolucion(); //Llama al método Listar Clientes para mostrarlo en la tabla Almacen
+        jTabbedPane.setSelectedIndex(8); // Cambia a la pestaña "Trabajadores" (index 3)
+        btnTrabajadores.setFocusable(false);
+    }//GEN-LAST:event_btnDevolucionesActionPerformed
 
-    private void txtNombreCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreCActionPerformed
-
-    private void cbCargoTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCargoTActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbCargoTActionPerformed
-
-    private void txtApellidoTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoTActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoTActionPerformed
-
-    private void NumFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumFabActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NumFabActionPerformed
+    private void btnServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServiciosActionPerformed
+        LimpiarTabla();
+        ListarServicios();
+        jTabbedPane.setSelectedIndex(9);
+        btnServicios.setFocusable(false);
+    }//GEN-LAST:event_btnServiciosActionPerformed
 
     private void TablaServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaServiciosMouseClicked
         //Llamar los valores de la Tabla a los jFields
@@ -2529,6 +2046,27 @@ import modelo.Usuario;
         }
     }//GEN-LAST:event_btneliminarservicioActionPerformed
 
+    private void btneditarservicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarservicioActionPerformed
+        if("".equals(txtidservicio.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+            if (!"".equals(txtlugarservicio.getText())|| !"".equals(cbTipoServ.getSelectedItem()) || !"".equals(txttrabajadorservicio.getText()) || !"".equals(txtFechaServ.getText()) || !"".equals(txtRucServ.getText()) || !"".equals(txtNuBol.getText()) || !"".equals(txtMaterial.getText())){
+                servicios.setLugar(txtlugarservicio.getText());
+                servicios.setTipoServicio((String)cbTipoServ.getSelectedItem());
+                servicios.setTrabajador(txttrabajadorservicio.getText());
+                servicios.setFechaInicio(txtFechaServ.getText());
+                servicios.setRucSer(txtRucServ.getText());
+                servicios.setNuBole(txtNuBol.getText());
+                servicios.setMaterial(txtMaterial.getText());
+                servicios.setIdServicio(Integer.parseInt(txtidservicio.getText()));
+                serviciosD.EditarServicio(servicios);
+                LimpiarTabla();
+                LimpiarFieldservicios();
+                ListarServicios();
+            }
+        }
+    }//GEN-LAST:event_btneditarservicioActionPerformed
+
     private void btnañadirservicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnañadirservicioActionPerformed
         if(!"".equals(txtlugarservicio.getText()) || !"".equals(cbTipoServ.getSelectedItem()) || !"".equals(txttrabajadorservicio.getText()) || !"".equals(txtFechaServ.getText())){
             servicios.setLugar(txtlugarservicio.getText());
@@ -2538,7 +2076,7 @@ import modelo.Usuario;
             servicios.setRucSer(txtRucServ.getText());
             servicios.setNuBole(txtNuBol.getText());
             servicios.setMaterial(txtMaterial.getText());
-            
+
             serviciosD.agregarServicio(servicios);
             LimpiarTabla();
             LimpiarFieldservicios();
@@ -2549,23 +2087,28 @@ import modelo.Usuario;
         }
     }//GEN-LAST:event_btnañadirservicioActionPerformed
 
-    private void AñadirDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirDevActionPerformed
-         if(!"".equals(txtNombreEm.getText()) || !"".equals(txtRUCDev.getText()) || !"".equals(txtFechaDev.getText()) || !"".equals(txtCantDev.getText()) || !"".equals(txtProductoDev.getText()) || !"".equals(cbTipoDev.getSelectedItem())){
-            dev.setNombre(txtNombreEm.getText());
-            dev.setDatos(txtRUCDev.getText());
-            dev.setFecha(txtFechaDev.getText());
-            dev.setCantidad(txtCantDev.getText());
-            dev.setProducto(txtProductoDev.getText());
-            dev.setTip_cantidad((String)cbTipoDev.getSelectedItem());
-            devD.agregarDevolucion(dev);
-            LimpiarTabla();
-            LimpiarFielddev();
-            ListarDevolucion();
-            JOptionPane.showMessageDialog(null, "Servicio registrado");
-        } else {
-            JOptionPane.showMessageDialog(null, "Los campos está vacios");
+    private void TablaDevolucionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaDevolucionesMouseClicked
+        int fila = TablaDevoluciones.rowAtPoint(evt.getPoint());
+        IdDevoluciones.setText(TablaDevoluciones.getValueAt(fila,0).toString());
+        txtNombreEm.setText(TablaDevoluciones.getValueAt(fila, 1).toString());
+        txtRUCDev.setText(TablaDevoluciones.getValueAt(fila, 2).toString());
+        txtFechaDev.setText(TablaDevoluciones.getValueAt(fila, 3).toString());
+        txtCantDev.setText(TablaDevoluciones.getValueAt(fila, 4).toString());
+        txtProductoDev.setText(TablaDevoluciones.getValueAt(fila,5).toString());
+    }//GEN-LAST:event_TablaDevolucionesMouseClicked
+
+    private void EliminarDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarDevActionPerformed
+        if(!"".equals(IdDevoluciones.getText())){
+            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar la Devolucion?");
+            if (confirmacion == 0){
+                int id = Integer.parseInt(IdDevoluciones.getText());
+                devD.eliminarDevolucion(id);
+                LimpiarTabla();
+                LimpiarFielddev();
+                ListarDevolucion();
+            }
         }
-    }//GEN-LAST:event_AñadirDevActionPerformed
+    }//GEN-LAST:event_EliminarDevActionPerformed
 
     private void EditarDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarDevActionPerformed
         if("".equals(IdDevoluciones.getText())){
@@ -2586,18 +2129,38 @@ import modelo.Usuario;
         }
     }//GEN-LAST:event_EditarDevActionPerformed
 
-    private void EliminarDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarDevActionPerformed
-            if(!"".equals(IdDevoluciones.getText())){
-            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar la Devolucion?");
-            if (confirmacion == 0){
-                int id = Integer.parseInt(IdDevoluciones.getText());
-                devD.eliminarDevolucion(id);
-                LimpiarTabla();
-                LimpiarFielddev();
-                ListarDevolucion();
-            }
+    private void AñadirDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirDevActionPerformed
+        if(!"".equals(txtNombreEm.getText()) || !"".equals(txtRUCDev.getText()) || !"".equals(txtFechaDev.getText()) || !"".equals(txtCantDev.getText()) || !"".equals(txtProductoDev.getText()) || !"".equals(cbTipoDev.getSelectedItem())){
+            dev.setNombre(txtNombreEm.getText());
+            dev.setDatos(txtRUCDev.getText());
+            dev.setFecha(txtFechaDev.getText());
+            dev.setCantidad(txtCantDev.getText());
+            dev.setProducto(txtProductoDev.getText());
+            dev.setTip_cantidad((String)cbTipoDev.getSelectedItem());
+            devD.agregarDevolucion(dev);
+            LimpiarTabla();
+            LimpiarFielddev();
+            ListarDevolucion();
+            JOptionPane.showMessageDialog(null, "Servicio registrado");
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos está vacios");
         }
-        }//GEN-LAST:event_EliminarDevActionPerformed
+    }//GEN-LAST:event_AñadirDevActionPerformed
+
+    private void TablaFbrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaFbrMouseClicked
+        int fila = TablaFbr.rowAtPoint(evt.getPoint());
+        NumFab.setText(TablaFbr.getValueAt(fila,0).toString());
+        Tablero.setSelectedItem(TablaFbr.getValueAt(fila,1));
+        MaterialFab.setText(TablaFbr.getValueAt(fila, 2).toString());
+    }//GEN-LAST:event_TablaFbrMouseClicked
+
+    private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenActionPerformed
+
+    }//GEN-LAST:event_btnImagenActionPerformed
+
+    private void EditarFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarFabActionPerformed
+
+    }//GEN-LAST:event_EditarFabActionPerformed
 
     private void AñadirFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirFabActionPerformed
         if (!"".equals(NumFab.getText()) || !"".equals(Tablero.getSelectedIndex()) || !"".equals(MaterialFab.getText())){
@@ -2613,6 +2176,21 @@ import modelo.Usuario;
             JOptionPane.showMessageDialog(null, "Los campos está vacios");
         }
     }//GEN-LAST:event_AñadirFabActionPerformed
+
+    private void NumFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumFabActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NumFabActionPerformed
+
+    private void txtBusProvKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusProvKeyTyped
+        txtBusProv.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyReleased(KeyEvent ke){
+                trs.setRowFilter(RowFilter.regexFilter("(?i)"+txtBusProv.getText(), 1));
+            }
+        });
+        trs = new TableRowSorter(model);
+        TableProveedores.setRowSorter(trs);
+    }//GEN-LAST:event_txtBusProvKeyTyped
 
     private void TableProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableProveedoresMouseClicked
         //Llamar los valores de la Tabla a los jFields
@@ -2679,27 +2257,16 @@ import modelo.Usuario;
         }
     }//GEN-LAST:event_btnagregarpActionPerformed
 
-    
-    private void btneditarservicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarservicioActionPerformed
-        if("".equals(txtidservicio.getText())){
-            JOptionPane.showMessageDialog(null, "Seleccione una fila");
-        } else {
-            if (!"".equals(txtlugarservicio.getText())|| !"".equals(cbTipoServ.getSelectedItem()) || !"".equals(txttrabajadorservicio.getText()) || !"".equals(txtFechaServ.getText()) || !"".equals(txtRucServ.getText()) || !"".equals(txtNuBol.getText()) || !"".equals(txtMaterial.getText())){
-                servicios.setLugar(txtlugarservicio.getText());
-                servicios.setTipoServicio((String)cbTipoServ.getSelectedItem());
-                servicios.setTrabajador(txttrabajadorservicio.getText());
-                servicios.setFechaInicio(txtFechaServ.getText());
-                servicios.setRucSer(txtRucServ.getText());
-                servicios.setNuBole(txtNuBol.getText());
-                servicios.setMaterial(txtMaterial.getText());
-                servicios.setIdServicio(Integer.parseInt(txtidservicio.getText()));
-                serviciosD.EditarServicio(servicios);
-                LimpiarTabla();
-                LimpiarFieldservicios();
-                ListarServicios();
+    private void txtBusSerCanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusSerCanKeyTyped
+        txtBusSerCan.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyReleased(KeyEvent ke){
+                trs.setRowFilter(RowFilter.regexFilter("(?i)"+txtBusSerCan.getText(),1));
             }
-        }
-    }//GEN-LAST:event_btneditarservicioActionPerformed
+        });
+        trs = new TableRowSorter(model);
+        TableServCan.setRowSorter(trs);
+    }//GEN-LAST:event_txtBusSerCanKeyTyped
 
     //METODOS PARA SERVICIOSCANCELADOS 
     private void btnañadirservActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnañadirservActionPerformed
@@ -2779,40 +2346,221 @@ import modelo.Usuario;
         // TODO add your handling code here:
     }//GEN-LAST:event_txtlugarActionPerformed
 
-    private void TablaDevolucionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaDevolucionesMouseClicked
-        int fila = TablaDevoluciones.rowAtPoint(evt.getPoint());
-        IdDevoluciones.setText(TablaDevoluciones.getValueAt(fila,0).toString());
-        txtNombreEm.setText(TablaDevoluciones.getValueAt(fila, 1).toString());
-        txtRUCDev.setText(TablaDevoluciones.getValueAt(fila, 2).toString());
-        txtFechaDev.setText(TablaDevoluciones.getValueAt(fila, 3).toString());
-        txtCantDev.setText(TablaDevoluciones.getValueAt(fila, 4).toString());
-        txtProductoDev.setText(TablaDevoluciones.getValueAt(fila,5).toString());
-    }//GEN-LAST:event_TablaDevolucionesMouseClicked
+    private void txtBusUsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusUsKeyTyped
+        txtBusUs.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyReleased(KeyEvent ke){
+                trs.setRowFilter(RowFilter.regexFilter("(?i)"+txtBusUs.getText(),2));
+            }
+        });
+        trs = new TableRowSorter(model);
+        Tableuser.setRowSorter(trs);
+    }//GEN-LAST:event_txtBusUsKeyTyped
 
-    private void TablaFbrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaFbrMouseClicked
-        int fila = TablaFbr.rowAtPoint(evt.getPoint());
-        NumFab.setText(TablaFbr.getValueAt(fila,0).toString());
-        Tablero.setSelectedItem(TablaFbr.getValueAt(fila,1));
-        MaterialFab.setText(TablaFbr.getValueAt(fila, 2).toString());
-    }//GEN-LAST:event_TablaFbrMouseClicked
+    private void btnEliminarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUActionPerformed
+        if(!"".equals(txtIduser.getText())){
+            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar al usuario?");
+            if (confirmacion == 0){
+                int id = Integer.parseInt(txtIduser.getText());
+                usrD.EliminarUsuario(id);
+                LimpiarTabla();
+                LimpiarFieldUser();
+                ListarUsuario();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarUActionPerformed
 
-    private void EditarFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarFabActionPerformed
-        
-    }//GEN-LAST:event_EditarFabActionPerformed
+    private void btnEditarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarUActionPerformed
+        if("".equals(txtIduser.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila para poder editar los datos");
+        } else {
+            if (!"".equals(txtUsuarioU.getText()) ||!"".equals(txtcontraseñau.getText())){
+                usr.setUsuarioU(txtUsuarioU.getText());
+                usr.setContraseñaU(txtcontraseñau.getText());
+                usr.setCargoU((String) cdCargou.getSelectedItem());
+                usr.setId_usuarioU(Integer.parseInt(txtIduser.getText()));
+                usrD.EditarUsuario(usr);
+                LimpiarTabla();
+                LimpiarFieldUser();
+                ListarUsuario();
+            }
+        }
+    }//GEN-LAST:event_btnEditarUActionPerformed
 
-    private void btnDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolucionesActionPerformed
-        LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
-        ListarDevolucion(); //Llama al método Listar Clientes para mostrarlo en la tabla Almacen
-        jTabbedPane.setSelectedIndex(8); // Cambia a la pestaña "Trabajadores" (index 3)
-        btnTrabajadores.setFocusable(false);
-    }//GEN-LAST:event_btnDevolucionesActionPerformed
+    private void btnAgregarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarUActionPerformed
+        if (!"".equals(txtUsuarioU.getText()) || !"".equals(txtcontraseñau.getText()) || !"".equals(cdCargou.getSelectedIndex())){
+            usr.setUsuarioU(txtUsuarioU.getText());
+            usr.setContraseñaU(txtcontraseñau.getText());
+            usr.setCargoU((String) cdCargou.getSelectedItem());
+            usrD.AgregarUsuario(usr);
+            LimpiarTabla();
+            LimpiarFieldUser();
+            ListarUsuario();
+            JOptionPane.showMessageDialog(null, "Usuario registrado");
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos está vacios");
+        }
+    }//GEN-LAST:event_btnAgregarUActionPerformed
 
-    private void btnServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServiciosActionPerformed
-        LimpiarTabla();
-        ListarServicios();
-        jTabbedPane.setSelectedIndex(9);
-        btnServicios.setFocusable(false);
-    }//GEN-LAST:event_btnServiciosActionPerformed
+    private void TableuserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableuserMouseClicked
+        //Llamar los valores de la Tabla a los jFields
+        int fila = Tableuser.rowAtPoint(evt.getPoint());
+        txtIduser.setText(Tableuser.getValueAt(fila,0).toString());
+        txtUsuarioU.setText(Tableuser.getValueAt(fila, 1).toString());
+        cdCargou.setSelectedItem(Tableuser.getValueAt(fila,2));
+        txtcontraseñau.setText(Tableuser.getValueAt(fila, 3).toString());
+    }//GEN-LAST:event_TableuserMouseClicked
+
+    private void txtBusTrbKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusTrbKeyTyped
+        txtBusTrb.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyReleased(KeyEvent ke){
+                trs.setRowFilter(RowFilter.regexFilter("(?i)"+txtBusTrb.getText(),3));
+            }
+        });
+        trs = new TableRowSorter(model);
+        TableTrb.setRowSorter(trs);
+    }//GEN-LAST:event_txtBusTrbKeyTyped
+
+    private void btnEliminarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTActionPerformed
+        if(!"".equals(txtIdTrb.getText())){
+            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar al trabajador?");
+            if (confirmacion == 0){
+                int id = Integer.parseInt(txtIdTrb.getText());
+                trbD.EliminarTrabajador(id);
+                LimpiarTabla();
+                LimpiarFieldTrb();
+                ListarTrabajador();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarTActionPerformed
+
+    private void btnEditarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarTActionPerformed
+        if("".equals(txtIdTrb.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila para poder editar los datos");
+        } else {
+            if (!"".equals(txtNombreT.getText()) || !"".equals(txtApellidoT.getText()) || !"".equals(txtDniT.getText()) || !"".equals(txtTelefonoT.getText()) || !"".equals(txtCorreoT.getText())){
+                trb.setNombreT(txtNombreT.getText());
+                trb.setApellidoT(txtApellidoT.getText());
+                trb.setDniT(txtDniT.getText());
+                trb.setCelularT(txtTelefonoT.getText());
+                trb.setCorreoT(txtCorreoT.getText());
+                trb.setCargoT((String) cbCargoT.getSelectedItem());
+                trb.setId_trabajador(Integer.parseInt(txtIdTrb.getText()));
+                trbD.EditarTrabajador(trb);
+                LimpiarTabla();
+                LimpiarFieldTrb();
+                ListarTrabajador();
+            }
+        }
+    }//GEN-LAST:event_btnEditarTActionPerformed
+
+    private void btnAgregarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTActionPerformed
+        if (!"".equals(txtNombreT.getText()) || !"".equals(txtApellidoT.getText()) || !"".equals(txtDniT.getText()) || !"".equals(txtTelefonoT.getText()) || !"".equals(txtCorreoT.getText()) || !"".equals(cbCargoT.getSelectedIndex())){
+            trb.setNombreT(txtNombreT.getText());
+            trb.setApellidoT(txtApellidoT.getText());
+            trb.setDniT(txtDniT.getText());
+            trb.setCelularT(txtCantidadAlm.getText());
+            trb.setCorreoT(txtCorreoT.getText());
+            trb.setCargoT((String) cbCargoT.getSelectedItem());
+            trbD.AgregarTrabajador(trb);
+            LimpiarTabla();
+            LimpiarFieldTrb();
+            ListarTrabajador();
+            JOptionPane.showMessageDialog(null, "Producto registrado");
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos está vacios");
+        }
+    }//GEN-LAST:event_btnAgregarTActionPerformed
+
+    private void txtApellidoTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoTActionPerformed
+
+    private void cbCargoTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCargoTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCargoTActionPerformed
+
+    private void TableTrbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableTrbMouseClicked
+        //Llamar los valores de la Tabla a los jFields
+        int fila = TableTrb.rowAtPoint(evt.getPoint());
+        txtIdTrb.setText(TableTrb.getValueAt(fila,0).toString());
+        txtNombreT.setText(TableTrb.getValueAt(fila, 1).toString());
+        txtApellidoT.setText(TableTrb.getValueAt(fila, 2).toString());
+        txtDniT.setText(TableTrb.getValueAt(fila, 3).toString());
+        txtTelefonoT.setText(TableTrb.getValueAt(fila,4).toString());
+        txtCorreoT.setText(TableTrb.getValueAt(fila,5).toString());
+        cbCargoT.setSelectedItem(TableTrb.getValueAt(fila,6));
+    }//GEN-LAST:event_TableTrbMouseClicked
+
+    private void txtBusClKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusClKeyTyped
+        txtBusCl.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyReleased(KeyEvent ke){
+                trs.setRowFilter(RowFilter.regexFilter("(?i)"+txtBusCl.getText(),2));
+            }
+        });
+        trs = new TableRowSorter(model);
+        TableCl.setRowSorter(trs);
+    }//GEN-LAST:event_txtBusClKeyTyped
+
+    private void TableClMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableClMouseClicked
+        //Llamar los valores de la Tabla a los jFields de la Tabla de Clientes
+        int fila = TableCl.rowAtPoint(evt.getPoint());
+        txtIdCl.setText(TableCl.getValueAt(fila,0).toString());
+        txtNombreC.setText(TableCl.getValueAt(fila, 1).toString());
+        txtDireccionC.setText(TableCl.getValueAt(fila, 2).toString());
+        txtRucC.setText(TableCl.getValueAt(fila, 3).toString());
+    }//GEN-LAST:event_TableClMouseClicked
+
+    private void txtNombreCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreCActionPerformed
+
+    private void btnEliminarClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClActionPerformed
+        if(!"".equals(txtIdCl.getText())){
+            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar al cliente?");
+            if (confirmacion == 0){
+                int id = Integer.parseInt(txtIdCl.getText());
+                clD.EliminarCliente(id);
+                LimpiarTabla();
+                LimpiarFieldCl();
+                ListarCliente();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarClActionPerformed
+
+    private void btnEditarClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClActionPerformed
+        if("".equals(txtIdCl.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila para poder editar los datos");
+        } else {
+            if (!"".equals(txtNombreC.getText())|| !"".equals(txtDireccionC.getText()) || !"".equals(txtRucC.getText())){
+                cl.setNombreC(txtNombreC.getText());
+                cl.setDireccionC(txtDireccionC.getText());
+                cl.setRuc(txtRucC.getText());
+                cl.setId_cliente(Integer.parseInt(txtIdCl.getText()));
+                clD.EditarCliente(cl);
+                LimpiarTabla();
+                LimpiarFieldCl();
+                ListarCliente();
+            }
+        }
+    }//GEN-LAST:event_btnEditarClActionPerformed
+
+    private void btnAñadirClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirClActionPerformed
+        if(!"".equals(txtNombreC.getText()) || !"".equals(txtDireccionC.getText()) || !"".equals(txtRucC.getText())){
+            cl.setNombreC(txtNombreC.getText());
+            cl.setDireccionC(txtDireccionC.getText());
+            cl.setRuc(txtRucC.getText());
+            clD.AgregarCliente(cl);
+            LimpiarTabla();
+            LimpiarFieldCl();
+            ListarCliente();
+            JOptionPane.showMessageDialog(null, "Cliente registrado con éxito");
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos está vacios");
+        }
+    }//GEN-LAST:event_btnAñadirClActionPerformed
 
     private void txtBusAlmKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusAlmKeyTyped
         txtBusAlm.addKeyListener(new KeyAdapter(){
@@ -2825,78 +2573,62 @@ import modelo.Usuario;
         TableAlm.setRowSorter(trs);
     }//GEN-LAST:event_txtBusAlmKeyTyped
 
-    private void txtBusClKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusClKeyTyped
-        txtBusCl.addKeyListener(new KeyAdapter(){
-            @Override
-            public void keyReleased(KeyEvent ke){
-                trs.setRowFilter(RowFilter.regexFilter("(?i)"+txtBusCl.getText(),2));
+    private void btnEliminarAlmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAlmActionPerformed
+        if(!"".equals(txtIdAlm.getText())){
+            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar el producto?");
+            if (confirmacion == 0){
+                int id = Integer.parseInt(txtIdAlm.getText());
+                almD.EliminarAlmacen(id);
+                LimpiarTabla();
+                LimpiarFieldAlm();
+                ListarAlmacen();
             }
-        });
-        trs = new TableRowSorter(model);
-        TableCl.setRowSorter(trs);
+        }
+    }//GEN-LAST:event_btnEliminarAlmActionPerformed
 
-    }//GEN-LAST:event_txtBusClKeyTyped
-
-    private void txtBusTrbKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusTrbKeyTyped
-        txtBusTrb.addKeyListener(new KeyAdapter(){
-            @Override
-            public void keyReleased(KeyEvent ke){
-                trs.setRowFilter(RowFilter.regexFilter("(?i)"+txtBusTrb.getText(),3));
+    private void btnEditarAlmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlmActionPerformed
+        if("".equals(txtIdAlm.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+            if (!"".equals(txtProducto.getText())|| !"".equals(txtMarca.getText()) || !"".equals(txtPrecioAlm.getText()) || !"".equals(txtCantidadAlm.getText())){
+                alm.setProducto(txtProducto.getText());
+                alm.setMarca(txtMarca.getText());
+                alm.setPrecio(Double.parseDouble(txtPrecioAlm.getText()));
+                alm.setCantidad(Integer.parseInt(txtCantidadAlm.getText()));
+                alm.setId_producto(Integer.parseInt(txtIdAlm.getText()));
+                almD.EditarAlmacen(alm);
+                LimpiarTabla();
+                LimpiarFieldAlm();
+                ListarAlmacen();
             }
-        });
-        trs = new TableRowSorter(model);
-        TableTrb.setRowSorter(trs);
-
-    }//GEN-LAST:event_txtBusTrbKeyTyped
-
-    private void txtBusUsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusUsKeyTyped
-        txtBusUs.addKeyListener(new KeyAdapter(){
-        @Override
-        public void keyReleased(KeyEvent ke){
-            trs.setRowFilter(RowFilter.regexFilter("(?i)"+txtBusUs.getText(),2));
         }
-        });
-        trs = new TableRowSorter(model);
-        Tableuser.setRowSorter(trs);
-    }//GEN-LAST:event_txtBusUsKeyTyped
+    }//GEN-LAST:event_btnEditarAlmActionPerformed
 
-    private void txtBusSerCanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusSerCanKeyTyped
-        txtBusSerCan.addKeyListener(new KeyAdapter(){
-        @Override
-        public void keyReleased(KeyEvent ke){
-            trs.setRowFilter(RowFilter.regexFilter("(?i)"+txtBusSerCan.getText(),1));
+    private void TableAlmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableAlmMouseClicked
+        //Llamar los valores de la Tabla a los jFields
+        int fila = TableAlm.rowAtPoint(evt.getPoint());
+        txtIdAlm.setText(TableAlm.getValueAt(fila,0).toString());
+        txtProducto.setText(TableAlm.getValueAt(fila, 1).toString());
+        txtMarca.setText(TableAlm.getValueAt(fila, 2).toString());
+        txtPrecioAlm.setText(TableAlm.getValueAt(fila, 3).toString());
+        txtCantidadAlm.setText(TableAlm.getValueAt(fila,4).toString());
+    }//GEN-LAST:event_TableAlmMouseClicked
+
+    private void btnAñadirAlmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirAlmActionPerformed
+        if(!"".equals(txtProducto.getText()) || !"".equals(txtMarca.getText()) || !"".equals(txtPrecioAlm.getText()) || !"".equals(txtCantidadAlm.getText())){
+            alm.setProducto(txtProducto.getText());
+            alm.setMarca(txtMarca.getText());
+            alm.setPrecio(Double.parseDouble(txtPrecioAlm.getText()));
+            alm.setCantidad(Integer.parseInt(txtCantidadAlm.getText()));
+            almD.AgregarAlmacen(alm);
+            LimpiarTabla();
+            LimpiarFieldAlm();
+            ListarAlmacen();
+            JOptionPane.showMessageDialog(null, "Producto registrado");
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos está vacios");
         }
-        });
-        trs = new TableRowSorter(model);
-        TableServCan.setRowSorter(trs);
-    }//GEN-LAST:event_txtBusSerCanKeyTyped
-
-    private void txtBusProvKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusProvKeyTyped
-        txtBusProv.addKeyListener(new KeyAdapter(){
-        @Override
-        public void keyReleased(KeyEvent ke){
-            trs.setRowFilter(RowFilter.regexFilter("(?i)"+txtBusProv.getText(), 1));
-        }
-        }); 
-        trs = new TableRowSorter(model);
-        TableProveedores.setRowSorter(trs);
-    }//GEN-LAST:event_txtBusProvKeyTyped
-
-    private void txtcantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcantidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtcantidadActionPerformed
-
-    private void btnbuscarclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarclienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnbuscarclienteActionPerformed
-
-    private void btncambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncambioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btncambioActionPerformed
-
-    private void btnregistrarventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarventaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnregistrarventaActionPerformed
+    }//GEN-LAST:event_btnAñadirAlmActionPerformed
 
    
     public static void main(String args[]) {
@@ -2954,24 +2686,18 @@ import modelo.Usuario;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JButton btnVenta;
     private javax.swing.JButton btnagregarp;
-    private javax.swing.JButton btnañadirproducto;
     private javax.swing.JButton btnañadirserv;
     private javax.swing.JButton btnañadirservicio;
-    private javax.swing.JButton btnbuscarcliente;
-    private javax.swing.JButton btncambio;
     private javax.swing.JButton btneditarp;
     private javax.swing.JButton btneditarserv;
     private javax.swing.JButton btneditarservicio;
     private javax.swing.JButton btneliminarp;
     private javax.swing.JButton btneliminarserv;
     private javax.swing.JButton btneliminarservicio;
-    private javax.swing.JButton btnregistrarventa;
     private javax.swing.JComboBox<String> cbCargoT;
     private javax.swing.JComboBox<String> cbTipoDev;
     private javax.swing.JComboBox<String> cbTipoServ;
     private javax.swing.JComboBox<String> cdCargou;
-    private javax.swing.JComboBox<String> comboboxcliente;
-    private javax.swing.JComboBox<String> comboboxproducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -3001,16 +2727,7 @@ import modelo.Usuario;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -3019,8 +2736,6 @@ import modelo.Usuario;
     private javax.swing.JLabel jLabelBottom;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -3034,7 +2749,6 @@ import modelo.Usuario;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
@@ -3057,7 +2771,6 @@ import modelo.Usuario;
     private javax.swing.JLabel labelRucC;
     private javax.swing.JLabel labelTelefonoT;
     private javax.swing.JLabel labelUTI;
-    public static javax.swing.JTable tablaventas;
     private javax.swing.JTextField txtApellidoT;
     private javax.swing.JTextField txtBusAlm;
     private javax.swing.JTextField txtBusCl;
@@ -3090,27 +2803,19 @@ import modelo.Usuario;
     private javax.swing.JTextField txtRucServ;
     private javax.swing.JTextField txtTelefonoT;
     private javax.swing.JTextField txtUsuarioU;
-    private javax.swing.JTextField txtcambio;
-    private javax.swing.JTextField txtcantidad;
-    private javax.swing.JTextField txtclienteventa;
     private javax.swing.JTextField txtcontraseñau;
-    private javax.swing.JTextField txtdescuento;
-    private javax.swing.JTextField txtefectivo;
     private javax.swing.JTextField txtempresap;
     private javax.swing.JTextField txtfechacancelacion;
     private javax.swing.JTextField txtfechap;
     private javax.swing.JTextField txtid_serviciocancelado;
     private javax.swing.JTextField txtidproveedor;
     private javax.swing.JTextField txtidservicio;
-    private javax.swing.JTextField txtiva;
     private javax.swing.JTextField txtlugar;
     private javax.swing.JTextField txtlugarservicio;
     private javax.swing.JTextField txtproductop;
     private javax.swing.JTextField txtrucp;
     private javax.swing.JTextField txtrucs;
-    private javax.swing.JTextField txtsubtotal;
     private javax.swing.JTextField txttiposervicio;
-    private javax.swing.JTextField txttotalapagar;
     private javax.swing.JTextField txttrabajadors;
     private javax.swing.JTextField txttrabajadorservicio;
     // End of variables declaration//GEN-END:variables
@@ -3181,5 +2886,6 @@ import modelo.Usuario;
         txtCantDev.setText("");
         txtProductoDev.setText("");
     }
+   
 }
 
