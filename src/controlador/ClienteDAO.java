@@ -20,9 +20,9 @@ public class ClienteDAO {
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, cl.getNombreC());
-            ps.setString(2, cl.getDireccionC());
-            ps.setString(3, cl.getRuc());
+            ps.setString(1, cl.getNombre_cliente());
+            ps.setString(2, cl.getDireccion_cliente());
+            ps.setString(3, cl.getRuc_cliente());
             ps.execute();
             return true;
         } catch (SQLException e){
@@ -48,9 +48,9 @@ public class ClienteDAO {
             while(rs.next()){
                 Cliente cl = new Cliente();
                 cl.setId_cliente(rs.getInt("id_cliente"));
-                cl.setNombreC(rs.getString("nombre_cliente"));
-                cl.setDireccionC(rs.getString("direccion_cliente"));
-                cl.setRuc(rs.getString("ruc_cliente"));
+                cl.setNombre_cliente(rs.getString("nombre_cliente"));
+                cl.setDireccion_cliente(rs.getString("direccion_cliente"));
+                cl.setRuc_cliente(rs.getString("ruc_cliente"));
                 ListaC.add(cl);
             }
             
@@ -83,9 +83,9 @@ public class ClienteDAO {
         String sql = "UPDATE tb_clientes SET nombre_cliente=?, direccion_cliente=?, ruc_cliente=? WHERE id_cliente=?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1,cl.getNombreC());
-            ps.setString(2,cl.getDireccionC());
-            ps.setString(3,cl.getRuc());
+            ps.setString(1,cl.getNombre_cliente());
+            ps.setString(2,cl.getDireccion_cliente());
+            ps.setString(3,cl.getRuc_cliente());
             ps.setInt(4,cl.getId_cliente());
             ps.execute();
             return true;
@@ -101,4 +101,25 @@ public class ClienteDAO {
         }
         
     }
+    public  Cliente buscarcliente(int ruc_cliente){
+        Cliente cl = new Cliente ();
+        String sql = "SELECT * FROM tb_clientes WHERE ruc_cliente=?";
+        try {
+             con= cn.getConnection();
+             ps=con.prepareStatement(sql);
+             ps.setInt(1, ruc_cliente);
+             rs=ps.executeQuery();
+             if(rs.next()){
+                 cl.setNombre_cliente(rs.getString("nombre"));
+                 cl.setDireccion_cliente(rs.getString("direccion"));
+                 
+             }
+         } catch (Exception e) { 
+             System.out.println(e.toString());
+         }
+         return cl;
+    }
 }
+
+
+

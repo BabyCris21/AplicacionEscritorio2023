@@ -1,28 +1,27 @@
 package modelo;
 public class Almacen {
-    private int id_producto;
+    private int id_almacen;
     private String producto;
     private String marca;
     private Double precio;
     private int cantidad;
-
-    public Almacen() {
+    
+        public Almacen() {
     }
-
-    public Almacen(int id_producto, String producto, String marca, Double precio, int cantidad) {
-        this.id_producto = id_producto;
+    public Almacen(int id_almacen, String producto, String marca, Double precio, int cantidad) {
+        this.id_almacen = id_almacen;
         this.producto = producto;
         this.marca = marca;
         this.precio = precio;
         this.cantidad = cantidad;
     }
 
-    public int getId_producto() {
-        return id_producto;
+    public int getId_almacen() {
+        return id_almacen;
     }
 
-    public void setId_producto(int id_producto) {
-        this.id_producto = id_producto;
+    public void setId_almacen(int id_almacen) {
+        this.id_almacen = id_almacen;
     }
 
     public String getProducto() {
@@ -56,4 +55,10 @@ public class Almacen {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+    
+
+
+
+
+    
 }

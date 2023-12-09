@@ -48,7 +48,7 @@ public class AlmacenDAO {
                 rs = ps.executeQuery();         
                 while(rs.next()){
                     Almacen alm = new Almacen();
-                    alm.setId_producto(rs.getInt("id_almacen"));
+                    alm.setId_almacen(rs.getInt("id_almacen"));
                     alm.setProducto(rs.getString("producto"));
                     alm.setMarca(rs.getString("marca"));
                     alm.setPrecio(rs.getDouble("precio"));
@@ -88,7 +88,7 @@ public class AlmacenDAO {
             ps.setString(2,alm.getMarca());
             ps.setDouble(3,alm.getPrecio());
             ps.setInt(4,alm.getCantidad());
-            ps.setInt(5,alm.getId_producto());
+            ps.setInt(5,alm.getId_almacen());
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -103,4 +103,23 @@ public class AlmacenDAO {
         }
         
     }
+     
+    public Almacen buscarpro(int id_producto){
+         Almacen almacen = new Almacen();
+         String sql = "SELECT*FROM tb_almacen WHERE id_almacen=?";
+         try {
+             con= cn.getConnection();
+             ps=con.prepareStatement(sql);
+             ps.setInt(1, id_producto);
+             rs=ps.executeQuery();
+             if(rs.next()){
+                 almacen.setProducto(rs.getString("producto"));
+                 almacen.setPrecio(rs.getDouble("precio"));
+                 almacen.setCantidad(rs.getInt("cantidad"));
+             }
+         } catch (Exception e) { 
+             System.out.println(e.toString());
+         }
+         return almacen;
+     }
 }

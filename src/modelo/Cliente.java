@@ -1,18 +1,18 @@
 package modelo;
 public class Cliente {
     private int id_cliente;
-    private String nombreC;
-    private String direccionC;
-    private String ruc;
+    private String nombre_cliente;
+    private String direccion_cliente;
+    private String ruc_cliente;
 
     public Cliente() {
     }
 
-    public Cliente(int id_cliente, String nombreC, String direccionC, String ruc) {
+    public Cliente(int id_cliente, String nombre_cliente, String direccion_cliente, String ruc_cliente) {
         this.id_cliente = id_cliente;
-        this.nombreC = nombreC;
-        this.direccionC = direccionC;
-        this.ruc = ruc;
+        this.nombre_cliente = nombre_cliente;
+        this.direccion_cliente = direccion_cliente;
+        this.ruc_cliente = ruc_cliente;
     }
 
     public int getId_cliente() {
@@ -23,28 +23,29 @@ public class Cliente {
         this.id_cliente = id_cliente;
     }
 
-    public String getNombreC() {
-        return nombreC;
+    public String getNombre_cliente() {
+        return nombre_cliente;
     }
 
-    public void setNombreC(String nombreC) {
-        this.nombreC = nombreC;
+    public void setNombre_cliente(String nombre_cliente) {
+        this.nombre_cliente = nombre_cliente;
     }
 
-    public String getDireccionC() {
-        return direccionC;
+    public String getDireccion_cliente() {
+        return direccion_cliente;
     }
 
-    public void setDireccionC(String direccionC) {
-        this.direccionC = direccionC;
+    public void setDireccion_cliente(String direccion_cliente) {
+        this.direccion_cliente = direccion_cliente;
     }
 
-    public String getRuc() {
-        return ruc;
+    public String getRuc_cliente() {
+        return ruc_cliente;
     }
 
-    public void setRuc(String ruc) {
-        this.ruc = ruc;
+    public void setRuc_cliente(String ruc_cliente) {
+        this.ruc_cliente = ruc_cliente;
     }
+
     
 }
