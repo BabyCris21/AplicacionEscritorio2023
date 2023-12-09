@@ -60,7 +60,6 @@ import modelo.Usuario;
     DevolucionDAO devD = new DevolucionDAO();
     Servicios servicios = new Servicios();
     ServiciosDAO serviciosD = new ServiciosDAO();
-    Conexion cn = new Conexion();
     TableRowSorter trs;
    
     public principal() {
@@ -71,6 +70,8 @@ import modelo.Usuario;
         txtIdTrb.setVisible(false);
         txtIduser.setVisible(false);
         IdDevoluciones.setVisible(false);
+        txtidservicio.setVisible(false);
+        txtIdFab.setVisible(false);
         txtid_serviciocancelado.setVisible(false);
     }
     
@@ -370,8 +371,11 @@ import modelo.Usuario;
         TablaFbr = new javax.swing.JTable();
         txtNombreFab = new javax.swing.JTextField();
         txtCantFab = new javax.swing.JTextField();
-        txtTrabajadorFab = new javax.swing.JTextField();
         txtIdFab = new javax.swing.JTextField();
+        txtTrabajadorFab = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -1501,11 +1505,11 @@ import modelo.Usuario;
 
         jLabel17.setText("Numero de Tablero");
 
-        jLabel18.setText("Tablero");
+        jLabel18.setText("Producto");
 
-        cbTamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Grande", "Mediano", "Pequeño", " " }));
 
-        jLabel20.setText("Material");
+        jLabel20.setText("Cantidad");
 
         AñadirFab.setText("Añadir");
         AñadirFab.addActionListener(new java.awt.event.ActionListener() {
@@ -1515,6 +1519,11 @@ import modelo.Usuario;
         });
 
         EliminarFab.setText("Eliminar");
+        EliminarFab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarFabActionPerformed(evt);
+            }
+        });
 
         EditarFab.setText("Editar");
         EditarFab.addActionListener(new java.awt.event.ActionListener() {
@@ -1528,9 +1537,10 @@ import modelo.Usuario;
 
             },
             new String [] {
-                "NumTab", "cbTamanio", "Material"
+                "ID", "Numero de Tablero", "Producto", "Cantidad", "Fecha", "Tamaño", "Trabajador"
             }
         ));
+        TablaFbr.setEnabled(false);
         TablaFbr.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaFbrMouseClicked(evt);
@@ -1538,13 +1548,11 @@ import modelo.Usuario;
         });
         jScrollPane1.setViewportView(TablaFbr);
 
-        txtNombreFab.setText("jTextField1");
+        jLabel19.setText("Fecha");
 
-        txtCantFab.setText("jTextField2");
+        jLabel36.setText("Tamaño");
 
-        txtTrabajadorFab.setText("jTextField1");
-
-        txtIdFab.setText("jTextField1");
+        jLabel37.setText("Trabajador");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1564,40 +1572,49 @@ import modelo.Usuario;
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNumFab)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel8Layout.createSequentialGroup()
-                                        .addGap(41, 41, 41)
-                                        .addComponent(jLabel18))
-                                    .addGroup(jPanel8Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtNombreFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCantFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel17)
+                                    .addComponent(txtNumFab, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombreFab, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel18))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel8Layout.createSequentialGroup()
-                                        .addComponent(txtFechaFab, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cbTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtTrabajadorFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(70, 70, 70)
-                                        .addComponent(txtIdFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtCantFab, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtFechaFab, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtTrabajadorFab, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel37))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(34, 34, 34))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtIdFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(198, 198, 198))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
+                .addComponent(txtIdFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(jLabel18)
-                    .addComponent(jLabel20))
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel36)
+                    .addComponent(jLabel37))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1605,8 +1622,7 @@ import modelo.Usuario;
                     .addComponent(txtNombreFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCantFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTrabajadorFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIdFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTrabajadorFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(129, 129, 129)
@@ -1958,7 +1974,7 @@ import modelo.Usuario;
     private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
         ListarAlmacen(); //Llama al método Listar Clientes para mostrarlo en la tabla Almacen
-        jTabbedPane.setSelectedIndex(1); // Cambia a la pestaña "Almacenamiento" (index 1)
+        jTabbedPane.setSelectedIndex(0); // Cambia a la pestaña "Almacenamiento" (index 1)
         btnAlmacen.setFocusable(false); 
     }//GEN-LAST:event_btnAlmacenActionPerformed
 
@@ -1966,7 +1982,7 @@ import modelo.Usuario;
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
         ListarCliente(); //Llama al método Listar Clientes para mostrarlo en la tabla Almacen
-        jTabbedPane.setSelectedIndex(2); // Cambia a la pestaña "Cliente" (index 2)
+        jTabbedPane.setSelectedIndex(1); // Cambia a la pestaña "Cliente" (index 2)
         btnAlmacen.setFocusable(false); 
     }//GEN-LAST:event_btnClientesActionPerformed
 
@@ -1974,7 +1990,7 @@ import modelo.Usuario;
     private void btnTrabajadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrabajadoresActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
         ListarTrabajador(); //Llama al método Listar Clientes para mostrarlo en la tabla Almacen
-        jTabbedPane.setSelectedIndex(3); // Cambia a la pestaña "Trabajadores" (index 3)
+        jTabbedPane.setSelectedIndex(2); // Cambia a la pestaña "Trabajadores" (index 3)
         btnTrabajadores.setFocusable(false); 
     }//GEN-LAST:event_btnTrabajadoresActionPerformed
 
@@ -1982,28 +1998,28 @@ import modelo.Usuario;
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
         ListarUsuario(); //Llama al método Listar usuario para mostrarlo en la tabla usuario
-        jTabbedPane.setSelectedIndex(4); // Cambia a la pestaña "Usuario" (index 4)
+        jTabbedPane.setSelectedIndex(3); // Cambia a la pestaña "Usuario" (index 4)
         btnUsuarios.setFocusable(false); 
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
         ListarProveedores();
-        jTabbedPane.setSelectedIndex(6); // Cambia a la pestaña "Proveedores"
+        jTabbedPane.setSelectedIndex(5); // Cambia a la pestaña "Proveedores"
         btnProveedores.setFocusable(false);
     }//GEN-LAST:event_btnProveedoresActionPerformed
 
     private void btnServCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServCanActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
         ListarServiciocancelado();
-        jTabbedPane.setSelectedIndex(5); // Cambia a la pestaña "Serviciocancelado"
+        jTabbedPane.setSelectedIndex(4); // Cambia a la pestaña "Serviciocancelado"
         btnServCan.setFocusable(false);
     }//GEN-LAST:event_btnServCanActionPerformed
     //Métodos para el módulo de Fabricación
     private void btnFabricacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFabricacionActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
-        ListarServiciocancelado();
-        jTabbedPane.setSelectedIndex(7); // Cambia a la pestaña "Fabricación"
+        ListarFabricacion();
+        jTabbedPane.setSelectedIndex(6); // Cambia a la pestaña "Fabricación"
         btnFabricacion.setFocusable(false);
     }//GEN-LAST:event_btnFabricacionActionPerformed
 
@@ -2011,14 +2027,14 @@ import modelo.Usuario;
     private void btnDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolucionesActionPerformed
         LimpiarTabla(); //Limpia la tabla para que no se repitan los datos
         ListarDevolucion(); //Llama al método Listar Clientes para mostrarlo en la tabla Almacen
-        jTabbedPane.setSelectedIndex(8); // Cambia a la pestaña "Trabajadores" (index 3)
+        jTabbedPane.setSelectedIndex(7); // Cambia a la pestaña "Trabajadores" (index 3)
         btnTrabajadores.setFocusable(false);
     }//GEN-LAST:event_btnDevolucionesActionPerformed
 
     private void btnServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServiciosActionPerformed
         LimpiarTabla();
         ListarServicios();
-        jTabbedPane.setSelectedIndex(9);
+        jTabbedPane.setSelectedIndex(8);
         btnServicios.setFocusable(false);
     }//GEN-LAST:event_btnServiciosActionPerformed
 
@@ -2153,15 +2169,24 @@ import modelo.Usuario;
         }
     }//GEN-LAST:event_AñadirDevActionPerformed
 
-    private void TablaFbrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaFbrMouseClicked
-        int fila = TablaFbr.rowAtPoint(evt.getPoint());
-        txtNumFab.setText(TablaFbr.getValueAt(fila,0).toString());
-        cbTamanio.setSelectedItem(TablaFbr.getValueAt(fila,1));
-        txtFechaFab.setText(TablaFbr.getValueAt(fila, 2).toString());
-    }//GEN-LAST:event_TablaFbrMouseClicked
-
     private void EditarFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarFabActionPerformed
-
+        if("".equals(txtIdFab.getText())){
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+            if (!"".equals(txtNumFab.getText())|| !"".equals(txtNombreFab.getText()) || !"".equals(txtCantFab.getText()) || !"".equals(txtFechaFab.getText()) || !"".equals(cbTamanio.getSelectedItem()) || !"".equals(txtTrabajadorFab.getText())){
+                fbr.setNumero_tablero(txtNumFab.getText());
+                fbr.setNombre_producto(txtNombreFab.getText());
+                fbr.setCantidad(Integer.parseInt(txtCantFab.getText()));
+                fbr.setFecha_fabricacion(txtFechaFab.getText());
+                fbr.setTamanio((String)cbTamanio.getSelectedItem());
+                fbr.setTrabajador_fabricacion(txtTrabajadorFab.getText());
+                fbr.setId_fabricacion(Integer.parseInt(txtIdFab.getText()));
+                fbrD.EditarFabricacion(fbr);
+                LimpiarTabla();
+                LimpiarFieldFab();
+                ListarFabricacion();
+            }
+        }
     }//GEN-LAST:event_EditarFabActionPerformed
 
     private void AñadirFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirFabActionPerformed
@@ -2635,6 +2660,31 @@ import modelo.Usuario;
         }
     }//GEN-LAST:event_btnAñadirAlmActionPerformed
 
+    private void EliminarFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarFabActionPerformed
+        if(!"".equals(txtIdFab.getText())){
+            int confirmacion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de querer eliminar la Devolucion?");
+            if (confirmacion == 0){
+                int id = Integer.parseInt(txtIdFab.getText());
+                fbrD.EliminarFabricacion(id);
+                LimpiarTabla();
+                LimpiarFieldFab();
+                ListarFabricacion();
+            }
+        }
+    }//GEN-LAST:event_EliminarFabActionPerformed
+
+    private void TablaFbrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaFbrMouseClicked
+        int fila = TablaFbr.rowAtPoint(evt.getPoint());
+        txtIdFab.setText(TablaFbr.getValueAt(fila,0).toString());
+        txtNumFab.setText(TablaFbr.getValueAt(fila,1).toString());
+        txtNombreFab.setText(TablaFbr.getValueAt(fila, 2).toString());
+        txtCantFab.setText(TablaFbr.getValueAt(fila, 3).toString());
+        txtFechaFab.setText(TablaFbr.getValueAt(fila, 4).toString());
+        cbTamanio.setSelectedItem(TablaFbr.getValueAt(fila,5));
+        txtTrabajadorFab.setText(TablaFbr.getValueAt(fila, 6).toString());
+
+    }//GEN-LAST:event_TablaFbrMouseClicked
+
    
     public static void main(String args[]) {
       
@@ -2710,6 +2760,7 @@ import modelo.Usuario;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -2728,6 +2779,8 @@ import modelo.Usuario;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2847,11 +2900,17 @@ import modelo.Usuario;
         txtDniT.setText("");
         txtTelefonoT.setText("");
         txtCorreoT.setText("");
+        if (cbCargoT.getItemCount() > 0) {
+        cbCargoT.setSelectedIndex(0);
+        }
     }
     private void LimpiarFieldUser(){
         txtIduser.setText("");
         txtUsuarioU.setText("");
         txtcontraseñau.setText("");
+        if (cdCargou.getItemCount() > 0) {
+        cdCargou.setSelectedIndex(0);
+        }
     }
     private void LimpiarFieldpro(){
         txtidproveedor.setText("");
@@ -2877,6 +2936,9 @@ import modelo.Usuario;
         txtRucServ.setText("");
         txtNuBol.setText("");
         txtMaterial.setText("");
+        if (cbTipoServ.getItemCount() > 0) {
+        cbTipoServ.setSelectedIndex(0);
+    }
     }
    
    private void LimpiarFieldFab(){
@@ -2898,7 +2960,11 @@ import modelo.Usuario;
         txtFechaDev.setText("");
         txtCantDev.setText("");
         txtProductoDev.setText("");
+        if (cbTipoDev.getItemCount() > 0) {
+        cbTipoDev.setSelectedIndex(0);
     }
+    }
+   
    
 }
 

@@ -16,7 +16,7 @@ public class ClienteDAO {
     PreparedStatement ps;
     ResultSet rs;
     public boolean AgregarCliente(Cliente cl){
-        String sql = "INSERT INTO clientes (nombreC, direccionC, ruc) VALUES (?,?,?)";
+        String sql = "INSERT INTO tb_clientes (nombre_cliente, direccion_cliente, ruc_cliente) VALUES (?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
@@ -39,7 +39,7 @@ public class ClienteDAO {
     
     public List ListarClientes(){
         List<Cliente> ListaC = new ArrayList();
-        String sql = "SELECT * FROM clientes";
+        String sql = "SELECT * FROM tb_clientes";
         try {
             con = cn.getConnection();
             ps = con.prepareCall(sql);
@@ -48,9 +48,9 @@ public class ClienteDAO {
             while(rs.next()){
                 Cliente cl = new Cliente();
                 cl.setId_cliente(rs.getInt("id_cliente"));
-                cl.setNombreC(rs.getString("nombreC"));
-                cl.setDireccionC(rs.getString("direccionC"));
-                cl.setRuc(rs.getString("ruc"));
+                cl.setNombreC(rs.getString("nombre_cliente"));
+                cl.setDireccionC(rs.getString("direccion_cliente"));
+                cl.setRuc(rs.getString("ruc_cliente"));
                 ListaC.add(cl);
             }
             
@@ -61,7 +61,7 @@ public class ClienteDAO {
     }
     
     public boolean EliminarCliente(int id){
-        String sql = "DELETE FROM clientes WHERE id_cliente = ?";
+        String sql = "DELETE FROM tb_clientes WHERE id_cliente = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -80,7 +80,7 @@ public class ClienteDAO {
     }
     
     public boolean EditarCliente(Cliente cl){
-        String sql = "UPDATE clientes SET nombreC=?, direccionC=?, ruc=? WHERE id_cliente=?";
+        String sql = "UPDATE tb_clientes SET nombre_cliente=?, direccion_cliente=?, ruc_cliente=? WHERE id_cliente=?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1,cl.getNombreC());
