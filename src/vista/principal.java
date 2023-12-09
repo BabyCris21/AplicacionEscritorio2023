@@ -171,17 +171,19 @@ import modelo.Usuario;
         TableServCan.setModel(model);
     }
     
-    public void ListarFabricacion(){
+     public void ListarFabricacion(){
         TablaFbr.setDefaultRenderer(Object.class, new RenderImage());
         List<Fabricacion> ListarFab = fbrD.ListarFabricacion();
         model = (DefaultTableModel) TablaFbr.getModel();
-        Object[] ob = new Object[5];
+        Object[] ob = new Object[7];
         for(int i = 0; i < ListarFab.size(); i++){
             ob[0] = ListarFab.get(i).getId_fabricacion();
-            ob[1] = ListarFab.get(i).getNum_tablero();
-            ob[2] = ListarFab.get(i).getTablero();
-            ob[3] = ListarFab.get(i).getFoto_tablero();
-            ob[4] = ListarFab.get(i).getMaterial();
+            ob[1] = ListarFab.get(i).getNumero_tablero();
+            ob[2] = ListarFab.get(i).getNombre_producto();
+            ob[3] = ListarFab.get(i).getCantidad();
+            ob[4] = ListarFab.get(i).getFecha_fabricacion();
+            ob[5] = ListarFab.get(i).getTamanio();
+            ob[6] = ListarFab.get(i).getTrabajador_fabricacion();
             model.addRow(ob);
         }
         TablaFbr.setModel(model);
@@ -355,20 +357,21 @@ import modelo.Usuario;
         jLabel35 = new javax.swing.JLabel();
         txtBusProv = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
-        NumFab = new javax.swing.JTextField();
+        txtNumFab = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        Tablero = new javax.swing.JComboBox<>();
-        jLabel19 = new javax.swing.JLabel();
+        cbTamanio = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
-        MaterialFab = new javax.swing.JTextField();
+        txtFechaFab = new javax.swing.JTextField();
         AñadirFab = new javax.swing.JButton();
         EliminarFab = new javax.swing.JButton();
         EditarFab = new javax.swing.JButton();
-        btnImagen = new javax.swing.JButton();
-        labelImagen = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaFbr = new javax.swing.JTable();
+        txtNombreFab = new javax.swing.JTextField();
+        txtCantFab = new javax.swing.JTextField();
+        txtTrabajadorFab = new javax.swing.JTextField();
+        txtIdFab = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -834,9 +837,9 @@ import modelo.Usuario;
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(txtRucC, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)
-                                .addComponent(btnAñadirCl, javax.swing.GroupLayout.PREFERRED_SIZE, 58, Short.MAX_VALUE)
+                                .addComponent(btnAñadirCl, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEditarCl, javax.swing.GroupLayout.PREFERRED_SIZE, 55, Short.MAX_VALUE)
+                                .addComponent(btnEditarCl, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnEliminarCl, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                                 .addGap(22, 22, 22))
@@ -1490,9 +1493,9 @@ import modelo.Usuario;
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
-        NumFab.addActionListener(new java.awt.event.ActionListener() {
+        txtNumFab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NumFabActionPerformed(evt);
+                txtNumFabActionPerformed(evt);
             }
         });
 
@@ -1500,9 +1503,7 @@ import modelo.Usuario;
 
         jLabel18.setText("Tablero");
 
-        Tablero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel19.setText("Foto Tablero");
+        cbTamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel20.setText("Material");
 
@@ -1522,19 +1523,12 @@ import modelo.Usuario;
             }
         });
 
-        btnImagen.setText("Añadir Imagen");
-        btnImagen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImagenActionPerformed(evt);
-            }
-        });
-
         TablaFbr.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "NumTab", "Tablero", "Material"
+                "NumTab", "cbTamanio", "Material"
             }
         ));
         TablaFbr.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1543,6 +1537,14 @@ import modelo.Usuario;
             }
         });
         jScrollPane1.setViewportView(TablaFbr);
+
+        txtNombreFab.setText("jTextField1");
+
+        txtCantFab.setText("jTextField2");
+
+        txtTrabajadorFab.setText("jTextField1");
+
+        txtIdFab.setText("jTextField1");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1560,55 +1562,59 @@ import modelo.Usuario;
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel8Layout.createSequentialGroup()
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(NumFab)
+                                    .addComponent(txtNumFab)
                                     .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(41, 41, 41)
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel18)
-                                    .addComponent(Tablero, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(28, 28, 28)
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addGap(41, 41, 41)
+                                        .addComponent(jLabel18))
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtNombreFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCantFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(MaterialFab, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(39, 39, 39)
-                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnImagen)
-                                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(34, 34, 34)
-                                .addComponent(labelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)))
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addComponent(txtFechaFab, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cbTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtTrabajadorFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(70, 70, 70)
+                                        .addComponent(txtIdFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(34, 34, 34))))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel20))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(NumFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Tablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MaterialFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnImagen)))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(labelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(32, 32, 32)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFechaFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCantFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbTamanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTrabajadorFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdFab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(129, 129, 129)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AñadirFab)
                     .addComponent(EditarFab)
                     .addComponent(EliminarFab))
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addContainerGap(202, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Fabricación", jPanel8);
@@ -2149,37 +2155,36 @@ import modelo.Usuario;
 
     private void TablaFbrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaFbrMouseClicked
         int fila = TablaFbr.rowAtPoint(evt.getPoint());
-        NumFab.setText(TablaFbr.getValueAt(fila,0).toString());
-        Tablero.setSelectedItem(TablaFbr.getValueAt(fila,1));
-        MaterialFab.setText(TablaFbr.getValueAt(fila, 2).toString());
+        txtNumFab.setText(TablaFbr.getValueAt(fila,0).toString());
+        cbTamanio.setSelectedItem(TablaFbr.getValueAt(fila,1));
+        txtFechaFab.setText(TablaFbr.getValueAt(fila, 2).toString());
     }//GEN-LAST:event_TablaFbrMouseClicked
-
-    private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenActionPerformed
-
-    }//GEN-LAST:event_btnImagenActionPerformed
 
     private void EditarFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarFabActionPerformed
 
     }//GEN-LAST:event_EditarFabActionPerformed
 
     private void AñadirFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirFabActionPerformed
-        if (!"".equals(NumFab.getText()) || !"".equals(Tablero.getSelectedIndex()) || !"".equals(MaterialFab.getText())){
-            fbr.setNum_tablero(NumFab.getText());
-            fbr.setTablero((String) Tablero.getSelectedItem());
-            fbr.setMaterial(MaterialFab.getText());
+        if (!"".equals(txtNumFab.getText()) || !"".equals(txtNombreFab.getText()) || !"".equals(txtCantFab.getText())){
+            fbr.setNumero_tablero(txtNumFab.getText());
+            fbr.setNombre_producto(txtNombreFab.getText());
+            fbr.setCantidad(Integer.parseInt(txtCantFab.getText()));
+            fbr.setFecha_fabricacion(txtFechaFab.getText());
+            fbr.setTamanio((String)cbTamanio.getSelectedItem());
+            fbr.setTrabajador_fabricacion(txtTrabajadorFab.getText());
             fbrD.AgregarFabricacion(fbr);
             LimpiarTabla();
-            LimpiarFieldfbr();
+            LimpiarFieldFab();
             ListarFabricacion();
-            JOptionPane.showMessageDialog(null, "Usuario registrado");
+            JOptionPane.showMessageDialog(null, "Fabricación registrada");
         } else {
             JOptionPane.showMessageDialog(null, "Los campos está vacios");
         }
     }//GEN-LAST:event_AñadirFabActionPerformed
 
-    private void NumFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumFabActionPerformed
+    private void txtNumFabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumFabActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NumFabActionPerformed
+    }//GEN-LAST:event_txtNumFabActionPerformed
 
     private void txtBusProvKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusProvKeyTyped
         txtBusProv.addKeyListener(new KeyAdapter(){
@@ -2648,8 +2653,6 @@ import modelo.Usuario;
     private javax.swing.JButton EliminarDev;
     private javax.swing.JButton EliminarFab;
     private javax.swing.JTextField IdDevoluciones;
-    private javax.swing.JTextField MaterialFab;
-    private javax.swing.JTextField NumFab;
     private javax.swing.JPanel PanelBotones;
     private javax.swing.JPanel PanelServicios;
     private javax.swing.JTable TablaDevoluciones;
@@ -2660,7 +2663,6 @@ import modelo.Usuario;
     private javax.swing.JTable TableProveedores;
     private javax.swing.JTable TableServCan;
     private javax.swing.JTable TableTrb;
-    private javax.swing.JComboBox<String> Tablero;
     private javax.swing.JTable Tableuser;
     private javax.swing.JButton btnAgregarT;
     private javax.swing.JButton btnAgregarU;
@@ -2678,7 +2680,6 @@ import modelo.Usuario;
     private javax.swing.JButton btnEliminarT;
     private javax.swing.JButton btnEliminarU;
     private javax.swing.JButton btnFabricacion;
-    private javax.swing.JButton btnImagen;
     private javax.swing.JButton btnProveedores;
     private javax.swing.JButton btnServCan;
     private javax.swing.JButton btnServicios;
@@ -2695,6 +2696,7 @@ import modelo.Usuario;
     private javax.swing.JButton btneliminarserv;
     private javax.swing.JButton btneliminarservicio;
     private javax.swing.JComboBox<String> cbCargoT;
+    private javax.swing.JComboBox<String> cbTamanio;
     private javax.swing.JComboBox<String> cbTipoDev;
     private javax.swing.JComboBox<String> cbTipoServ;
     private javax.swing.JComboBox<String> cdCargou;
@@ -2708,7 +2710,6 @@ import modelo.Usuario;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -2761,7 +2762,6 @@ import modelo.Usuario;
     private javax.swing.JLabel labelCorreoT;
     private javax.swing.JLabel labelDireccionC;
     private javax.swing.JLabel labelDniT;
-    private javax.swing.JLabel labelImagen;
     private javax.swing.JLabel labelLogo;
     private javax.swing.JLabel labelMarca;
     private javax.swing.JLabel labelNombreC;
@@ -2779,22 +2779,27 @@ import modelo.Usuario;
     private javax.swing.JTextField txtBusTrb;
     private javax.swing.JTextField txtBusUs;
     private javax.swing.JTextField txtCantDev;
+    private javax.swing.JTextField txtCantFab;
     private javax.swing.JTextField txtCantidadAlm;
     private javax.swing.JTextField txtCorreoT;
     private javax.swing.JTextField txtDireccionC;
     private javax.swing.JTextField txtDniT;
     private javax.swing.JTextField txtFechaDev;
+    private javax.swing.JTextField txtFechaFab;
     private javax.swing.JTextField txtFechaServ;
     private javax.swing.JTextField txtIdAlm;
     private javax.swing.JTextField txtIdCl;
+    private javax.swing.JTextField txtIdFab;
     private javax.swing.JTextField txtIdTrb;
     private javax.swing.JTextField txtIduser;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtMaterial;
     private javax.swing.JTextField txtNombreC;
     private javax.swing.JTextField txtNombreEm;
+    private javax.swing.JTextField txtNombreFab;
     private javax.swing.JTextField txtNombreT;
     private javax.swing.JTextField txtNuBol;
+    private javax.swing.JTextField txtNumFab;
     private javax.swing.JTextField txtPrecioAlm;
     private javax.swing.JTextField txtProducto;
     private javax.swing.JTextField txtProductoDev;
@@ -2802,6 +2807,7 @@ import modelo.Usuario;
     private javax.swing.JTextField txtRucC;
     private javax.swing.JTextField txtRucServ;
     private javax.swing.JTextField txtTelefonoT;
+    private javax.swing.JTextField txtTrabajadorFab;
     private javax.swing.JTextField txtUsuarioU;
     private javax.swing.JTextField txtcontraseñau;
     private javax.swing.JTextField txtempresap;
@@ -2873,10 +2879,17 @@ import modelo.Usuario;
         txtMaterial.setText("");
     }
    
-   private void LimpiarFieldfbr(){
-        NumFab.setText("");
-        MaterialFab.setText("");
+   private void LimpiarFieldFab(){
+        txtIdFab.setText(""); 
+        txtNumFab.setText("");
+        txtNombreFab.setText("");
+        txtCantFab.setText("");
+        txtFechaFab.setText("");
+        txtTrabajadorFab.setText("");
+        if (cbTamanio.getItemCount() > 0) {
+        cbTamanio.setSelectedIndex(0);
     }
+   }
    
    private void LimpiarFielddev(){
         IdDevoluciones.setText("");

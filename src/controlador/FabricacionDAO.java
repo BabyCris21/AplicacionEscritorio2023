@@ -18,14 +18,16 @@ public class FabricacionDAO {
     
     
      public boolean AgregarFabricacion(Fabricacion Fbr){
-        String sql = "INSERT INTO fabricacion (num_tablero, tablero, foto_tablero, material) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO tb_fabricacion (numero_tablero, nombre_producto, cantidad, fecha_fabricacion, tamanio, trabajador_fabricacion) VALUES (?,?,?,?,?,?)";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1,Fbr.getNum_tablero());
-            ps.setString(2,Fbr.getTablero());
-            ps.setBytes(3,Fbr.getFoto_tablero());
-            ps.setString(4,Fbr.getMaterial());
+            ps.setString(1,Fbr.getNumero_tablero());
+            ps.setString(2,Fbr.getNombre_producto());
+            ps.setInt(3,Fbr.getCantidad());
+            ps.setString(4,Fbr.getFecha_fabricacion());
+            ps.setString(5,Fbr.getTamanio());
+            ps.setString(6,Fbr.getTrabajador_fabricacion());
             ps.execute();
             return true;
         } catch (SQLException e){
@@ -42,19 +44,21 @@ public class FabricacionDAO {
     
     public List ListarFabricacion(){
         List<Fabricacion> ListaFab = new ArrayList();
-        String sql = "SELECT * FROM fabricacion";
+        String sql = "SELECT * FROM tb_fabricacion";
         try {
             con = cn.getConnection();
             ps = con.prepareCall(sql);
             rs = ps.executeQuery();
             
             while(rs.next()){
-                Fabricacion Fbr = new Fabricacion();
+            Fabricacion Fbr = new Fabricacion();
             Fbr.setId_fabricacion(rs.getInt("id_fabricacion"));  // Cambiado a 'id_fabricacion'
-            Fbr.setNum_tablero(rs.getString("num_tablero"));
-            Fbr.setTablero(rs.getString("tablero"));
-            Fbr.setFoto_tablero(rs.getBytes("foto_tablero"));
-            Fbr.setMaterial(rs.getString("material"));
+            Fbr.setNumero_tablero(rs.getString("numero_tablero"));
+            Fbr.setNombre_producto(rs.getString("nombre_producto"));
+            Fbr.setCantidad(rs.getInt("cantidad"));
+            Fbr.setFecha_fabricacion(rs.getString("fecha_fabricacion"));
+            Fbr.setTamanio(rs.getString("tamanio"));
+            Fbr.setTrabajador_fabricacion(rs.getString("trabajador_fabricacion"));
             ListaFab.add(Fbr);
             }
             
@@ -62,5 +66,50 @@ public class FabricacionDAO {
             System.out.println(e.toString());
         }
         return ListaFab;
+    }
+    
+    public boolean EliminarFabricacion(int id){
+        String sql = "DELETE FROM tb_fabricacion WHERE id_fabricacion = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        }   finally{
+                try{
+                    con.close();
+                }   catch (SQLException ex){
+                    System.out.println(ex.toString());
+                }
+        }
+    }
+    
+    public boolean EditarFabricacion(Fabricacion Frb){
+        String sql = "UPDATE tb_fabricacion SET numero_tablero=?, nombre_producto=?, cantidad=?, fecha_fabricacion=?, tamanio=?, trabajador_fabricacion=? WHERE id_fabricacion=?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1,Frb.getNumero_tablero());
+            ps.setString(2,Frb.getNombre_producto());
+            ps.setInt(3,Frb.getCantidad());
+            ps.setString(4,Frb.getFecha_fabricacion());
+            ps.setString(5,Frb.getTamanio());
+            ps.setString(6,Frb.getTrabajador_fabricacion());
+            ps.setInt(7,Frb.getId_fabricacion());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e){
+                System.out.println(e.toString());
+            }
+        }
+        
     }
 }

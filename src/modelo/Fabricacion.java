@@ -1,20 +1,24 @@
 package modelo;
 public class Fabricacion {
     private int id_fabricacion;
-    private String num_tablero;
-    private String tablero;
-    private byte[] foto_tablero;
-    private String material;
+    private String numero_tablero;
+    private String nombre_producto;
+    private int cantidad;
+    private String fecha_fabricacion;
+    private String tamanio;
+    private String trabajador_fabricacion;
 
     public Fabricacion() {
     }
 
-    public Fabricacion(int id_fabricacion, String num_tablero, String tablero, byte[] foto_tablero, String material) {
+    public Fabricacion(int id_fabricacion, String numero_tablero, String nombre_producto, int cantidad, String fecha_fabricacion, String tamanio, String trabajador_fabricacion) {
         this.id_fabricacion = id_fabricacion;
-        this.num_tablero = num_tablero;
-        this.tablero = tablero;
-        this.foto_tablero = foto_tablero;
-        this.material = material;
+        this.numero_tablero = numero_tablero;
+        this.nombre_producto = nombre_producto;
+        this.cantidad = cantidad;
+        this.fecha_fabricacion = fecha_fabricacion;
+        this.tamanio = tamanio;
+        this.trabajador_fabricacion = trabajador_fabricacion;
     }
 
     public int getId_fabricacion() {
@@ -25,35 +29,53 @@ public class Fabricacion {
         this.id_fabricacion = id_fabricacion;
     }
 
-    public String getNum_tablero() {
-        return num_tablero;
+    public String getNumero_tablero() {
+        return numero_tablero;
     }
 
-    public void setNum_tablero(String num_tablero) {
-        this.num_tablero = num_tablero;
+    public void setNumero_tablero(String numero_tablero) {
+        this.numero_tablero = numero_tablero;
     }
 
-    public String getTablero() {
-        return tablero;
+    public String getNombre_producto() {
+        return nombre_producto;
     }
 
-    public void setTablero(String tablero) {
-        this.tablero = tablero;
+    public void setNombre_producto(String nombre_producto) {
+        this.nombre_producto = nombre_producto;
     }
 
-    public byte[] getFoto_tablero() {
-        return foto_tablero;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public void setFoto_tablero(byte[] foto_tablero) {
-        this.foto_tablero = foto_tablero;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
-    public String getMaterial() {
-        return material;
+    public String getFecha_fabricacion() {
+        return fecha_fabricacion;
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
+    public void setFecha_fabricacion(String fecha_fabricacion) {
+        this.fecha_fabricacion = fecha_fabricacion;
     }
+
+    public String getTamanio() {
+        return tamanio;
+    }
+
+    public void setTamanio(String tamanio) {
+        this.tamanio = tamanio;
+    }
+
+    public String getTrabajador_fabricacion() {
+        return trabajador_fabricacion;
+    }
+
+    public void setTrabajador_fabricacion(String trabajador_fabricacion) {
+        this.trabajador_fabricacion = trabajador_fabricacion;
+    }
+    
+    
 }

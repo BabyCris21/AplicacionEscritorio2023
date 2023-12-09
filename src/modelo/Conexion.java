@@ -8,7 +8,7 @@ public class Conexion {
     public Connection getConnection(){
         try{
             String myBD = "jdbc:mysql://localhost:3306/sistemasacdb?serverTimezone=UTC";
-            con = DriverManager.getConnection(myBD, "root", "123456789");       
+            con = DriverManager.getConnection(myBD, "root", "123");       
             return con;
         } catch (SQLException e){
             System.out.println(e.toString());          
@@ -20,11 +20,4 @@ public class Conexion {
       throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    /*public Statement createStament() {
-       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void close() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
