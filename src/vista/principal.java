@@ -436,6 +436,11 @@ import modelo.Usuario;
         btnVenta.setBorder(null);
         btnVenta.setMaximumSize(new java.awt.Dimension(60, 24));
         btnVenta.setMinimumSize(new java.awt.Dimension(60, 24));
+        btnVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentaActionPerformed(evt);
+            }
+        });
 
         btnAlmacen.setBackground(new java.awt.Color(23, 107, 135));
         btnAlmacen.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
@@ -2781,6 +2786,11 @@ import modelo.Usuario;
         trs = new TableRowSorter(model);
         TablaServicios.setRowSorter(trs);
     }//GEN-LAST:event_txtBusSevKeyTyped
+
+    private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
+        jTabbedPane.setSelectedIndex(9); // Cambia a la pestaña "Venta" (index 2)
+        btnVenta.setFocusable(false); 
+    }//GEN-LAST:event_btnVentaActionPerformed
 
    
     public static void main(String args[]) {
